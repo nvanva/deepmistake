@@ -1,0 +1,28 @@
+{
+    "do_train": false,
+    "use_cuda": true,
+    "gradient_accumulation_steps": 8,
+    "train_batch_size": 8,
+    "seed": 2021,
+    "do_eval": true,
+    "do_validation": false,
+    "syns": [
+        "Target",
+        "Synonym"
+    ],
+    "data_dir": "data/",
+    "num_train_epochs": 15,
+    "eval_batch_size": 16,
+    "best_result_threshold": 0.2,
+    "model_name": "xlm-roberta-large",
+    "pos_ncls": 4,
+    "max_seq_len": 256,
+    "pos_classes": [
+        "adj", "adv", "noun", "verb"
+    ],
+    "target_embeddings": "concat",
+    "pool_type": "max",
+    "lr_scheduler": "constant_warmup",
+    "symmetric": true,
+    "train_pos": true
+}
