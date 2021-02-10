@@ -553,10 +553,6 @@ if __name__ == "__main__":
 
     parser.add_argument("--eval_per_epoch", default=4, type=int,
                         help="How many times to do validation on dev set per epoch")
-    parser.add_argument("--max_seq_length", default=256, type=int,
-                        help="The maximum total input sequence length after WordPiece tokenization.\n"
-                             "Sequences longer than this will be truncated, and sequences shorter\n"
-                             "than this will be padded.")
 
     parser.add_argument("--train_mode", type=str, default='random_sorted',
                         choices=['random', 'sorted', 'random_sorted'])
