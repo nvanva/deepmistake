@@ -245,12 +245,11 @@ def main(args):
         param_optimizer = list(model.named_parameters())
 
         no_decay = ['bias', 'LayerNorm.weight']
-        loss_weights = ['syns_weights']
         optimizer_grouped_parameters = [
             {
                 'params': [
                     param for name, param in param_optimizer
-                    if not any(nd in name for nd in no_decay + loss_weights)
+                    if not any(nd in name for nd in no_decay)
                 ],
                 'weight_decay': float(args.weight_decay)
             },
@@ -258,14 +257,6 @@ def main(args):
                 'params': [
                     param for name, param in param_optimizer
                     if any(nd in name for nd in no_decay)
-                ],
-                'weight_decay': 0.0
-            },
-            {
-                'lr': 1e-4,
-                'params': [
-                    param for name, param in param_optimizer
-                    if any(nd in name for nd in loss_weights)
                 ],
                 'weight_decay': 0.0
             }
@@ -298,7 +289,7 @@ def main(args):
             len(train_batches) // local_config['gradient_accumulation_steps'] * \
                 local_config['num_train_epochs']
 
-        warmup_steps = int(0.1 * num_train_optimization_steps)
+        warmup_steps = int(args.warmup_proportion * num_train_optimization_steps)
         if local_config['lr_scheduler'] == 'linear_warmup':
             scheduler = get_linear_schedule_with_warmup(
                 optimizer,
@@ -440,7 +431,7 @@ def main(args):
                         )
                     )
 
-                    predict_parts = [part  for part in metrics if part.endswith('.score') and metrics[part] > 0.7 and metrics[part] > best_result[part]]
+                    predict_parts = [part  for part in metrics if part.endswith('.score') and metrics[part] > args.start_save_threshold and metrics[part] > best_result[part]]
                     if len(predict_parts) > 0:
                         for part in predict_parts:
                             logger.info("!!! Best dev %s (lr=%s, epoch=%d): %.2f -> %.2f" %
@@ -547,43 +538,29 @@ def save_model(args, model, output_model_file):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--test_dir", default='', type=str, required=False)
     parser.add_argument("--output_dir", default=None, type=str, required=True,
                         help="The output directory where the model predictions and checkpoints will be written.")
-
-    parser.add_argument("--eval_per_epoch", default=4, type=int,
-                        help="How many times to do validation on dev set per epoch")
-
-    parser.add_argument("--train_mode", type=str, default='random_sorted',
-                        choices=['random', 'sorted', 'random_sorted'])
-
     parser.add_argument("--learning_rate", default=1e-5, type=float,
                         help="The initial learning rate for Adam.")
-
-    parser.add_argument("--warmup_proportion", default=0.05, type=float,
+    parser.add_argument("--eval_per_epoch", default=4, type=int,
+                        help="How many times to do validation on dev set per epoch")
+    parser.add_argument("--train_mode", type=str, default='random_sorted',
+                        choices=['random', 'sorted', 'random_sorted'])
+    parser.add_argument("--warmup_proportion", default=0.1, type=float,
                         help="Proportion of training to perform linear learning rate warmup.\n"
                              "E.g., 0.1 = 10%% of training.")
     parser.add_argument("--max_grad_norm", default=1.0, type=float,
                         help="maximal gradient norm")
-
     parser.add_argument("--weight_decay", default=0.1, type=float,
                         help="weight_decay coefficient for regularization")
     parser.add_argument("--dropout", default=0.1, type=float,
                         help="dropout rate")
-
-    parser.add_argument("--no_cuda", action='store_true',
-                        help="Whether not to use CUDA when available")
-    parser.add_argument('--seed', type=int, default=42,
-                        help="random seed for initialization")
-#     parser.add_argument('--gradient_accumulation_steps', type=int, default=8,
-#                         help="Number of updates steps to accumulate before performing a backward/update pass.")
-
-    parser.add_argument("--log_train_metrics", action="store_true",
-                        help="compute metrics for train set too")
-
     parser.add_argument("--local_config_path", type=str, default='local_config.json',
                         help="local config path")
-    parser.add_argument("--weighting_mode", default='softmax', type=str, required=False)
+    parser.add_argument("--start_save_threshold", default=0.7, type=float,
+                        help="accuracy threshold to start save models")
+    parser.add_argument("--log_train_metrics", action="store_true",
+                        help="compute metrics for train set too")
 
     parsed_args = parser.parse_args()
     main(parsed_args)

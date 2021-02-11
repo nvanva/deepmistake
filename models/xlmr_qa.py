@@ -46,7 +46,7 @@ class XLMRQAModel(BertPreTrainedModel):
         super().__init__(config)
         syns = sorted(local_config['syns'])
         self.num_clfs = len(syns) + 1 if local_config['train_pos'] else len(syns)
-        self.clfs_weights = torch.nn.parameter.Parameter(torch.rand(self.num_clfs, dtype=torch.float32), requires_grad=True)
+        self.clfs_weights = torch.nn.parameter.Parameter(torch.ones(self.num_clfs, dtype=torch.float32), requires_grad=True)
         self.roberta = RobertaModel(config)
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
         self.local_config = local_config
@@ -160,7 +160,7 @@ class XLMRQAModel(BertPreTrainedModel):
             if pool_type == 'mean':
                 quant_emb = hidden_states[ex_id, start:end+1].mean(dim=0)
             elif pool_type == 'max':
-                quant_emb = hidden_states[ex_id, start:end+1].max(dim=0)
+                quant_emb, _ = hidden_states[ex_id, start:end+1].max(dim=0)
             else:
                 raise ValueError(f'wrong pool_type: {pool_type}')
             output[:, :, hs:] = quant_emb
@@ -231,7 +231,10 @@ class XLMRQAModel(BertPreTrainedModel):
                 input_mask += [0] * len(padding)
 
                 if ex_index % 10000 == 0:
-                    logger.info("Writing example %d of %d" % (ex_index, len(examples)))
+                    if self.local_config['symmetric']:
+                        logger.info("Writing example %d of %d" % (ex_index + i, len(examples) * 2))
+                    else:
+                        logger.info("Writing example %d of %d" % (ex_index, len(examples)))
 
                 if ex_index < 10:
                     logger.info("*** Example ***")

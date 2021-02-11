@@ -188,7 +188,10 @@ class XLMRModel(BertPreTrainedModel):
                 input_mask += [0] * len(padding)
 
                 if ex_index % 10000 == 0:
-                    logger.info("Writing example %d of %d" % (ex_index, len(examples)))
+                    if self.local_config['symmetric']:
+                        logger.info("Writing example %d of %d" % (ex_index + i, len(examples) * 2))
+                    else:
+                        logger.info("Writing example %d of %d" % (ex_index, len(examples)))
 
                 if ex_index < 10:
                     logger.info("*** Example ***")
