@@ -160,7 +160,11 @@ class XLMRModel(BertPreTrainedModel):
                 if left1:
                     tokens += self.tokenizer.tokenize(left1)
                 positions[syns_lab_to_pos['Target'] * 2] = len(tokens)
-                tokens += self.tokenizer.tokenize(target1)
+                target_subtokens = self.tokenizer.tokenize(target1)
+                if self.local_config['mask_syns']:
+                    tokens += [self.tokenizer.mask_token] * len(target_subtokens)
+                else:
+                    tokens += target_subtokens
                 positions[syns_lab_to_pos['Target'] * 2 + 1] = len(tokens)
 
                 if right1:
@@ -169,7 +173,11 @@ class XLMRModel(BertPreTrainedModel):
                     tokens += self.tokenizer.tokenize(left2)
 
                 positions[syns_lab_to_pos['Synonym'] * 2] = len(tokens)
-                tokens += self.tokenizer.tokenize(target2)
+                target_subtokens = self.tokenizer.tokenize(target2)
+                if self.local_config['mask_syns']:
+                    tokens += [self.tokenizer.mask_token] * len(target_subtokens)
+                else:
+                    tokens += target_subtokens
                 positions[syns_lab_to_pos['Synonym'] * 2 + 1] = len(tokens)
                 if right2:
                     tokens += self.tokenizer.tokenize(right2) + [self.tokenizer.sep_token]

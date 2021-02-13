@@ -17,8 +17,11 @@
         "Synonym"
     ],
     "target_embeddings": "concat",
-    "pool_type": "max",
+    "pool_type": "first",
     "symmetric": true,
+
+
+    "mask_syns": true,
 
 
     "pos_ncls": 4,

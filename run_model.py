@@ -107,7 +107,7 @@ def predict(
         example = ex_feature.example
         docId = example.docId
         posInDoc = int(docId.split('.')[-1])
-        docId = '.'.join(docId.split('-')[:-1])
+        docId = '.'.join(docId.split('.')[:-1])
         syn_pred = syn_ids_to_label[ex_syn_preds.item()]
         predictions[docId][posInDoc].append(syn_pred)
         golds[docId][posInDoc].append(example.label)

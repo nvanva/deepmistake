@@ -12,6 +12,7 @@ def prepare_dataset(dev_prop_to_train: int = 0.7, exclude_devs_from_split: str =
 	os.system('git clone https://github.com/SapienzaNLP/mcl-wic.git')
 	os.system('unzip mcl-wic/SemEval-2021_MCL-WiC_trial.zip -d tmp')
 	os.system('unzip mcl-wic/SemEval-2021_MCL-WiC_all-datasets.zip -d tmp')
+	os.system('unzip mcl-wic/SemEval-2021_MCL-WiC_test-gold-data.zip -d tmp')
 	os.system('rm -rf mcl-wic')
 	train_dir, dev_dir, test_dir = 'data/train/', 'data/dev/', 'data/test/'
 	os.makedirs(train_dir, exist_ok=True)
@@ -23,8 +24,8 @@ def prepare_dataset(dev_prop_to_train: int = 0.7, exclude_devs_from_split: str =
 		os.system(f'mv {file} {train_dir}')
 
 	for file in glob('tmp/MCL-WiC/test/*/*'):
-		part = file.split('/')[-1].split('.')[1]
-		# os.makedirs(f'{test_dir}{part}', exist_ok=True)
+		os.system(f'mv {file} {test_dir}/')
+	for file in glob('tmp/*.gold'):
 		os.system(f'mv {file} {test_dir}/')
 
 	for file in glob('tmp/MCL-WiC/dev/multilingual/*data'):
