@@ -12,6 +12,7 @@ import numpy as np
 import pandas as pd
 import torch
 from scipy.special import softmax
+from scipy.stats import spearmanr
 
 from torch.nn import CrossEntropyLoss
 
@@ -94,15 +95,20 @@ def predict(
         nb_eval_steps += 1
         syns_preds.append(syn_logits.detach().cpu().numpy())
 
-    syns_scores = np.concatenate(syns_preds, axis=0)  # n_examples x 2
-    syns_preds = np.argmax(syns_scores, axis=1)  # n_examples
+    syns_scores = np.concatenate(syns_preds, axis=0)  # n_examples x 2 or n_examples
+    if syns_scores.shape[-1] != 1:
+        syns_preds = np.argmax(syns_scores, axis=1)  # n_examples
+    else:
+        syns_preds = np.zeros(syns_scores.shape, dtype=int)
+        syns_preds[syns_scores > 0.5] = 1
 
     predictions = defaultdict(lambda: defaultdict(list))
     golds = defaultdict(lambda: defaultdict(list))
     scores = defaultdict(lambda: defaultdict(list))
+    gold_scores = defaultdict(lambda: defaultdict(list))
+    lemmas = defaultdict(lambda: defaultdict(list))
 
     syn_ids_to_label = {0: 'F', 1: 'T'}
-#     for ex_id, (ex_feature, ex_syn_preds) in enumerate(zip(eval_fearures, syns_preds)):
     for ex_id, (ex_feature, ex_syn_preds, ex_scores) in enumerate(zip(eval_fearures, syns_preds, syns_scores)):
         example = ex_feature.example
         docId = example.docId
@@ -111,19 +117,28 @@ def predict(
         syn_pred = syn_ids_to_label[ex_syn_preds.item()]
         predictions[docId][posInDoc].append(syn_pred)
         golds[docId][posInDoc].append(example.label)
-        scores[docId][posInDoc].append(tuple([str(x) for x in ex_scores]))
+        # scores for positive class
+        if len(ex_scores) > 1:
+            scores[docId][posInDoc].append(softmax(ex_scores)[-1])
+        else:
+            scores[docId][posInDoc].append(ex_scores[0])
+        gold_scores[docId][posInDoc].append(example.score)
+        lemmas[docId][posInDoc].append((example.lemma, example.grp))
 
     if os.path.exists(output_dir):
         os.system(f'rm -r {output_dir}/*')
     else:
         os.makedirs(output_dir, exist_ok=True)
 
-    for docId, doc_preds in scores.items():
+    for docId, doc_preds in predictions.items():
+        doc_scores = scores[docId]
         if len(only_parts) > 0 and f'{docId}.score' not in only_parts:
             continue
-#         prediction = [{'id': f'{docId}.{pos}','tag': 'F' if 'F' in doc_preds[pos] else 'T'} for pos in sorted(doc_preds)]
-        prediction = [{'id': f'{docId}.{pos}','score': doc_preds[pos]} for pos in sorted(doc_preds)]
+        prediction = [{'id': f'{docId}.{pos}','tag': 'F' if 'F' in doc_preds[pos] else 'T'} for pos in sorted(doc_preds)]
         prediction_file = os.path.join(output_dir, docId)
+        json.dump(prediction, open(prediction_file, 'w'))
+        prediction = [{'id': f'{docId}.{pos}','score': [str(x) for x in doc_scores[pos]]} for pos in sorted(doc_preds)]
+        prediction_file = os.path.join(output_dir, f'{docId}.scores')
         json.dump(prediction, open(prediction_file, 'w'))
 
     if compute_metrics:
@@ -131,11 +146,27 @@ def predict(
             metrics[key] /= nb_eval_steps
 
         for docId, doc_preds in predictions.items():
-            doc_golds = golds[docId]
-            keys = list(doc_golds.keys())
-            doc_golds = [doc_golds[key][0] for key in keys]
-            doc_preds = ['F' if 'F' in doc_preds[key] else 'T' for key in keys]
-            metrics[f'{docId}.score'] = accuracy_score(doc_golds, doc_preds)
+            if 'scd' in docId:
+                doc_golds = gold_scores[docId]
+                doc_lemmas = lemmas[docId]
+                doc_scores = scores[docId]
+
+                keys = list(doc_golds.keys())
+                # print(doc_lemmas)
+                unique_lemmas = sorted(set([doc_lemmas[key][0][0] for key in keys if doc_lemmas[key][0][1] == 'COMPARE']))
+                y_true, y_pred = [], []
+                for unique_lemma in unique_lemmas:
+                    unique_lemma_keys = [key for key in keys if doc_lemmas[key][0][0] == unique_lemma and doc_lemmas[key][0][1] == 'COMPARE']
+                    y_true.append(np.array([doc_golds[key][0] for key in unique_lemma_keys]).mean())
+                    y_pred.append(np.array([np.array(doc_scores[key]).mean() for key in unique_lemma_keys]).mean())
+                # print(y_true, y_pred)
+                metrics[f'spearman.{docId}.score'], _ = spearmanr(y_true, y_pred)
+            else:
+                doc_golds = golds[docId]
+                keys = list(doc_golds.keys())
+                doc_golds = [doc_golds[key][0] for key in keys]
+                doc_preds = ['F' if 'F' in doc_preds[key] else 'T' for key in keys]
+                metrics[f'{docId}.score'] = accuracy_score(doc_golds, doc_preds)
 
         if cur_train_mean_loss is not None:
             metrics.update(cur_train_mean_loss)
@@ -149,6 +180,14 @@ def predict(
 
 def main(args):
     local_config = json.load(open(args.local_config_path))
+    local_config['loss'] = args.loss
+    local_config['data_dir'] = args.data_dir
+    local_config['train_batch_size'] = args.train_batch_size
+    local_config['gradient_accumulation_steps'] = args.gradient_accumulation_steps
+    local_config['lr_scheduler'] = args.lr_scheduler
+    local_config['model_name'] = args.model_name
+    local_config['pool_type'] = args.pool_type
+
     if os.path.exists(args.output_dir) and local_config['do_train']:
         from glob import glob
         model_weights = glob(os.path.join(args.output_dir, '*.bin'))
@@ -234,9 +273,12 @@ def main(args):
             local_config['model_name'],
             hidden_dropout_prob=args.dropout
         )
-
+        if args.ckpt_path != '':
+            model_path = args.ckpt_path
+        else:
+            model_path = local_config['model_name']
         model = models[model_name].from_pretrained(
-            local_config['model_name'], cache_dir=str(PYTORCH_PRETRAINED_BERT_CACHE),
+            model_path, cache_dir=str(PYTORCH_PRETRAINED_BERT_CACHE),
             local_config=local_config,
             data_processor=data_processor,
             config=config
@@ -316,17 +358,17 @@ def main(args):
             dev_dataloader = \
                 get_dataloader_and_tensors(dev_features, local_config['eval_batch_size'])
 
-            test_dir = os.path.join(local_config['data_dir'], 'test/')
-
-            test_features = model.convert_dataset_to_features(
-                test_dir, test_logger
-            )
-            logger.info("***** Test *****")
-            logger.info("  Num examples = %d", len(test_features))
-            logger.info("  Batch size = %d", local_config['eval_batch_size'])
-
-            test_dataloader = \
-                get_dataloader_and_tensors(test_features, local_config['eval_batch_size'])
+            # test_dir = os.path.join(local_config['data_dir'], 'test/')
+            #
+            # test_features = model.convert_dataset_to_features(
+            #     test_dir, test_logger
+            # )
+            # logger.info("***** Test *****")
+            # logger.info("  Num examples = %d", len(test_features))
+            # logger.info("  Batch size = %d", local_config['eval_batch_size'])
+            #
+            # test_dataloader = \
+            #     get_dataloader_and_tensors(test_features, local_config['eval_batch_size'])
 
         best_result = defaultdict(float)
 
@@ -368,6 +410,7 @@ def main(args):
                 loss = train_loss['total'].mean().item()
                 for key in train_loss:
                     cur_train_loss[key] += train_loss[key].mean().item()
+
                 train_bar.set_description(f'training... [epoch == {epoch} / {local_config["num_train_epochs"]}, loss == {loss}]')
 
                 loss_to_optimize = train_loss['total']
@@ -425,9 +468,9 @@ def main(args):
 
                     logger.info(f"dev %s (lr=%s, epoch=%d): %.2f" %
                         (
-                            'dev.en-en.score',
+                            args.save_by_score,
                             str(scheduler.get_lr()[0]), epoch,
-                            metrics['dev.en-en.score'] * 100.0
+                            metrics[args.save_by_score] * 100.0
                         )
                     )
 
@@ -442,7 +485,7 @@ def main(args):
                                 )
                             )
                             best_result[part] = metrics[part]
-                            if part == 'dev.en-en.score':
+                            if part == args.save_by_score:
                                 output_model_file = os.path.join(
                                     args.output_dir,
                                     WEIGHTS_NAME
@@ -450,21 +493,21 @@ def main(args):
                                 save_model(args, model, output_model_file)
 
                         dev_predictions = os.path.join(args.output_dir, 'dev_predictions')
-                        test_predictions = os.path.join(args.output_dir, 'test_predictions')
+                        # test_predictions = os.path.join(args.output_dir, 'test_predictions')
                         predict(
                             model, dev_dataloader, dev_predictions,
                             dev_features, args, only_parts='+'.join(predict_parts)
                         )
-                        predict(
-                            model, test_dataloader, test_predictions,
-                            test_features, args, only_parts='+'.join(['test' + part[3:] for part in predict_parts])
-                        )
+                        # predict(
+                        #     model, test_dataloader, test_predictions,
+                        #     test_features, args, only_parts='+'.join(['test' + part[3:] for part in predict_parts])
+                        # )
                         best_dev_predictions = os.path.join(args.output_dir, 'best_dev_predictions')
-                        best_test_predictions = os.path.join(args.output_dir, 'best_test_predictions')
+                        # best_test_predictions = os.path.join(args.output_dir, 'best_test_predictions')
                         os.makedirs(best_dev_predictions, exist_ok=True)
-                        os.makedirs(best_test_predictions, exist_ok=True)
+                        # os.makedirs(best_test_predictions, exist_ok=True)
                         os.system(f'mv {dev_predictions}/* {best_dev_predictions}/')
-                        os.system(f'mv {test_predictions}/* {best_test_predictions}/')
+                        # os.system(f'mv {test_predictions}/* {best_test_predictions}/')
 
 
             if args.log_train_metrics:
@@ -540,6 +583,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--output_dir", default=None, type=str, required=True,
                         help="The output directory where the model predictions and checkpoints will be written.")
+    parser.add_argument("--data_dir", default='data/', type=str,
+                        help="The directory where train and dev directories are located.")
     parser.add_argument("--learning_rate", default=1e-5, type=float,
                         help="The initial learning rate for Adam.")
     parser.add_argument("--eval_per_epoch", default=4, type=int,
@@ -549,6 +594,10 @@ if __name__ == "__main__":
     parser.add_argument("--warmup_proportion", default=0.1, type=float,
                         help="Proportion of training to perform linear learning rate warmup.\n"
                              "E.g., 0.1 = 10%% of training.")
+    parser.add_argument("--train_batch_size", default=64, type=int,
+                        help="train batch size")
+    parser.add_argument("--gradient_accumulation_steps", default=64, type=int,
+                        help="gradinent accumulation steps")
     parser.add_argument("--max_grad_norm", default=1.0, type=float,
                         help="maximal gradient norm")
     parser.add_argument("--weight_decay", default=0.1, type=float,
@@ -557,10 +606,21 @@ if __name__ == "__main__":
                         help="dropout rate")
     parser.add_argument("--local_config_path", type=str, default='local_config.json',
                         help="local config path")
-    parser.add_argument("--start_save_threshold", default=0.7, type=float,
+    parser.add_argument("--start_save_threshold", default=0.3, type=float,
                         help="accuracy threshold to start save models")
     parser.add_argument("--log_train_metrics", action="store_true",
                         help="compute metrics for train set too")
+    parser.add_argument("--loss", type=str, default='crossentropy_loss',
+                        choices=['crossentropy_loss', 'mse_loss'])
+    parser.add_argument("--lr_scheduler", type=str, default='constant_warmup',
+                        choices=['constant_warmup', 'linear_warmup'])
+    parser.add_argument("--model_name", type=str, default='xlm-roberta-large',
+                        choices=['xlm-roberta-large', 'xlm-roberta-base'])
+    parser.add_argument("--pool_type", type=str, default='first',
+                        choices=['max', 'first', 'mean'])
+    parser.add_argument("--save_by_score", type=str, default='dev.en-en.score')
+    parser.add_argument("--ckpt_path", type=str, default='')
+
 
     parsed_args = parser.parse_args()
     main(parsed_args)

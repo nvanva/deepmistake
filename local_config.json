@@ -1,27 +1,21 @@
 {
-    "model_name": "xlm-roberta-large",
     "do_train": true,
     "do_validation": true,
     "do_eval": false,
     "use_cuda": true,
     "seed": 2021,
-    "data_dir": "data/",
     "num_train_epochs": 50,
     "eval_batch_size": 16,
     "max_seq_len": 256,
-    "gradient_accumulation_steps": 64,
-    "train_batch_size": 64,
-    "lr_scheduler": "constant_warmup",
     "syns": [
         "Target",
         "Synonym"
     ],
     "target_embeddings": "concat",
-    "pool_type": "first",
     "symmetric": true,
 
 
-    "mask_syns": true,
+    "mask_syns": false,
 
 
     "pos_ncls": 4,

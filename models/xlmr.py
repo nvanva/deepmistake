@@ -2,7 +2,7 @@ from transformers import RobertaModel, XLMRobertaConfig
 from transformers import BertPreTrainedModel
 from transformers import XLMRobertaTokenizer
 from torch import nn
-from torch.nn import CrossEntropyLoss, BCEWithLogitsLoss
+from torch.nn import CrossEntropyLoss, BCEWithLogitsLoss, MSELoss
 import torch
 from collections import defaultdict
 
@@ -67,7 +67,10 @@ class XLMRModel(BertPreTrainedModel):
         input_size = config.hidden_size
         if local_config['target_embeddings'] == 'concat':
             input_size *= 2
-        self.syn_clf = RobertaClassificationHead(config, 2, input_size)
+        if self.local_config['loss'] == 'mse_loss':
+            self.syn_clf = RobertaClassificationHead(config, 1, input_size)
+        elif self.local_config['loss'] == 'crossentropy_loss':
+            self.syn_clf = RobertaClassificationHead(config, 2, input_size)
         self.data_processor = data_processor
         self.init_weights()
 
@@ -97,11 +100,14 @@ class XLMRModel(BertPreTrainedModel):
         positions = input_labels['positions'] # bs x 4
 
         syn_features = self.extract_features(sequences_output, positions) # bs x hidden
-        syn_logits = self.syn_clf(syn_features)  # bs x 2
+        syn_logits = self.syn_clf(syn_features)  # bs x 2 or bs
 
         if input_labels is not None:
-            loss_fct = CrossEntropyLoss()
-            loss['total'] = loss_fct(syn_logits, syn_labels)
+            y_size = syn_logits.size(-1)
+            if y_size == 1:
+                loss['total'] = MSELoss()(syn_logits, syn_labels.unsqueeze(-1).float())
+            else:
+                loss['total'] = CrossEntropyLoss()(syn_logits, syn_labels)
 
         return (loss, syn_logits)
 

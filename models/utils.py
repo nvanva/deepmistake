@@ -17,7 +17,7 @@ class DataProcessor:
 
     def get_examples(self, source_dir):
         data_files = glob(os.path.join(source_dir, '*.data'))
-        Example = namedtuple('Example', ['docId', 'pos', 'text_1', 'text_2', 'label', 'start_1', 'end_1', 'start_2', 'end_2'])
+        Example = namedtuple('Example', ['docId', 'pos', 'text_1', 'text_2', 'label', 'start_1', 'end_1', 'start_2', 'end_2', 'score', 'lemma', 'grp'])
         examples = []
         for file in data_files:
             data = json.load(open(file, encoding='utf-8'))
@@ -26,7 +26,15 @@ class DataProcessor:
             for ex, lab in zip(data, gold_labels):
                 pos = ex['pos'].lower()
                 label = lab['tag']
-                examples.append(Example(ex['id'], pos, ex['sentence1'], ex['sentence2'], label, ex['start1'], ex['end1'], ex['start2'], ex['end2']))
+                if 'score' in lab:
+                    score = lab['score']
+                else:
+                    score = -1.0
+                if 'grp' in ex:
+                    grp = ex['grp']
+                else:
+                    grp = '?'
+                examples.append(Example(ex['id'], pos, ex['sentence1'], ex['sentence2'], label, ex['start1'], ex['end1'], ex['start2'], ex['end2'], score, ex['lemma'], grp))
         return examples
 
 def get_qa_dataloader_and_tensors(
