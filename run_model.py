@@ -12,6 +12,7 @@ import numpy as np
 import pandas as pd
 import torch
 from scipy.special import softmax
+
 from scipy.stats import spearmanr
 
 from torch.nn import CrossEntropyLoss
@@ -132,7 +133,8 @@ def predict(
 
     for docId, doc_preds in predictions.items():
         doc_scores = scores[docId]
-        if len(only_parts) > 0 and f'{docId}.score' not in only_parts:
+        # print(docId, only_parts)
+        if len(only_parts) > 0 and all([f'{docId.split(".")[1]}.score' not in part for part in only_parts]):
             continue
         prediction = [{'id': f'{docId}.{pos}','tag': 'F' if 'F' in doc_preds[pos] else 'T'} for pos in sorted(doc_preds)]
         prediction_file = os.path.join(output_dir, docId)
@@ -161,12 +163,17 @@ def predict(
                     y_pred.append(np.array([np.array(doc_scores[key]).mean() for key in unique_lemma_keys]).mean())
                 # print(y_true, y_pred)
                 metrics[f'spearman.{docId}.score'], _ = spearmanr(y_true, y_pred)
+                doc_golds = golds[docId]
+                keys = list(doc_golds.keys())
+                doc_golds = [doc_golds[key][0] for key in keys]
+                doc_preds = ['F' if 'F' in doc_preds[key] else 'T' for key in keys]
+                metrics[f'{docId}.accuracy'] = accuracy_score(doc_golds, doc_preds)
             else:
                 doc_golds = golds[docId]
                 keys = list(doc_golds.keys())
                 doc_golds = [doc_golds[key][0] for key in keys]
                 doc_preds = ['F' if 'F' in doc_preds[key] else 'T' for key in keys]
-                metrics[f'{docId}.score'] = accuracy_score(doc_golds, doc_preds)
+                metrics[f'accuracy.{docId}.score'] = accuracy_score(doc_golds, doc_preds)
 
         if cur_train_mean_loss is not None:
             metrics.update(cur_train_mean_loss)
@@ -187,6 +194,20 @@ def main(args):
     local_config['lr_scheduler'] = args.lr_scheduler
     local_config['model_name'] = args.model_name
     local_config['pool_type'] = args.pool_type
+    local_config['seed'] = args.seed
+    local_config['do_train'] = args.do_train
+    local_config['do_validation'] = args.do_validation
+    local_config['do_eval'] = args.do_eval
+    local_config['use_cuda'] = args.use_cuda.lower() == 'true'
+    local_config['num_train_epochs'] = args.num_train_epochs
+    local_config['eval_batch_size'] = args.eval_batch_size
+    local_config['max_seq_len'] = args.max_seq_len
+    local_config['syns'] = ["Target", "Synonym"]
+    local_config['target_embeddings'] = args.target_embeddings
+    local_config['symmetric'] = args.symmetric.lower() == 'true'
+    local_config['mask_syns'] = args.mask_syns
+    local_config['train_scd'] = args.train_scd
+    local_config['ckpt_path'] = args.ckpt_path
 
     if os.path.exists(args.output_dir) and local_config['do_train']:
         from glob import glob
@@ -357,18 +378,17 @@ def main(args):
             logger.info("  Batch size = %d", local_config['eval_batch_size'])
             dev_dataloader = \
                 get_dataloader_and_tensors(dev_features, local_config['eval_batch_size'])
+            test_dir = os.path.join(local_config['data_dir'], 'test/')
+            if os.path.exists(test_dir):
+                test_features = model.convert_dataset_to_features(
+                    test_dir, test_logger
+                )
+                logger.info("***** Test *****")
+                logger.info("  Num examples = %d", len(test_features))
+                logger.info("  Batch size = %d", local_config['eval_batch_size'])
 
-            # test_dir = os.path.join(local_config['data_dir'], 'test/')
-            #
-            # test_features = model.convert_dataset_to_features(
-            #     test_dir, test_logger
-            # )
-            # logger.info("***** Test *****")
-            # logger.info("  Num examples = %d", len(test_features))
-            # logger.info("  Batch size = %d", local_config['eval_batch_size'])
-            #
-            # test_dataloader = \
-            #     get_dataloader_and_tensors(test_features, local_config['eval_batch_size'])
+                test_dataloader = \
+                    get_dataloader_and_tensors(test_features, local_config['eval_batch_size'])
 
         best_result = defaultdict(float)
 
@@ -379,7 +399,6 @@ def main(args):
 
         model.to(device)
         lr = float(args.learning_rate)
-
         for epoch in range(1, 1 + local_config['num_train_epochs']):
             tr_loss = 0
             nb_tr_examples = 0
@@ -476,6 +495,9 @@ def main(args):
 
                     predict_parts = [part  for part in metrics if part.endswith('.score') and metrics[part] > args.start_save_threshold and metrics[part] > best_result[part]]
                     if len(predict_parts) > 0:
+                        best_dev_predictions = os.path.join(args.output_dir, 'best_dev_predictions')
+                        dev_predictions = os.path.join(args.output_dir, 'dev_predictions')
+                        os.makedirs(best_dev_predictions, exist_ok=True)
                         for part in predict_parts:
                             logger.info("!!! Best dev %s (lr=%s, epoch=%d): %.2f -> %.2f" %
                                 (
@@ -491,23 +513,25 @@ def main(args):
                                     WEIGHTS_NAME
                                 )
                                 save_model(args, model, output_model_file)
+                            os.system(f'cp {dev_predictions}/{".".join(part.split(".")[1:-1])}* {best_dev_predictions}/')
 
-                        dev_predictions = os.path.join(args.output_dir, 'dev_predictions')
-                        # test_predictions = os.path.join(args.output_dir, 'test_predictions')
-                        predict(
-                            model, dev_dataloader, dev_predictions,
-                            dev_features, args, only_parts='+'.join(predict_parts)
-                        )
+                        # dev_predictions = os.path.join(args.output_dir, 'dev_predictions')
                         # predict(
-                        #     model, test_dataloader, test_predictions,
-                        #     test_features, args, only_parts='+'.join(['test' + part[3:] for part in predict_parts])
+                        #     model, dev_dataloader, dev_predictions,
+                        #     dev_features, args, only_parts='+'.join(predict_parts)
                         # )
-                        best_dev_predictions = os.path.join(args.output_dir, 'best_dev_predictions')
-                        # best_test_predictions = os.path.join(args.output_dir, 'best_test_predictions')
-                        os.makedirs(best_dev_predictions, exist_ok=True)
-                        # os.makedirs(best_test_predictions, exist_ok=True)
-                        os.system(f'mv {dev_predictions}/* {best_dev_predictions}/')
-                        # os.system(f'mv {test_predictions}/* {best_test_predictions}/')
+                        # best_dev_predictions = os.path.join(args.output_dir, 'best_dev_predictions')
+                        # os.makedirs(best_dev_predictions, exist_ok=True)
+                        # os.system(f'mv {dev_predictions}/* {best_dev_predictions}/')
+                        if 'scd' not in '+'.join(predict_parts) and os.path.exists(test_dir):
+                            test_predictions = os.path.join(args.output_dir, 'test_predictions')
+                            predict(
+                                model, test_dataloader, test_predictions,
+                                test_features, args, only_parts='+'.join(['test' + part[3:] for part in predict_parts])
+                            )
+                            best_test_predictions = os.path.join(args.output_dir, 'best_test_predictions')
+                            os.makedirs(best_test_predictions, exist_ok=True)
+                            os.system(f'mv {test_predictions}/* {best_test_predictions}/')
 
 
             if args.log_train_metrics:
@@ -526,7 +550,7 @@ def main(args):
                     train_writer.add_scalar(key, value, global_step)
 
     if local_config['do_eval']:
-        test_dir = os.path.join(local_config['data_dir'], 'rusemshift/')
+        test_dir = os.path.join(local_config['data_dir'], 'test/')
         model = models[model_name].from_pretrained(args.output_dir, local_config=local_config, data_processor=data_processor)
         model.to(device)
         test_features = model.convert_dataset_to_features(
@@ -541,25 +565,25 @@ def main(args):
 
         predict(
             model, test_dataloader,
-            os.path.join(args.output_dir, 'rusemshift_predictions'),
+            os.path.join(args.output_dir, 'test_eval_predictions'),
             test_features, args,
             compute_metrics=False
         )
-        
-#         dev_features = model.convert_dataset_to_features(
-#             dev_dir, logger
-#         )
-#         logger.info("***** Dev *****")
-#         logger.info("  Num examples = %d", len(dev_features))
-#         logger.info("  Batch size = %d", local_config['eval_batch_size'])
-#         dev_dataloader = \
-#             get_dataloader_and_tensors(dev_features, local_config['eval_batch_size'])
-#         predict(
-#             model, dev_dataloader,
-#             os.path.join(args.output_dir, 'dev_eval_predictions'),
-#             dev_features, args,
-#             compute_metrics=False
-#         )
+
+        dev_features = model.convert_dataset_to_features(
+            dev_dir, logger
+        )
+        logger.info("***** Dev *****")
+        logger.info("  Num examples = %d", len(dev_features))
+        logger.info("  Batch size = %d", local_config['eval_batch_size'])
+        dev_dataloader = \
+            get_dataloader_and_tensors(dev_features, local_config['eval_batch_size'])
+        predict(
+            model, dev_dataloader,
+            os.path.join(args.output_dir, 'dev_eval_predictions'),
+            dev_features, args,
+            compute_metrics=False
+        )
 
 
 def save_model(args, model, output_model_file):
@@ -591,7 +615,7 @@ if __name__ == "__main__":
                         help="How many times to do validation on dev set per epoch")
     parser.add_argument("--train_mode", type=str, default='random_sorted',
                         choices=['random', 'sorted', 'random_sorted'])
-    parser.add_argument("--warmup_proportion", default=0.1, type=float,
+    parser.add_argument("--warmup_proportion", default=0.05, type=float,
                         help="Proportion of training to perform linear learning rate warmup.\n"
                              "E.g., 0.1 = 10%% of training.")
     parser.add_argument("--train_batch_size", default=64, type=int,
@@ -618,8 +642,23 @@ if __name__ == "__main__":
                         choices=['xlm-roberta-large', 'xlm-roberta-base'])
     parser.add_argument("--pool_type", type=str, default='first',
                         choices=['max', 'first', 'mean'])
-    parser.add_argument("--save_by_score", type=str, default='dev.en-en.score')
+    parser.add_argument("--save_by_score", type=str, default='accuracy.dev.en-en.score')
     parser.add_argument("--ckpt_path", type=str, default='')
+    parser.add_argument("--seed", default=2021, type=int)
+    parser.add_argument("--num_train_epochs", default=30, type=int)
+    parser.add_argument("--eval_batch_size", default=16, type=int)
+    parser.add_argument("--max_seq_len", default=256, type=int)
+    parser.add_argument("--target_embeddings", type=str, default='concat')
+
+    parser.add_argument("--do_train", action='store_true', help='Whether to run training')
+    parser.add_argument("--do_validation", action='store_true',
+                        help='Whether to validate model during training process')
+    parser.add_argument("--do_eval", action='store_true', help='Whether to run evaluation')
+    parser.add_argument("--use_cuda", default='true', type=str, help='Whether to use GPU')
+    parser.add_argument("--symmetric", default='true', type=str, help='Whether to augment data by symmetry')
+    parser.add_argument("--mask_syns", action='store_true',
+                        help='Whether to replace target words in context by mask tokens')
+    parser.add_argument("--train_scd", action='store_true', help='Whether to train semantic change detection model')
 
 
     parsed_args = parser.parse_args()

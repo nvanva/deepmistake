@@ -218,16 +218,28 @@ class XLMRModel(BertPreTrainedModel):
                         start, end = positions[clf_id * 2: clf_id * 2 + 2]
                         if start and end:
                             logger.info(f"{clf}: {' '.join(tokens[start:end])}")
-
-                features.append(
-                    WiCFeature2(
-                        input_ids=input_ids,
-                        input_mask=input_mask,
-                        token_type_ids=token_type_ids,
-                        syn_label=syn_label_to_id[label],
-                        positions=positions,
-                        example=ex
+                if self.local_config['train_scd']:
+                    assert self.local_config['loss'] == 'mse_loss', 'should be mse loss when training scd'
+                    features.append(
+                        WiCFeature2(
+                            input_ids=input_ids,
+                            input_mask=input_mask,
+                            token_type_ids=token_type_ids,
+                            syn_label=ex.score,
+                            positions=positions,
+                            example=ex
+                            )
+                        )
+                else:
+                    features.append(
+                        WiCFeature2(
+                            input_ids=input_ids,
+                            input_mask=input_mask,
+                            token_type_ids=token_type_ids,
+                            syn_label=syn_label_to_id[label],
+                            positions=positions,
+                            example=ex
+                        )
                     )
-                )
         logger.info("Not fitted examples percentage: %s" % str(num_too_long_exs / len(features) * 100.0))
         return features

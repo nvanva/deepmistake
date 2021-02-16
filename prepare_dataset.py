@@ -29,6 +29,10 @@ def prepare_dataset(dev_prop_to_train: int = 0.7, exclude_devs_from_split: str =
 		os.system(f'mv {file} {test_dir}/')
 	for file in glob('tmp/*.gold'):
 		os.system(f'mv {file} {test_dir}/')
+	os.system(f'rm {test_dir}/*en-en*')
+	os.system(f'rm {test_dir}/*zh-zh*')
+	os.system(f'rm {test_dir}/*en-zh*')
+	os.system(f'rm {test_dir}/*en-ru*')
 
 	for file in glob('tmp/MCL-WiC/dev/multilingual/*data'):
 		file_name = file.split('/')[-1][:-5]
@@ -74,7 +78,7 @@ def prepare_dataset(dev_prop_to_train: int = 0.7, exclude_devs_from_split: str =
 	os.makedirs('rusemshift-data', exist_ok=True)
 	os.makedirs('rusemshift-tsvs', exist_ok=True)
 	train_tsv = pd.read_csv('summer-lsc/datasets/rusemshift/train_1.tsv', sep='\t')
-	train_tsv = train_tsv.append(pd.read_csv('summer-lsc/datasets/rusemshift/train_1.tsv', sep='\t'), ignore_index=True)
+	train_tsv = train_tsv.append(pd.read_csv('summer-lsc/datasets/rusemshift/train_2.tsv', sep='\t'), ignore_index=True)
 	dev_tsv_1 = pd.read_csv('summer-lsc/datasets/rusemshift/dev_1.tsv', sep='\t')
 	dev_tsv_2 = pd.read_csv('summer-lsc/datasets/rusemshift/dev_2.tsv', sep='\t')
 	assert len(set(train_tsv.word.unique()).intersection(
@@ -82,8 +86,25 @@ def prepare_dataset(dev_prop_to_train: int = 0.7, exclude_devs_from_split: str =
 	assert len(set(train_tsv.word.unique()).intersection(
 		set(dev_tsv_2.word.unique()))) == 0, 'non empty intersection of words in train and dev sets'
 
+	train_tsv = train_tsv[
+		(train_tsv.annotator1 != 0) & (train_tsv.annotator2 != 0) &
+		(train_tsv.annotator3 != 0) & (train_tsv.annotator4 != 0) &
+		(train_tsv.annotator5 != 0)
+	]
 	train_tsv.to_csv('rusemshift-tsvs/train.tsv', sep='\t', index=False)
+	dev_tsv_1 = dev_tsv_1[dev_tsv_1.group == 'COMPARE']
+	dev_tsv_1 = dev_tsv_1[
+		(dev_tsv_1.annotator1 != 0) & (dev_tsv_1.annotator2 != 0) &
+		(dev_tsv_1.annotator3 != 0) & (dev_tsv_1.annotator4 != 0) &
+		(dev_tsv_1.annotator5 != 0)
+	]
 	dev_tsv_1.to_csv('rusemshift-tsvs/dev_1.tsv', sep='\t', index=False)
+	dev_tsv_2 = dev_tsv_2[dev_tsv_2.group == 'COMPARE']
+	dev_tsv_2 = dev_tsv_2[
+		(dev_tsv_2.annotator1 != 0) & (dev_tsv_2.annotator2 != 0) &
+		(dev_tsv_2.annotator3 != 0) & (dev_tsv_2.annotator4 != 0) &
+		(dev_tsv_2.annotator5 != 0)
+	]
 	dev_tsv_2.to_csv('rusemshift-tsvs/dev_2.tsv', sep='\t', index=False)
 
 	for mode in ['mean', 'median']:
