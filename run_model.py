@@ -640,8 +640,7 @@ if __name__ == "__main__":
                         choices=['constant_warmup', 'linear_warmup'])
     parser.add_argument("--model_name", type=str, default='xlm-roberta-large',
                         choices=['xlm-roberta-large', 'xlm-roberta-base'])
-    parser.add_argument("--pool_type", type=str, default='first',
-                        choices=['max', 'first', 'mean'])
+    parser.add_argument("--pool_type", type=str, default='first')
     parser.add_argument("--save_by_score", type=str, default='accuracy.dev.en-en.score')
     parser.add_argument("--ckpt_path", type=str, default='')
     parser.add_argument("--seed", default=2021, type=int)

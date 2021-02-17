@@ -65,8 +65,13 @@ class XLMRModel(BertPreTrainedModel):
         self.local_config = local_config
         self.tokenizer = XLMRobertaTokenizer.from_pretrained(local_config['model_name'])
         input_size = config.hidden_size
+        if local_config['pool_type'] == 'combined':
+            input_size *= 3
         if local_config['target_embeddings'] == 'concat':
             input_size *= 2
+        elif local_config['target_embeddings'] == 'combined':
+            input_size *= 3
+        print('Classification head input size:', input_size)
         if self.local_config['loss'] == 'mse_loss':
             self.syn_clf = RobertaClassificationHead(config, 1, input_size)
         elif self.local_config['loss'] == 'crossentropy_loss':
@@ -128,12 +133,20 @@ class XLMRModel(BertPreTrainedModel):
             elif pool_type == 'first':
                 emb1 = hidden_states[ex_id, start1]
                 emb2 = hidden_states[ex_id, start2]
+            elif pool_type.startswith('combined'):
+                embs1 = hidden_states[ex_id, start1:end1] # hidden
+                embs2 = hidden_states[ex_id, start2:end2] # hidden
+                emb1, emb2 = (torch.cat([embs.mean(dim=0), embs.max(dim=0).values,embs[0]], dim=-1) for embs in (embs1, embs2))
             else:
                 raise ValueError(f'wrong pool_type: {pool_type}')
             if merge_type == 'featwise_mul':
                 merged_feature = emb1 * emb2 # hidden
             elif merge_type == 'concat':
                 merged_feature = torch.cat((emb1, emb2)) # 2 * hidden
+            elif merge_type == 'featwise_mul_norm':
+                merged_feature = (emb1 / emb1.norm(dim=-1, keepdim=True)) * (emb2 / emb2.norm(dim=-1, keepdim=True))
+            elif merge_type.startswith('combined'):
+                merged_feature = torch.cat((emb1, emb2, emb1 * emb2))
             features.append(merged_feature.unsqueeze(0))
         output = torch.cat(features, dim=0) # bs x hidden
         return output
