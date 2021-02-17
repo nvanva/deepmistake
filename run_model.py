@@ -538,13 +538,17 @@ def main(args):
                         # os.system(f'mv {dev_predictions}/* {best_dev_predictions}/')
                         if 'scd' not in '+'.join(predict_parts) and os.path.exists(test_dir):
                             test_predictions = os.path.join(args.output_dir, 'test_predictions')
-                            predict(
+                            test_metrics = predict(
                                 model, test_dataloader, test_predictions,
                                 test_features, args, only_parts='+'.join(['test' + part[3:] for part in predict_parts if 'nen-nen' not in part])
                             )
                             best_test_predictions = os.path.join(args.output_dir, 'best_test_predictions')
                             os.makedirs(best_test_predictions, exist_ok=True)
                             os.system(f'mv {test_predictions}/* {best_test_predictions}/')
+
+                            for key, value in test_metrics.items():
+                                if key.endswith('score'):
+                                    dev_writer.add_scalar(key, value, global_step)
 
 
             if args.log_train_metrics:
