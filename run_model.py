@@ -146,7 +146,7 @@ def predict(
     if compute_metrics:
         for key in metrics:
             metrics[key] /= nb_eval_steps
-
+        mean_non_english = []
         for docId, doc_preds in predictions.items():
             if 'scd' in docId:
                 doc_golds = gold_scores[docId]
@@ -174,6 +174,11 @@ def predict(
                 doc_golds = [doc_golds[key][0] for key in keys]
                 doc_preds = ['F' if 'F' in doc_preds[key] else 'T' for key in keys]
                 metrics[f'accuracy.{docId}.score'] = accuracy_score(doc_golds, doc_preds)
+                if 'en-en' not in docId:
+                    mean_non_english.append(metrics[f'accuracy.{docId}.score'])
+        if mean_non_english:
+            metrics[f'accuracy.{docId.split(".")[0]}.nen-nen.score'] = sum(mean_non_english) / len(mean_non_english)
+
 
         if cur_train_mean_loss is not None:
             metrics.update(cur_train_mean_loss)
@@ -245,6 +250,7 @@ def main(args):
 
     if not os.path.exists(args.output_dir):
         os.makedirs(args.output_dir)
+        os.makedirs(os.path.join(args.output_dir, 'nen-nen-weights'))
     elif local_config['do_train'] or local_config['do_validation']:
         raise ValueError(args.output_dir, 'output_dir already exists')
 
@@ -513,7 +519,14 @@ def main(args):
                                     WEIGHTS_NAME
                                 )
                                 save_model(args, model, output_model_file)
-                            os.system(f'cp {dev_predictions}/{".".join(part.split(".")[1:-1])}* {best_dev_predictions}/')
+                            if 'nen-nen' not in part:
+                                os.system(f'cp {dev_predictions}/{".".join(part.split(".")[1:-1])}* {best_dev_predictions}/')
+                            else:
+                                output_model_file = os.path.join(
+                                    args.output_dir, 'nen-nen-weights',
+                                    WEIGHTS_NAME
+                                )
+                                save_model(args, model, output_model_file)
 
                         # dev_predictions = os.path.join(args.output_dir, 'dev_predictions')
                         # predict(
@@ -527,7 +540,7 @@ def main(args):
                             test_predictions = os.path.join(args.output_dir, 'test_predictions')
                             predict(
                                 model, test_dataloader, test_predictions,
-                                test_features, args, only_parts='+'.join(['test' + part[3:] for part in predict_parts])
+                                test_features, args, only_parts='+'.join(['test' + part[3:] for part in predict_parts if 'nen-nen' not in part])
                             )
                             best_test_predictions = os.path.join(args.output_dir, 'best_test_predictions')
                             os.makedirs(best_test_predictions, exist_ok=True)

@@ -26,21 +26,26 @@ do
         do
             for symmetric in true false;
             do
-                echo python run_model.py --do_train --do_validation \
-                    --data_dir data/wic/ --output_dir trained_models/lr-$lr-loss-$loss-pool-$pool-symmetric-$symmetric/ \
-                    --learning_rate $lr \
-                    --loss $loss \
-                    --pool_type $pool \
-                    --symmetric $symmetric \
-                    --num_train_epochs 30 \
-                    --start_save_threshold 0.7 \
-                    --gradient_accumulation_steps 16;
-                echo python run_model.py --do_eval \
-                    --data_dir data/wic/ --output_dir trained_models/lr-$lr-loss-$loss-pool-$pool-symmetric-$symmetric/ \
-                    --learning_rate $lr \
-                    --loss $loss \
-                    --pool_type $pool \
-                    --symmetric $symmetric;
+                for lr_s in linear_warmup constant_warmup;
+                do
+                    OUT_DIR=trained_models/lr-$lr-loss-$loss-pool-$pool-symmetric-$symmetric-lrs-${lr_s}/
+                    echo python run_model.py --do_train --do_validation \
+                        --data_dir data/wic/ --output_dir $OUT_DIR \
+                        --learning_rate $lr \
+                        --loss $loss \
+                        --pool_type $pool \
+                        --symmetric $symmetric \
+                        --lr_scheduler $lr_s \
+                        --num_train_epochs 50 \
+                        --start_save_threshold 0.7 \
+                        --gradient_accumulation_steps 16;
+                    echo python run_model.py --do_eval \
+                        --data_dir data/wic/ --output_dir $OUT_DIR \
+                        --learning_rate $lr \
+                        --loss $loss \
+                        --pool_type $pool \
+                        --symmetric $symmetric;
+                done
             done
         done
     done
