@@ -68,7 +68,7 @@ class XLMRModel(BertPreTrainedModel):
         if local_config['target_embeddings'] == 'concat':
             input_size *= 2
         if self.local_config['loss'] == 'mse_loss':
-            self.syn_clf = RobertaClassificationHead(config, 1, input_size)
+            self.syn_mse_clf = RobertaClassificationHead(config, 1, input_size)
         elif self.local_config['loss'] == 'crossentropy_loss':
             self.syn_clf = RobertaClassificationHead(config, 2, input_size)
         self.data_processor = data_processor
@@ -100,7 +100,8 @@ class XLMRModel(BertPreTrainedModel):
         positions = input_labels['positions'] # bs x 4
 
         syn_features = self.extract_features(sequences_output, positions) # bs x hidden
-        syn_logits = self.syn_clf(syn_features)  # bs x 2 or bs
+        clf = self.syn_mse_clf if self.local_config['loss'] == 'mse_loss' else self.syn_clf
+        syn_logits = clf(syn_features)  # bs x 2 or bs
 
         if input_labels is not None:
             y_size = syn_logits.size(-1)

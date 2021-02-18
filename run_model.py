@@ -101,7 +101,10 @@ def predict(
         syns_preds = np.argmax(syns_scores, axis=1)  # n_examples
     else:
         syns_preds = np.zeros(syns_scores.shape, dtype=int)
-        syns_preds[syns_scores > 0.5] = 1
+        if model.local_config['train_scd']:
+            syns_preds[syns_scores >= 3.0] = 1
+        else:
+            syns_preds[syns_scores > 0.5] = 1
 
     predictions = defaultdict(lambda: defaultdict(list))
     golds = defaultdict(lambda: defaultdict(list))
@@ -214,7 +217,7 @@ def main(args):
     local_config['train_scd'] = args.train_scd
     local_config['ckpt_path'] = args.ckpt_path
 
-    if os.path.exists(args.output_dir) and local_config['do_train']:
+    if local_config['do_train'] and os.path.exists(args.output_dir):
         from glob import glob
         model_weights = glob(os.path.join(args.output_dir, '*.bin'))
         if model_weights:
@@ -248,7 +251,7 @@ def main(args):
             "At least one of `do_train` or `do_eval` must be True."
         )
 
-    if not os.path.exists(args.output_dir):
+    if local_config['do_train'] and not os.path.exists(args.output_dir):
         os.makedirs(args.output_dir)
         os.makedirs(os.path.join(args.output_dir, 'nen-nen-weights'))
     elif local_config['do_train'] or local_config['do_validation']:
@@ -276,7 +279,7 @@ def main(args):
         )
     else:
         logger.addHandler(logging.FileHandler(
-            os.path.join(args.output_dir, f"eval_{suffix}.log"), 'w')
+            os.path.join(args.ckpt_path, f"eval_{suffix}.log"), 'w')
         )
 
     logger.info(args)
@@ -567,8 +570,9 @@ def main(args):
                     train_writer.add_scalar(key, value, global_step)
 
     if local_config['do_eval']:
-        test_dir = os.path.join(local_config['data_dir'], 'test/')
-        model = models[model_name].from_pretrained(args.output_dir, local_config=local_config, data_processor=data_processor)
+        assert args.ckpt_path != '', 'in do_eval mode ckpt_path should be specified'
+        test_dir = args.eval_input_dir
+        model = models[model_name].from_pretrained(args.ckpt_path, local_config=local_config, data_processor=data_processor)
         model.to(device)
         test_features = model.convert_dataset_to_features(
             test_dir, test_logger
@@ -582,23 +586,8 @@ def main(args):
 
         predict(
             model, test_dataloader,
-            os.path.join(args.output_dir, 'test_eval_predictions'),
+            os.path.join(args.output_dir, args.eval_output_dir),
             test_features, args,
-            compute_metrics=False
-        )
-
-        dev_features = model.convert_dataset_to_features(
-            dev_dir, logger
-        )
-        logger.info("***** Dev *****")
-        logger.info("  Num examples = %d", len(dev_features))
-        logger.info("  Batch size = %d", local_config['eval_batch_size'])
-        dev_dataloader = \
-            get_dataloader_and_tensors(dev_features, local_config['eval_batch_size'])
-        predict(
-            model, dev_dataloader,
-            os.path.join(args.output_dir, 'dev_eval_predictions'),
-            dev_features, args,
             compute_metrics=False
         )
 
@@ -622,7 +611,7 @@ def save_model(args, model, output_model_file):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output_dir", default=None, type=str, required=True,
+    parser.add_argument("--output_dir", default=None, type=str, required=False,
                         help="The output directory where the model predictions and checkpoints will be written.")
     parser.add_argument("--data_dir", default='data/', type=str,
                         help="The directory where train and dev directories are located.")
@@ -660,7 +649,7 @@ if __name__ == "__main__":
     parser.add_argument("--pool_type", type=str, default='first',
                         choices=['max', 'first', 'mean'])
     parser.add_argument("--save_by_score", type=str, default='accuracy.dev.en-en.score')
-    parser.add_argument("--ckpt_path", type=str, default='')
+    parser.add_argument("--ckpt_path", type=str, default='', help='Path to directory containig pytorch.bin checkpoint')
     parser.add_argument("--seed", default=2021, type=int)
     parser.add_argument("--num_train_epochs", default=30, type=int)
     parser.add_argument("--eval_batch_size", default=16, type=int)
@@ -676,6 +665,8 @@ if __name__ == "__main__":
     parser.add_argument("--mask_syns", action='store_true',
                         help='Whether to replace target words in context by mask tokens')
     parser.add_argument("--train_scd", action='store_true', help='Whether to train semantic change detection model')
+    parser.add_argument("--eval_input_dir", default='data/wic/test', help='Directory containing .data files to predict')
+    parser.add_argument("--eval_output_dir", default='best_eval_test_predictions', help='Directory name where predictions will be saved')
 
 
     parsed_args = parser.parse_args()
