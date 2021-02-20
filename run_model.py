@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 import torch
 from scipy.special import softmax
-
+from torch.nn import CosineSimilarity
 from scipy.stats import spearmanr
 
 from torch.nn import CrossEntropyLoss
@@ -94,11 +94,17 @@ def predict(
                 metrics[f'eval_{key}_loss'] += value.mean().item()
 
         nb_eval_steps += 1
-        syns_preds.append(syn_logits.detach().cpu().numpy())
+        if model.local_config['loss'] != 'cosine_similarity':
+            syns_preds.append(syn_logits.detach().cpu().numpy())
+        else:
+            syns_preds.append(CosineSimilarity()(syn_logits[0], syn_logits[1]).detach().cpu().numpy())
 
     syns_scores = np.concatenate(syns_preds, axis=0)  # n_examples x 2 or n_examples
-    if syns_scores.shape[-1] != 1:
+    if syns_scores.shape[-1] != 1 and model.local_config['loss'] != 'cosine_similarity':
         syns_preds = np.argmax(syns_scores, axis=1)  # n_examples
+    elif model.local_config['loss'] == 'cosine_similarity':
+        syns_preds = np.zeros(syns_scores.shape, dtype=int)
+        syns_preds[syns_scores >= 0.5] = 1
     else:
         syns_preds = np.zeros(syns_scores.shape, dtype=int)
         if model.local_config['train_scd']:
@@ -122,7 +128,9 @@ def predict(
         predictions[docId][posInDoc].append(syn_pred)
         golds[docId][posInDoc].append(example.label)
         # scores for positive class
-        if len(ex_scores) > 1:
+        if isinstance(ex_scores, np.float32):
+            scores[docId][posInDoc].append(ex_scores)
+        elif len(ex_scores) > 1:
             scores[docId][posInDoc].append(softmax(ex_scores)[-1])
         else:
             scores[docId][posInDoc].append(ex_scores[0])
@@ -216,6 +224,8 @@ def main(args):
     local_config['mask_syns'] = args.mask_syns
     local_config['train_scd'] = args.train_scd
     local_config['ckpt_path'] = args.ckpt_path
+    local_config['emb_size_for_cosine'] = args.emb_size_for_cosine
+    local_config['add_fc_layer'] = args.add_fc_layer
 
     if local_config['do_train'] and os.path.exists(args.output_dir):
         from glob import glob
@@ -641,7 +651,7 @@ if __name__ == "__main__":
     parser.add_argument("--log_train_metrics", action="store_true",
                         help="compute metrics for train set too")
     parser.add_argument("--loss", type=str, default='crossentropy_loss',
-                        choices=['crossentropy_loss', 'mse_loss'])
+                        choices=['crossentropy_loss', 'mse_loss', 'cosine_similarity'])
     parser.add_argument("--lr_scheduler", type=str, default='constant_warmup',
                         choices=['constant_warmup', 'linear_warmup'])
     parser.add_argument("--model_name", type=str, default='xlm-roberta-large',
@@ -655,6 +665,8 @@ if __name__ == "__main__":
     parser.add_argument("--eval_batch_size", default=16, type=int)
     parser.add_argument("--max_seq_len", default=256, type=int)
     parser.add_argument("--target_embeddings", type=str, default='concat')
+    parser.add_argument("--add_fc_layer", type=str, default='True')
+    parser.add_argument("--emb_size_for_cosine", type=int, default=1024)
 
     parser.add_argument("--do_train", action='store_true', help='Whether to run training')
     parser.add_argument("--do_validation", action='store_true',

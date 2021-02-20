@@ -73,7 +73,7 @@ def prepare_dataset(dev_prop_to_train: int = 0.7, exclude_devs_from_split: str =
             new_data.append(new_ex)
         json.dump(new_data, open(file, 'w', encoding='utf-8'), indent=4)
 
-
+   
     os.system('git clone https://davletov-aa@bitbucket.org/nvanva/summer-lsc.git')
     os.makedirs('rusemshift-data', exist_ok=True)
     os.makedirs('rusemshift-tsvs', exist_ok=True)
@@ -131,12 +131,15 @@ def prepare_dataset(dev_prop_to_train: int = 0.7, exclude_devs_from_split: str =
         files = glob('data/dev/*ru-ru*')
         for file in files:
             os.system(f'cp {file} rusemshift-ruwic-data/{mode}/dev/')
+    
 
     os.system('mv data wic')
     os.makedirs('data')
     os.system('mv wic data/')
+
     os.system('mv rusemshift-ruwic-data data/')
     os.system('mv rusemshift-data data/')
+
 
 def semshift2wic(semshift_raw, set_prefix, mode='median', split='dev'):
     if split == 'dev':
