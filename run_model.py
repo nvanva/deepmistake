@@ -128,7 +128,7 @@ def predict(
         predictions[docId][posInDoc].append(syn_pred)
         golds[docId][posInDoc].append(example.label)
         # scores for positive class
-        if isinstance(ex_scores, np.float32):
+        if model.local_config['loss'] == 'cosine_similarity':
             scores[docId][posInDoc].append(ex_scores)
         elif len(ex_scores) > 1:
             scores[docId][posInDoc].append(softmax(ex_scores)[-1])
