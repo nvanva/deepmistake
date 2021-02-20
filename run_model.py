@@ -213,6 +213,7 @@ def main(args):
     local_config['mask_syns'] = args.mask_syns
     local_config['train_scd'] = args.train_scd
     local_config['ckpt_path'] = args.ckpt_path
+    local_config['head_batchnorm'] = args.head_batchnorm
 
     if os.path.exists(args.output_dir) and local_config['do_train']:
         from glob import glob
@@ -665,6 +666,7 @@ if __name__ == "__main__":
     parser.add_argument("--eval_batch_size", default=16, type=int)
     parser.add_argument("--max_seq_len", default=256, type=int)
     parser.add_argument("--target_embeddings", type=str, default='concat')
+    parser.add_argument("--head_batchnorm", type=int, default=0)
 
     parser.add_argument("--do_train", action='store_true', help='Whether to run training')
     parser.add_argument("--do_validation", action='store_true',

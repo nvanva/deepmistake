@@ -29,10 +29,6 @@ def prepare_dataset(dev_prop_to_train: int = 0.7, exclude_devs_from_split: str =
 		os.system(f'mv {file} {test_dir}/')
 	for file in glob('tmp/*.gold'):
 		os.system(f'mv {file} {test_dir}/')
-	os.system(f'rm {test_dir}/*en-en*')
-	os.system(f'rm {test_dir}/*zh-zh*')
-	os.system(f'rm {test_dir}/*en-zh*')
-	os.system(f'rm {test_dir}/*en-ru*')
 
 	for file in glob('tmp/MCL-WiC/dev/multilingual/*data'):
 		file_name = file.split('/')[-1][:-5]
@@ -74,7 +70,7 @@ def prepare_dataset(dev_prop_to_train: int = 0.7, exclude_devs_from_split: str =
 		json.dump(new_data, open(file, 'w', encoding='utf-8'), indent=4)
 
 
-	os.system('git clone https://davletov-aa@bitbucket.org/nvanva/summer-lsc.git')
+	os.system('git clone https://nvanva@bitbucket.org/nvanva/summer-lsc.git')
 	os.makedirs('rusemshift-data', exist_ok=True)
 	os.makedirs('rusemshift-tsvs', exist_ok=True)
 	train_tsv = pd.read_csv('summer-lsc/datasets/rusemshift/train_1.tsv', sep='\t')

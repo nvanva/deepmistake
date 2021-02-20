@@ -24,16 +24,20 @@ XLM_ROBERTA_PRETRAINED_MODEL_ARCHIVE_MAP = {
 class RobertaClassificationHead(nn.Module):
     """Head for sentence-level classification tasks."""
 
-    def __init__(self, config, num_classes, input_size):
+    def __init__(self, config, num_classes, input_size, bn=0):
         super().__init__()
+        self.bn1 = torch.nn.BatchNorm1d(input_size) if bn%2==1 else None
+        self.bn2 = torch.nn.BatchNorm1d(config.hidden_size) if bn//2==1 else None
         self.dense = nn.Linear(input_size, config.hidden_size)
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
         self.out_proj = nn.Linear(config.hidden_size, num_classes)
 
     def forward(self, features, **kwargs):
+        features = features if self.bn1 is None else self.bn1(features)
         x = self.dropout(features)
         x = self.dense(x)
         x = torch.tanh(x)
+        x = x if self.bn2 is None else self.bn2(x)
         x = self.dropout(x)
         x = self.out_proj(x)
         return x
@@ -65,17 +69,25 @@ class XLMRModel(BertPreTrainedModel):
         self.local_config = local_config
         self.tokenizer = XLMRobertaTokenizer.from_pretrained(local_config['model_name'])
         input_size = config.hidden_size
-        if local_config['pool_type'] == 'combined':
+        if local_config['pool_type'] in {'mmm','mmf'}:
             input_size *= 3
+        elif local_config['pool_type'] in {'mm','mf'}:
+            input_size *= 2
+
         if local_config['target_embeddings'] == 'concat':
             input_size *= 2
-        elif local_config['target_embeddings'] == 'combined':
+        elif local_config['target_embeddings'].startswith('comb_c'):
             input_size *= 3
+        elif local_config['target_embeddings'].startswith('comb_'):
+            input_size *= 2
+        elif local_config['target_embeddings'].startswith('dist_'):
+            input_size = len(local_config['target_embeddings'].replace('dist_','').replace('n',''))//2 
+        
         print('Classification head input size:', input_size)
         if self.local_config['loss'] == 'mse_loss':
-            self.syn_clf = RobertaClassificationHead(config, 1, input_size)
+            self.syn_clf = RobertaClassificationHead(config, 1, input_size,  self.local_config['head_batchnorm'])
         elif self.local_config['loss'] == 'crossentropy_loss':
-            self.syn_clf = RobertaClassificationHead(config, 2, input_size)
+            self.syn_clf = RobertaClassificationHead(config, 2, input_size,  self.local_config['head_batchnorm'])
         self.data_processor = data_processor
         self.init_weights()
 
@@ -133,20 +145,59 @@ class XLMRModel(BertPreTrainedModel):
             elif pool_type == 'first':
                 emb1 = hidden_states[ex_id, start1]
                 emb2 = hidden_states[ex_id, start2]
-            elif pool_type.startswith('combined'):
+            elif pool_type == 'mf':
                 embs1 = hidden_states[ex_id, start1:end1] # hidden
                 embs2 = hidden_states[ex_id, start2:end2] # hidden
-                emb1, emb2 = (torch.cat([embs.mean(dim=0), embs.max(dim=0).values,embs[0]], dim=-1) for embs in (embs1, embs2))
+                emb1, emb2 = (torch.cat([embs.mean(dim=0), embs[0]], dim=-1) for embs in (embs1, embs2))
+            elif pool_type.startswith('mm'):
+                embs1 = hidden_states[ex_id, start1:end1] # hidden
+                embs2 = hidden_states[ex_id, start2:end2] # hidden
+                last = '' if len(pool_type)<3 else pool_type[2]
+                emb1, emb2 = (torch.cat([embs.mean(dim=0), embs.max(dim=0).values] + ([] if last=='' else [embs[0]] if last=='f' else [embs.min(dim=0).values]), dim=-1) for embs in (embs1, embs2))
             else:
                 raise ValueError(f'wrong pool_type: {pool_type}')
             if merge_type == 'featwise_mul':
                 merged_feature = emb1 * emb2 # hidden
+            elif merge_type == 'diff':
+                merged_feature = emb1 - emb2
             elif merge_type == 'concat':
                 merged_feature = torch.cat((emb1, emb2)) # 2 * hidden
-            elif merge_type == 'featwise_mul_norm':
+            elif merge_type == 'mulnorm':
                 merged_feature = (emb1 / emb1.norm(dim=-1, keepdim=True)) * (emb2 / emb2.norm(dim=-1, keepdim=True))
-            elif merge_type.startswith('combined'):
+            elif merge_type == 'comb_cm':
                 merged_feature = torch.cat((emb1, emb2, emb1 * emb2))
+            elif merge_type == 'comb_cmn':
+                emb1n = emb1 / emb1.norm(dim=-1, keepdim=True)
+                emb2n = emb2 / emb2.norm(dim=-1, keepdim=True)
+                merged_feature = torch.cat((emb1, emb2, emb1n*emb2n))
+            elif merge_type == 'comb_cd':
+                merged_feature = torch.cat((emb1, emb2, emb1 - emb2))
+            elif merge_type == 'comb_cnmn':
+                emb1n = emb1 / emb1.norm(dim=-1, keepdim=True)
+                emb2n = emb2 / emb2.norm(dim=-1, keepdim=True)
+                merged_feature = torch.cat((emb1n, emb2n, emb1n* emb2n))
+            elif merge_type == 'comb_dmn':
+                emb1n = emb1 / emb1.norm(dim=-1, keepdim=True)
+                emb2n = emb2 / emb2.norm(dim=-1, keepdim=True)
+                merged_feature = torch.cat((emb1 - emb2, emb1n* emb2n))
+            elif merge_type == 'comb_dnmn':
+                emb1n = emb1 / emb1.norm(dim=-1, keepdim=True)
+                emb2n = emb2 / emb2.norm(dim=-1, keepdim=True)
+                merged_feature = torch.cat((emb1n - emb2n, emb1n* emb2n))
+            elif merge_type.startswith( 'dist_'):
+                if 'n' in merge_type:
+                    emb1n = emb1 / emb1.norm(dim=-1, keepdim=True)
+                    emb2n = emb2 / emb2.norm(dim=-1, keepdim=True)
+                dists = []
+                if 'l1' in merge_type:        
+                    dists.append(torch.norm(emb1n-emb2n if 'l1n' in merge_type else emb1-emb2, dim=-1, p=1, keepdim=True))
+                if 'l2' in merge_type:        
+                    dists.append(torch.norm(emb1n-emb2n if 'l2n' in merge_type else emb1-emb2, dim=-1, p=2, keepdim=True))
+                if 'dot' in merge_type:        
+                    dists.append((emb1n*emb2n if 'dotn' in merge_type else emb1*emb2 ).sum(dim=-1, keepdim=True))
+                merged_feature = torch.cat(dists)
+
+ 
             features.append(merged_feature.unsqueeze(0))
         output = torch.cat(features, dim=0) # bs x hidden
         return output
