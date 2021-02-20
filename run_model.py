@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 import torch
 from scipy.special import softmax
-
+from torch.nn import CosineSimilarity
 from scipy.stats import spearmanr
 
 from torch.nn import CrossEntropyLoss
@@ -94,14 +94,23 @@ def predict(
                 metrics[f'eval_{key}_loss'] += value.mean().item()
 
         nb_eval_steps += 1
-        syns_preds.append(syn_logits.detach().cpu().numpy())
+        if model.local_config['loss'] != 'cosine_similarity':
+            syns_preds.append(syn_logits.detach().cpu().numpy())
+        else:
+            syns_preds.append(CosineSimilarity()(syn_logits[0], syn_logits[1]).detach().cpu().numpy())
 
     syns_scores = np.concatenate(syns_preds, axis=0)  # n_examples x 2 or n_examples
-    if syns_scores.shape[-1] != 1:
+    if syns_scores.shape[-1] != 1 and model.local_config['loss'] != 'cosine_similarity':
         syns_preds = np.argmax(syns_scores, axis=1)  # n_examples
+    elif model.local_config['loss'] == 'cosine_similarity':
+        syns_preds = np.zeros(syns_scores.shape, dtype=int)
+        syns_preds[syns_scores >= 0.5] = 1
     else:
         syns_preds = np.zeros(syns_scores.shape, dtype=int)
-        syns_preds[syns_scores > 0.5] = 1
+        if model.local_config['train_scd']:
+            syns_preds[syns_scores >= 3.0] = 1
+        else:
+            syns_preds[syns_scores > 0.5] = 1
 
     predictions = defaultdict(lambda: defaultdict(list))
     golds = defaultdict(lambda: defaultdict(list))
@@ -119,7 +128,9 @@ def predict(
         predictions[docId][posInDoc].append(syn_pred)
         golds[docId][posInDoc].append(example.label)
         # scores for positive class
-        if len(ex_scores) > 1:
+        if model.local_config['loss'] == 'cosine_similarity':
+            scores[docId][posInDoc].append(ex_scores)
+        elif len(ex_scores) > 1:
             scores[docId][posInDoc].append(softmax(ex_scores)[-1])
         else:
             scores[docId][posInDoc].append(ex_scores[0])
@@ -214,8 +225,10 @@ def main(args):
     local_config['train_scd'] = args.train_scd
     local_config['ckpt_path'] = args.ckpt_path
     local_config['head_batchnorm'] = args.head_batchnorm
+    local_config['emb_size_for_cosine'] = args.emb_size_for_cosine
+    local_config['add_fc_layer'] = args.add_fc_layer
 
-    if os.path.exists(args.output_dir) and local_config['do_train']:
+    if local_config['do_train'] and os.path.exists(args.output_dir):
         from glob import glob
         model_weights = glob(os.path.join(args.output_dir, '*.bin'))
         if model_weights:
@@ -249,7 +262,7 @@ def main(args):
             "At least one of `do_train` or `do_eval` must be True."
         )
 
-    if not os.path.exists(args.output_dir):
+    if local_config['do_train'] and not os.path.exists(args.output_dir):
         os.makedirs(args.output_dir)
         os.makedirs(os.path.join(args.output_dir, 'nen-nen-weights'))
     elif local_config['do_train'] or local_config['do_validation']:
@@ -277,7 +290,7 @@ def main(args):
         )
     else:
         logger.addHandler(logging.FileHandler(
-            os.path.join(args.output_dir, f"eval_{suffix}.log"), 'w')
+            os.path.join(args.ckpt_path, f"eval_{suffix}.log"), 'w')
         )
 
     logger.info(args)
@@ -568,8 +581,9 @@ def main(args):
                     train_writer.add_scalar(key, value, global_step)
 
     if local_config['do_eval']:
-        test_dir = os.path.join(local_config['data_dir'], 'test/')
-        model = models[model_name].from_pretrained(args.output_dir, local_config=local_config, data_processor=data_processor)
+        assert args.ckpt_path != '', 'in do_eval mode ckpt_path should be specified'
+        test_dir = args.eval_input_dir
+        model = models[model_name].from_pretrained(args.ckpt_path, local_config=local_config, data_processor=data_processor)
         model.to(device)
         test_features = model.convert_dataset_to_features(
             test_dir, test_logger
@@ -583,23 +597,8 @@ def main(args):
 
         predict(
             model, test_dataloader,
-            os.path.join(args.output_dir, 'test_eval_predictions'),
+            os.path.join(args.output_dir, args.eval_output_dir),
             test_features, args,
-            compute_metrics=False
-        )
-
-        dev_features = model.convert_dataset_to_features(
-            dev_dir, logger
-        )
-        logger.info("***** Dev *****")
-        logger.info("  Num examples = %d", len(dev_features))
-        logger.info("  Batch size = %d", local_config['eval_batch_size'])
-        dev_dataloader = \
-            get_dataloader_and_tensors(dev_features, local_config['eval_batch_size'])
-        predict(
-            model, dev_dataloader,
-            os.path.join(args.output_dir, 'dev_eval_predictions'),
-            dev_features, args,
             compute_metrics=False
         )
 
@@ -623,7 +622,7 @@ def save_model(args, model, output_model_file):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output_dir", default=None, type=str, required=True,
+    parser.add_argument("--output_dir", default=None, type=str, required=False,
                         help="The output directory where the model predictions and checkpoints will be written.")
     parser.add_argument("--data_dir", default='data/', type=str,
                         help="The directory where train and dev directories are located.")
@@ -653,20 +652,22 @@ if __name__ == "__main__":
     parser.add_argument("--log_train_metrics", action="store_true",
                         help="compute metrics for train set too")
     parser.add_argument("--loss", type=str, default='crossentropy_loss',
-                        choices=['crossentropy_loss', 'mse_loss'])
+                        choices=['crossentropy_loss', 'mse_loss', 'cosine_similarity'])
     parser.add_argument("--lr_scheduler", type=str, default='constant_warmup',
                         choices=['constant_warmup', 'linear_warmup'])
     parser.add_argument("--model_name", type=str, default='xlm-roberta-large',
                         choices=['xlm-roberta-large', 'xlm-roberta-base'])
     parser.add_argument("--pool_type", type=str, default='first')
     parser.add_argument("--save_by_score", type=str, default='accuracy.dev.en-en.score')
-    parser.add_argument("--ckpt_path", type=str, default='')
+    parser.add_argument("--ckpt_path", type=str, default='', help='Path to directory containig pytorch.bin checkpoint')
     parser.add_argument("--seed", default=2021, type=int)
     parser.add_argument("--num_train_epochs", default=30, type=int)
     parser.add_argument("--eval_batch_size", default=16, type=int)
     parser.add_argument("--max_seq_len", default=256, type=int)
     parser.add_argument("--target_embeddings", type=str, default='concat')
     parser.add_argument("--head_batchnorm", type=int, default=0)
+    parser.add_argument("--add_fc_layer", type=str, default='True')
+    parser.add_argument("--emb_size_for_cosine", type=int, default=1024)
 
     parser.add_argument("--do_train", action='store_true', help='Whether to run training')
     parser.add_argument("--do_validation", action='store_true',
@@ -677,6 +678,8 @@ if __name__ == "__main__":
     parser.add_argument("--mask_syns", action='store_true',
                         help='Whether to replace target words in context by mask tokens')
     parser.add_argument("--train_scd", action='store_true', help='Whether to train semantic change detection model')
+    parser.add_argument("--eval_input_dir", default='data/wic/test', help='Directory containing .data files to predict')
+    parser.add_argument("--eval_output_dir", default='best_eval_test_predictions', help='Directory name where predictions will be saved')
 
 
     parsed_args = parser.parse_args()
