@@ -24,21 +24,24 @@ XLM_ROBERTA_PRETRAINED_MODEL_ARCHIVE_MAP = {
 class RobertaClassificationHead(nn.Module):
     """Head for sentence-level classification tasks."""
 
-    def __init__(self, config, num_classes, input_size, bn=0):
+    def __init__(self, config, num_classes, input_size, local_config):
         super().__init__()
+        bn = local_config['head_batchnorm']
+        self.linear_head = local_config['linear_head']
         self.bn1 = torch.nn.BatchNorm1d(input_size) if bn%2==1 else None
         self.bn2 = torch.nn.BatchNorm1d(config.hidden_size) if bn//2==1 else None
         self.dense = nn.Linear(input_size, config.hidden_size)
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
-        self.out_proj = nn.Linear(config.hidden_size, num_classes)
+        self.out_proj = nn.Linear(input_size if self.linear_head else config.hidden_size, num_classes)
 
     def forward(self, features, **kwargs):
-        features = features if self.bn1 is None else self.bn1(features)
-        x = self.dropout(features)
-        x = self.dense(x)
-        x = torch.tanh(x)
-        x = x if self.bn2 is None else self.bn2(x)
-        x = self.dropout(x)
+        x = features if self.bn1 is None else self.bn1(features)
+        if not self.linear_head:
+            x = self.dropout(x)
+            x = self.dense(x)
+            x = torch.tanh(x)
+            x = x if self.bn2 is None else self.bn2(x)
+            x = self.dropout(x)
         x = self.out_proj(x)
         return x
 
@@ -108,9 +111,9 @@ class XLMRModel(BertPreTrainedModel):
         
         print('Classification head input size:', input_size)
         if self.local_config['loss'] == 'mse_loss':
-            self.syn_mse_clf = RobertaClassificationHead(config, 1, input_size, self.local_config['head_batchnorm'])
+            self.syn_mse_clf = RobertaClassificationHead(config, 1, input_size, self.local_config)
         elif self.local_config['loss'] == 'crossentropy_loss':
-            self.syn_clf = RobertaClassificationHead(config, 2, input_size, self.local_config['head_batchnorm'])
+            self.syn_clf = RobertaClassificationHead(config, 2, input_size, self.local_config)
         elif self.local_config['loss'] == 'cosine_similarity':
             self.syn_clf = RobertaClassificationCosineHead(config, 2, input_size, local_config)
         self.data_processor = data_processor
