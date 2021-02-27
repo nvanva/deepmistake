@@ -233,6 +233,7 @@ def main(args):
     local_config['train_scd'] = args.train_scd
     local_config['ckpt_path'] = args.ckpt_path
     local_config['head_batchnorm'] = args.head_batchnorm
+    local_config['head_hidden_size'] = args.head_hidden_size
     local_config['linear_head'] = args.linear_head
     local_config['emb_size_for_cosine'] = args.emb_size_for_cosine
     local_config['add_fc_layer'] = args.add_fc_layer
@@ -379,7 +380,7 @@ def main(args):
             )
         else:
             random.shuffle(train_features)
-
+#        import pdb; pdb.set_trace()
         train_dataloader = \
             get_dataloader_and_tensors(train_features, local_config['train_batch_size'])
         train_batches = [batch for batch in train_dataloader]
@@ -688,6 +689,7 @@ if __name__ == "__main__":
     parser.add_argument("--max_seq_len", default=256, type=int)
     parser.add_argument("--target_embeddings", type=str, default='concat')
     parser.add_argument("--head_batchnorm", type=int, default=0)
+    parser.add_argument("--head_hidden_size", type=int, default=-1)
     parser.add_argument("--linear_head", type=bool, default=False)
     parser.add_argument("--add_fc_layer", type=str, default='True')
     parser.add_argument("--emb_size_for_cosine", type=int, default=1024)
