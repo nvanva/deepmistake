@@ -5,7 +5,8 @@ from torch import nn
 from torch.nn import CrossEntropyLoss, BCEWithLogitsLoss, MSELoss, CosineEmbeddingLoss
 import torch
 from collections import defaultdict
-
+from torch import Tensor
+import torch.nn.functional as F
 
 XLM_ROBERTA_PRETRAINED_MODEL_ARCHIVE_MAP = {
     "xlm-roberta-base": "https://s3.amazonaws.com/models.huggingface.co/bert/xlm-roberta-base-pytorch_model.bin",
@@ -78,6 +79,19 @@ class WiCFeature2:
         self.positions = positions
         self.example = example
 
+class MSEPlusLoss(MSELoss):
+    def __init__(self, size_average=None, reduce=None, reduction: str = 'mean', pos_score=3.5, neg_score=1.5, eps=0.5) -> None:
+        super(MSEPlusLoss, self).__init__(size_average, reduce, reduction)
+        self.pos_score, self.neg_score, self.eps = pos_score, neg_score, eps
+
+    def forward(self, input: Tensor, target: Tensor) -> Tensor:
+        import pdb; pdb.set_trace()
+        target_score = -target * (pos_score-neg_score) + neg_score  # neg_score if target==0, pos_score if target==-1, otherwise doesn't matter
+        diffplus = torch.max(F.relu(target_score-eps-input), F.relu(input-target_score+eps)) 
+        diff = torch.where(target > 0.0, input-target, diffplus)
+        print(' '.join(f'{a:.2f}({b})->{c:.2f}' for a,b,c in zip(input.flatten().tolist(), target.flatten.tolist(), diff.flatten.tolist())))
+        return nn.functional.mse_loss(diff, torch.zeros_like(target), reduction=self.reduction)
+
 
 class XLMRModel(BertPreTrainedModel):
     config_class = XLMRobertaConfig
@@ -110,7 +124,7 @@ class XLMRModel(BertPreTrainedModel):
             input_size = len(local_config['target_embeddings'].replace('dist_','').replace('n',''))//2 
         
         print('Classification head input size:', input_size)
-        if self.local_config['loss'] == 'mse_loss':
+        if self.local_config['loss'] in {'mseplus_loss', 'mse_loss'}:
             self.syn_mse_clf = RobertaClassificationHead(config, 1, input_size, self.local_config)
         elif self.local_config['loss'] == 'crossentropy_loss':
             self.syn_clf = RobertaClassificationHead(config, 2, input_size, self.local_config)
@@ -145,7 +159,7 @@ class XLMRModel(BertPreTrainedModel):
         positions = input_labels['positions'] # bs x 4
 
         syn_features = self.extract_features(sequences_output, positions) # bs x hidden
-        clf = self.syn_mse_clf if self.local_config['loss'] == 'mse_loss' else self.syn_clf
+        clf = self.syn_mse_clf if self.local_config['loss'] in {'mseplus_loss','mse_loss'} else self.syn_clf
         syn_logits = clf(syn_features)  # bs x 2 or bs
 
         if input_labels is not None:
@@ -154,7 +168,8 @@ class XLMRModel(BertPreTrainedModel):
             else:
                 y_size = -1
             if y_size == 1:
-                loss['total'] = MSELoss()(syn_logits, syn_labels.unsqueeze(-1).float())
+                lossfn = MSELoss() if self.local_config['loss'] == 'mse_loss' else MSEPlusLoss()
+                loss['total'] = lossfn(syn_logits, syn_labels.unsqueeze(-1).float())
             elif self.local_config['loss'] == 'crossentropy_loss':
                 loss['total'] = CrossEntropyLoss()(syn_logits, syn_labels)
             else:
@@ -317,13 +332,13 @@ class XLMRModel(BertPreTrainedModel):
                         if start and end:
                             logger.info(f"{clf}: {' '.join(tokens[start:end])}")
                 if self.local_config['train_scd']:
-                    assert self.local_config['loss'] == 'mse_loss', 'should be mse loss when training scd'
+                    assert self.local_config['loss'] in {'mseplus_loss','mse_loss'}, 'should be mse loss when training scd'
                     features.append(
                         WiCFeature2(
                             input_ids=input_ids,
                             input_mask=input_mask,
                             token_type_ids=token_type_ids,
-                            syn_label=ex.score,
+                            syn_label=ex.score if ex.score != -1 else -syn_label_to_id[label],
                             positions=positions,
                             example=ex
                             )

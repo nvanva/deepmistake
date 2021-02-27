@@ -298,6 +298,11 @@ def main(args):
     logger.info(json.dumps(local_config, indent=4))
     logger.info("device: {}, n_gpu: {}".format(device, n_gpu))
 
+    with open(os.path.join(args.output_dir, 'local_config.json'), 'w') as outp:
+        json.dump(local_config, outp, indent=4)
+    with open(os.path.join(args.output_dir, 'args.json'), 'w') as outp:
+        json.dump(vars(args), outp, indent=4)
+
 
     syns = sorted(local_config['syns'])
     id2classifier = {i: classifier for i, classifier in enumerate(syns)}
@@ -596,12 +601,15 @@ def main(args):
         test_dataloader = \
             get_dataloader_and_tensors(test_features, local_config['eval_batch_size'])
 
-        predict(
+        metrics = predict(
             model, test_dataloader,
             os.path.join(args.output_dir, args.eval_output_dir),
             test_features, args,
-            compute_metrics=False
+            compute_metrics=True
         )
+        print(metrics)
+        with open(os.path.join(args.output_dir, args.eval_output_dir,'metrics.txt'), 'w') as outp:
+            print(metrics, file=outp)
 
 
 def save_model(args, model, output_model_file):
@@ -653,7 +661,7 @@ if __name__ == "__main__":
     parser.add_argument("--log_train_metrics", action="store_true",
                         help="compute metrics for train set too")
     parser.add_argument("--loss", type=str, default='crossentropy_loss',
-                        choices=['crossentropy_loss', 'mse_loss', 'cosine_similarity'])
+                        choices=['crossentropy_loss', 'mse_loss', 'cosine_similarity', 'mseplus_loss'])
     parser.add_argument("--lr_scheduler", type=str, default='constant_warmup',
                         choices=['constant_warmup', 'linear_warmup'])
     parser.add_argument("--model_name", type=str, default='xlm-roberta-large',
