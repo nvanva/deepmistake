@@ -142,11 +142,12 @@ def predict(
     else:
         os.makedirs(output_dir, exist_ok=True)
 
+    print(f'saving predictions for: {only_parts}')
     for docId, doc_preds in predictions.items():
         doc_scores = scores[docId]
-        # print(docId, only_parts)
         if len(only_parts) > 0 and all([f'{docId.split(".")[1]}.score' not in part for part in only_parts]):
             continue
+        print(f'saving predictions for part: {docId}')
         prediction = [{'id': f'{docId}.{pos}','tag': 'F' if 'F' in doc_preds[pos] else 'T'} for pos in sorted(doc_preds)]
         prediction_file = os.path.join(output_dir, docId)
         json.dump(prediction, open(prediction_file, 'w'))
@@ -164,21 +165,28 @@ def predict(
                 doc_lemmas = lemmas[docId]
                 doc_scores = scores[docId]
 
-                keys = list(doc_golds.keys())
+                keys = sorted(list(doc_golds.keys()))
                 # print(doc_lemmas)
                 unique_lemmas = sorted(set([doc_lemmas[key][0][0] for key in keys if doc_lemmas[key][0][1] == 'COMPARE']))
                 y_true, y_pred = [], []
+                y_sent_true, y_sent_pred = [], []
                 for unique_lemma in unique_lemmas:
                     unique_lemma_keys = [key for key in keys if doc_lemmas[key][0][0] == unique_lemma and doc_lemmas[key][0][1] == 'COMPARE']
-                    y_true.append(np.array([doc_golds[key][0] for key in unique_lemma_keys]).mean())
-                    y_pred.append(np.array([np.array(doc_scores[key]).mean() for key in unique_lemma_keys]).mean())
+                    unique_word_scores_pred = [np.array(doc_scores[key]).mean() for key in unique_lemma_keys]
+                    unique_word_scores_true = [doc_golds[key][0] for key in unique_lemma_keys]
+                    y_true.append(np.array(unique_word_scores_true).mean())
+                    y_pred.append(np.array(unique_word_scores_pred).mean())
+                    y_sent_true.extend(unique_word_scores_true)
+                    y_sent_pred.extend(unique_word_scores_pred)
                 # print(y_true, y_pred)
                 metrics[f'spearman.{docId}.score'], _ = spearmanr(y_true, y_pred)
+                metrics[f'spearman.{docId}.pairwise'], _ = spearmanr(y_sent_true, y_sent_pred)
                 doc_golds = golds[docId]
                 keys = list(doc_golds.keys())
                 doc_golds = [doc_golds[key][0] for key in keys]
                 doc_preds = ['F' if 'F' in doc_preds[key] else 'T' for key in keys]
                 metrics[f'{docId}.accuracy'] = accuracy_score(doc_golds, doc_preds)
+
             else:
                 doc_golds = golds[docId]
                 keys = list(doc_golds.keys())
@@ -296,6 +304,8 @@ def main(args):
 
     logger.info(args)
     logger.info(json.dumps(local_config, indent=4))
+    json.dump(local_config, open(os.path.join(args.output_dir, 'local_config.json'), 'w'))
+    json.dump(vars(args), open(os.path.join(args.output_dir, 'args.json'), 'w'))
     logger.info("device: {}, n_gpu: {}".format(device, n_gpu))
 
 
@@ -505,12 +515,12 @@ def main(args):
 
                     for key, value in metrics.items():
                         dev_writer.add_scalar(key, value, global_step)
-
-                    logger.info(f"dev %s (lr=%s, epoch=%d): %.2f" %
+                    scores_to_logger = tuple([round(metrics[save_by_score] * 100.0, 2) for save_by_score in args.save_by_score.split('+')])
+                    logger.info(f"dev %s (lr=%s, epoch=%d): %s" %
                         (
                             args.save_by_score,
                             str(scheduler.get_lr()[0]), epoch,
-                            metrics[args.save_by_score] * 100.0
+                            scores_to_logger
                         )
                     )
 
@@ -528,9 +538,10 @@ def main(args):
                                 )
                             )
                             best_result[part] = metrics[part]
-                            if part == args.save_by_score:
+                            if [save_weight for save_weight in args.save_by_score.split('+') if save_weight == part]:
+                                os.makedirs(os.path.join(args.output_dir, part), exist_ok=True)
                                 output_model_file = os.path.join(
-                                    args.output_dir,
+                                    args.output_dir, part,
                                     WEIGHTS_NAME
                                 )
                                 save_model(args, model, output_model_file)
@@ -654,11 +665,13 @@ if __name__ == "__main__":
                         help="compute metrics for train set too")
     parser.add_argument("--loss", type=str, default='crossentropy_loss',
                         choices=['crossentropy_loss', 'mse_loss', 'cosine_similarity'])
-    parser.add_argument("--lr_scheduler", type=str, default='constant_warmup',
+    parser.add_argument("--lr_scheduler", type=str, default='linear_warmup',
                         choices=['constant_warmup', 'linear_warmup'])
     parser.add_argument("--model_name", type=str, default='xlm-roberta-large',
                         choices=['xlm-roberta-large', 'xlm-roberta-base'])
+
     parser.add_argument("--pool_type", type=str, default='first')
+
     parser.add_argument("--save_by_score", type=str, default='accuracy.dev.en-en.score')
     parser.add_argument("--ckpt_path", type=str, default='', help='Path to directory containig pytorch.bin checkpoint')
     parser.add_argument("--seed", default=2021, type=int)
@@ -685,4 +698,8 @@ if __name__ == "__main__":
 
 
     parsed_args = parser.parse_args()
+    if parsed_args.do_eval:
+        new_args = json.load(open(os.path.join(parsed_args.output_dir, 'args.json')))
+        for key, value in new_args.items():
+            setattr(parsed_args, key, value)
     main(parsed_args)

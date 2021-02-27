@@ -95,6 +95,7 @@ class XLMRModel(BertPreTrainedModel):
         self.local_config = local_config
         self.tokenizer = XLMRobertaTokenizer.from_pretrained(local_config['model_name'])
         input_size = config.hidden_size
+
         if local_config['pool_type'] in {'mmm','mmf'}:
             input_size *= 3
         elif local_config['pool_type'] in {'mm','mf'}:
@@ -108,7 +109,7 @@ class XLMRModel(BertPreTrainedModel):
             input_size *= 2
         elif local_config['target_embeddings'].startswith('dist_'):
             input_size = len(local_config['target_embeddings'].replace('dist_','').replace('n',''))//2 
-        
+
         print('Classification head input size:', input_size)
         if self.local_config['loss'] == 'mse_loss':
             self.syn_mse_clf = RobertaClassificationHead(config, 1, input_size, self.local_config)
@@ -231,7 +232,6 @@ class XLMRModel(BertPreTrainedModel):
                     dists.append((emb1n*emb2n if 'dotn' in merge_type else emb1*emb2 ).sum(dim=-1, keepdim=True))
                 merged_feature = torch.cat(dists)
 
- 
             features.append(merged_feature.unsqueeze(0))
         output = torch.cat(features, dim=0) # bs x hidden
         return output
