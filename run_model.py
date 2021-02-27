@@ -179,8 +179,8 @@ def predict(
                     y_sent_true.extend(unique_word_scores_true)
                     y_sent_pred.extend(unique_word_scores_pred)
                 # print(y_true, y_pred)
-                metrics[f'spearman.{docId}.score'], _ = spearmanr(y_true, y_pred)
-                metrics[f'spearman.{docId}.pairwise'], _ = spearmanr(y_sent_true, y_sent_pred)
+                metrics[f'spearman.{docId}.wordwise'], _ = spearmanr(y_true, y_pred)
+                metrics[f'spearman.{docId}.score'], _ = spearmanr(y_sent_true, y_sent_pred)
                 doc_golds = golds[docId]
                 keys = list(doc_golds.keys())
                 doc_golds = [doc_golds[key][0] for key in keys]
