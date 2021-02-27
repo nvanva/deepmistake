@@ -179,6 +179,8 @@ def predict(
                     y_sent_true.extend(unique_word_scores_true)
                     y_sent_pred.extend(unique_word_scores_pred)
                 # print(y_true, y_pred)
+                # metrics[f'spearman.{docId}.score'], _ = spearmanr(y_true, y_pred)
+                # metrics[f'spearman.{docId}.pairwise'], _ = spearmanr(y_sent_true, y_sent_pred)
                 metrics[f'spearman.{docId}.wordwise'], _ = spearmanr(y_true, y_pred)
                 metrics[f'spearman.{docId}.score'], _ = spearmanr(y_sent_true, y_sent_pred)
                 doc_golds = golds[docId]
@@ -711,5 +713,7 @@ if __name__ == "__main__":
     if parsed_args.do_eval:
         new_args = json.load(open(os.path.join(parsed_args.output_dir, 'args.json')))
         for key, value in new_args.items():
+            if key.startswith('do') or key in ['ckpt_path', 'eval_input_dir', 'eval_output_dir', 'output_dir', 'eval_batch_size']:
+                continue
             setattr(parsed_args, key, value)
     main(parsed_args)
