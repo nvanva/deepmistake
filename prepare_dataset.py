@@ -199,10 +199,11 @@ def semshift2wic(semshift_raw, set_prefix, mode='median', split='dev'):
                 elif score <= 2.0:
                     tag = 'F'
                 else:
-                    if split == 'dev':
-                        tag = 'F'
-                    else:
-                        continue
+                    tag = 'F'
+                    # if split == 'dev':
+                    #     tag = 'F'
+                    # else:
+                    #     continue
 
                 label = {
                     'id': idx,
