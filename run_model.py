@@ -188,7 +188,6 @@ def predict(
                 doc_golds = [doc_golds[key][0] for key in keys]
                 doc_preds = ['F' if 'F' in doc_preds[key] else 'T' for key in keys]
                 metrics[f'{docId}.accuracy'] = accuracy_score(doc_golds, doc_preds)
-
             else:
                 doc_golds = golds[docId]
                 keys = list(doc_golds.keys())
@@ -597,7 +596,8 @@ def main(args):
     if local_config['do_eval']:
         assert args.ckpt_path != '', 'in do_eval mode ckpt_path should be specified'
         test_dir = args.eval_input_dir
-        model = models[model_name].from_pretrained(args.ckpt_path, local_config=local_config, data_processor=data_processor)
+        config = configs[model_name].from_pretrained(model_name)
+        model = models[model_name].from_pretrained(args.ckpt_path, local_config=local_config, data_processor=data_processor, config=config)
         model.to(device)
         test_features = model.convert_dataset_to_features(
             test_dir, test_logger
