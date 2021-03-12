@@ -305,9 +305,10 @@ def main(args):
         )
 
     logger.info(args)
-    logger.info(json.dumps(local_config, indent=4))
-    json.dump(local_config, open(os.path.join(args.output_dir, 'local_config.json'), 'w'))
-    json.dump(vars(args), open(os.path.join(args.output_dir, 'args.json'), 'w'))
+    logger.info(json.dumps(vars(args), indent=4))
+    if args.do_train:
+        json.dump(local_config, open(os.path.join(args.output_dir, 'local_config.json'), 'w'))
+        json.dump(vars(args), open(os.path.join(args.output_dir, 'args.json'), 'w'))
     logger.info("device: {}, n_gpu: {}".format(device, n_gpu))
 
     with open(os.path.join(args.output_dir, 'local_config.json'), 'w') as outp:
@@ -672,7 +673,7 @@ if __name__ == "__main__":
                         help="dropout rate")
     parser.add_argument("--local_config_path", type=str, default='local_config.json',
                         help="local config path")
-    parser.add_argument("--start_save_threshold", default=0.3, type=float,
+    parser.add_argument("--start_save_threshold", default=0.0, type=float,
                         help="accuracy threshold to start save models")
     parser.add_argument("--log_train_metrics", action="store_true",
                         help="compute metrics for train set too")

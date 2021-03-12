@@ -87,8 +87,7 @@ def get_dataloader_and_tensors(
         dtype=torch.long
     )
     syn_labels = torch.tensor(
-        [f.syn_label for f in features],
-        dtype=torch.float
+        [f.syn_label for f in features]
     )
     positions = torch.tensor(
         [f.positions for f in features],
