@@ -28,12 +28,15 @@ class RobertaClassificationHead(nn.Module):
     def __init__(self, config, num_classes, input_size, local_config):
         super().__init__()
         bn = local_config['head_batchnorm']
-        self.linear_head = local_config['linear_head']
+        self.linear_head = local_config['linear_head'] 
+        hidden_size = local_config['head_hidden_size']
+        hidden_size = config.hidden_size if hidden_size <=0 else hidden_size
         self.bn1 = torch.nn.BatchNorm1d(input_size) if bn%2==1 else None
-        self.bn2 = torch.nn.BatchNorm1d(config.hidden_size) if bn//2==1 else None
-        self.dense = nn.Linear(input_size, config.hidden_size)
+        self.bn2 = torch.nn.BatchNorm1d(hidden_size) if bn//2==1 else None
+        self.dense = nn.Linear(input_size, hidden_size)
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
-        self.out_proj = nn.Linear(input_size if self.linear_head else config.hidden_size, num_classes)
+        self.out_proj = nn.Linear(input_size if self.linear_head else hidden_size, num_classes)
+        print(f'RobertaClassificationHead: linear_head={self.linear_head}, hs={hidden_size}, input={input_size}, bn={bn}')
 
     def forward(self, features, **kwargs):
         x = features if self.bn1 is None else self.bn1(features)
@@ -85,11 +88,11 @@ class MSEPlusLoss(MSELoss):
         self.pos_score, self.neg_score, self.eps = pos_score, neg_score, eps
 
     def forward(self, input: Tensor, target: Tensor) -> Tensor:
-        import pdb; pdb.set_trace()
-        target_score = -target * (pos_score-neg_score) + neg_score  # neg_score if target==0, pos_score if target==-1, otherwise doesn't matter
-        diffplus = torch.max(F.relu(target_score-eps-input), F.relu(input-target_score+eps)) 
+#        import pdb; pdb.set_trace()
+        target_score = -target * (self.pos_score-self.neg_score) + self.neg_score  # neg_score if target==0, pos_score if target==-1, otherwise doesn't matter
+        diffplus = torch.max(F.relu(target_score-self.eps-input), F.relu(input-target_score-self.eps)) 
         diff = torch.where(target > 0.0, input-target, diffplus)
-        print(' '.join(f'{a:.2f}({b})->{c:.2f}' for a,b,c in zip(input.flatten().tolist(), target.flatten.tolist(), diff.flatten.tolist())))
+        print(' '.join(f'{a:.2f}({b})->{c:.2f}' for a,b,c in zip(input.flatten().tolist(), target.flatten().tolist(), diff.flatten().tolist())), flush=True)
         return nn.functional.mse_loss(diff, torch.zeros_like(target), reduction=self.reduction)
 
 
@@ -259,6 +262,7 @@ class XLMRModel(BertPreTrainedModel):
         max_seq_len = self.local_config['max_seq_len']
 
         examples = self.data_processor.get_examples(source_dir)
+#        import pdb; pdb.set_trace()
         syns = self.local_config['syns']
         syn_label_to_id = {'T': 1, 'F': 0}
         syns_lab_to_pos = {lab: i for i, lab in enumerate(syns)}

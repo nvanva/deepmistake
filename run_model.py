@@ -181,7 +181,7 @@ def predict(
                 # print(y_true, y_pred)
                 # metrics[f'spearman.{docId}.score'], _ = spearmanr(y_true, y_pred)
                 # metrics[f'spearman.{docId}.pairwise'], _ = spearmanr(y_sent_true, y_sent_pred)
-                metrics[f'spearman.{docId}.wordwise'], _ = spearmanr(y_true, y_pred)
+                metrics[f'spearman.{docId}.wordwise.score'], _ = spearmanr(y_true, y_pred)
                 metrics[f'spearman.{docId}.score'], _ = spearmanr(y_sent_true, y_sent_pred)
                 doc_golds = golds[docId]
                 keys = list(doc_golds.keys())
@@ -235,7 +235,7 @@ def main(args):
     local_config['ckpt_path'] = args.ckpt_path
     local_config['head_batchnorm'] = args.head_batchnorm
     local_config['head_hidden_size'] = args.head_hidden_size
-    local_config['linear_head'] = args.linear_head
+    local_config['linear_head'] = args.linear_head.lower() == 'true'
     local_config['emb_size_for_cosine'] = args.emb_size_for_cosine
     local_config['add_fc_layer'] = args.add_fc_layer
 
@@ -551,7 +551,7 @@ def main(args):
                                     args.output_dir, part,
                                     WEIGHTS_NAME
                                 )
-                                save_model(args, model, output_model_file)
+                                save_model(args, model, output_model_file, metrics)
                             if 'nen-nen' not in part:
                                 os.system(f'cp {dev_predictions}/{".".join(part.split(".")[1:-1])}* {best_dev_predictions}/')
                             else:
@@ -559,7 +559,7 @@ def main(args):
                                     args.output_dir, 'nen-nen-weights',
                                     WEIGHTS_NAME
                                 )
-                                save_model(args, model, output_model_file)
+                                save_model(args, model, output_model_file, metrics)
 
                         # dev_predictions = os.path.join(args.output_dir, 'dev_predictions')
                         # predict(
@@ -626,7 +626,7 @@ def main(args):
             print(metrics, file=outp)
 
 
-def save_model(args, model, output_model_file):
+def save_model(args, model, output_model_file, metrics):
     start = time.time()
     model_to_save = \
         model.module if hasattr(model, 'module') else model
@@ -640,6 +640,8 @@ def save_model(args, model, output_model_file):
     model_to_save.config.to_json_file(
         output_config_file
     )
+    with open(output_model_file+'.txt', 'w') as outp:
+        print(metrics, file=outp)
     print(f'model saved in {time.time() - start} seconds to {output_model_file}')
 
 
@@ -692,7 +694,7 @@ if __name__ == "__main__":
     parser.add_argument("--target_embeddings", type=str, default='concat')
     parser.add_argument("--head_batchnorm", type=int, default=0)
     parser.add_argument("--head_hidden_size", type=int, default=-1)
-    parser.add_argument("--linear_head", type=bool, default=False)
+    parser.add_argument("--linear_head", type=str, default='false')
     parser.add_argument("--add_fc_layer", type=str, default='True')
     parser.add_argument("--emb_size_for_cosine", type=int, default=1024)
 
