@@ -10,4 +10,4 @@ batch_norm=0
 targ_emb=concat
 hs=-1
 train_ckpt=accuracy.dev.en-en.score
-bash train_n_finetune_model.sh $DATA_TRAIN_DIR $DATA_FT_DIR $train_loss $ft_loss $pool $targ_emb $batch_norm $hs $train_epochs $ft_epochs $grad_acc_steps $train_ckpt
+bash train_n_finetune_model.sh $train_loss $ft_loss $pool $targ_emb $batch_norm $hs $train_epochs $ft_epochs $grad_acc_steps $train_ckpt $DATA_TRAIN_DIR $DATA_FT_DIR
