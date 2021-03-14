@@ -8,10 +8,10 @@ train_epochs=$7 #50
 ft_epochs=$8 #50
 grad_acc_steps=$9 #4
 train_ckpt=${10} #nen-nen-weights or accuracy.dev.en-en.score
-DATA_TRAIN_DIR=${11} #data/wic/
-DATA_FT_DIR=${12} #data/rusemshift-data/mean/
+OUTPUT_DIR=${11} #xlmrlarge-train_loss-${train_loss}-ft_loss-${ft_loss}-pool-${pool}-targ_emb-${targ_emb}-hs-${hs}-bn-${batch_norm}-ckpt-${train_ckpt}
+DATA_TRAIN_DIR=${12} #data/wic/
+DATA_FT_DIR=${13} #data/rusemshift-data/
 
-OUTPUT_DIR=xlmrlarge-train_loss-${train_loss}-ft_loss-${ft_loss}-pool-${pool}-targ_emb-${targ_emb}-hs-${hs}-bn-${batch_norm}-ckpt-${train_ckpt}
 linhead=$([ "$hs" == 0 ] && echo "true" || echo "false")
 echo output_dir = $OUTPUT_DIR
 echo data_train = $DATA_TRAIN_DIR, data_ft = $DATA_FT_DIR
