@@ -17,9 +17,9 @@ echo output_dir = $OUTPUT_DIR
 echo data_train = $DATA_TRAIN_DIR, data_ft = $DATA_FT_DIR
 echo train_epochs = $train_epochs, ft_epochs = $ft_epochs, grad_acc_steps = $grad_acc_steps
 
-#python run_model.py --do_train --do_validation --data_dir $DATA_TRAIN_DIR --output_dir ${OUTPUT_DIR}/train/ --gradient_accumulation_steps $grad_acc_steps \
-#	--pool_type $pool --target_embeddings $targ_emb --head_batchnorm $batch_norm --loss $train_loss --linear_head ${linhead} --head_hidden_size $hs \
-#	--num_train_epochs $train_epochs
+python run_model.py --do_train --do_validation --data_dir $DATA_TRAIN_DIR --output_dir ${OUTPUT_DIR}/train/ --gradient_accumulation_steps $grad_acc_steps \
+	--pool_type $pool --target_embeddings $targ_emb --head_batchnorm $batch_norm --loss $train_loss --linear_head ${linhead} --head_hidden_size $hs \
+	--num_train_epochs $train_epochs
 if [ -n "$DATA_FT_DIR" ]; then
 	python run_model.py --train_scd --do_train --do_validation --data_dir $DATA_FT_DIR --output_dir ${OUTPUT_DIR}/finetune/ --gradient_accumulation_steps $grad_acc_steps \
 		--pool_type $pool --target_embeddings $targ_emb --head_batchnorm $batch_norm --loss $ft_loss --linear_head ${linhead} --head_hidden_size $hs \
