@@ -1,3 +1,6 @@
+#!/bin/bash
+#SBATCH --gres=gpu:1
+#SBATCH --time=3-00:00:00
 train_loss=$1 #crossentropy_loss
 ft_loss=$2 #mse_loss
 pool=$3 #mean
