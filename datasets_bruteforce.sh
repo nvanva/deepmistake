@@ -25,7 +25,7 @@ for dataset in wic_ru-ru rusemshift-data rusemshift-ruwic-data; do
 if [ $(echo $dataset | grep rusemshift) ]; then
 	ft_save_by_score=spearman.dev.scd_1.score+spearman.dev.scd_2.score+spearman.dev.scd_1.wordwise.score+spearman.dev.scd_2.wordwise.score
 else
-	ft_save_by_score=accuracy.dev.nen-nen.score
+	ft_save_by_score=accuracy.dev.nen-nen.score+accuracy.dev.en-en.score
 fi
 DATA_FT_DIR=data_dumped_full/${dataset}/
 OUTPUT_DIR=xlmr-large..data_train-wic..train_loss-${train_loss}..data_ft-${dataset}..ft_loss-${ft_loss}..pool-${pool}..targ_emb-${targ_emb}..hs-${hs}..bn-${batch_norm}..ckpt-${train_ckpt}
