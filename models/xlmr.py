@@ -7,6 +7,8 @@ import torch
 from collections import defaultdict
 from torch import Tensor
 import torch.nn.functional as F
+import re
+from math import ceil 
 
 XLM_ROBERTA_PRETRAINED_MODEL_ARCHIVE_MAP = {
     "xlm-roberta-base": "https://s3.amazonaws.com/models.huggingface.co/bert/xlm-roberta-base-pytorch_model.bin",
@@ -89,6 +91,7 @@ class MSEPlusLoss(MSELoss):
 
     def forward(self, input: Tensor, target: Tensor) -> Tensor:
 #        import pdb; pdb.set_trace()
+        input = input + 2.5
         target_score = -target * (self.pos_score-self.neg_score) + self.neg_score  # neg_score if target==0, pos_score if target==-1, otherwise doesn't matter
         diffplus = torch.max(F.relu(target_score-self.eps-input), F.relu(input-target_score-self.eps)) 
         diff = torch.where(target > 0.0, input-target, diffplus)
@@ -125,7 +128,7 @@ class XLMRModel(BertPreTrainedModel):
         elif local_config['target_embeddings'].startswith('comb_'):
             input_size *= 2
         elif local_config['target_embeddings'].startswith('dist_'):
-            input_size = len(local_config['target_embeddings'].replace('dist_','').replace('n',''))//2 
+            input_size = len(local_config['target_embeddings'].replace('dist_','').replace('n1','').replace('n',''))//2 
 
         print('Classification head input size:', input_size)
         if self.local_config['loss'] in {'mseplus_loss', 'mse_loss'}:
@@ -238,16 +241,25 @@ class XLMRModel(BertPreTrainedModel):
                 emb2n = emb2 / emb2.norm(dim=-1, keepdim=True)
                 merged_feature = torch.cat((emb1n - emb2n, emb1n* emb2n))
             elif merge_type.startswith( 'dist_'):
-                if 'n' in merge_type:
-                    emb1n = emb1 / emb1.norm(dim=-1, keepdim=True)
-                    emb2n = emb2 / emb2.norm(dim=-1, keepdim=True)
+                ops = re.findall(r'(l1|l2|dot)(n1?)?',merge_type)
+                embs = {'': (emb1, emb2)} 
+                norms = list(zip(*ops))[-1]
+                if 'n' in norms:
+                    embs['n'] = ( emb1 / emb1.norm(dim=-1, keepdim=True), emb2 / emb2.norm(dim=-1, keepdim=True) )
+                if 'n1' in norms:
+                    embs['n1'] = ( emb1 / emb1.norm(dim=-1, keepdim=True, p=1), emb2 / emb2.norm(dim=-1, keepdim=True, p=1) )
+ 
                 dists = []
-                if 'l1' in merge_type:        
-                    dists.append(torch.norm(emb1n-emb2n if 'l1n' in merge_type else emb1-emb2, dim=-1, p=1, keepdim=True))
-                if 'l2' in merge_type:        
-                    dists.append(torch.norm(emb1n-emb2n if 'l2n' in merge_type else emb1-emb2, dim=-1, p=2, keepdim=True))
-                if 'dot' in merge_type:        
-                    dists.append((emb1n*emb2n if 'dotn' in merge_type else emb1*emb2 ).sum(dim=-1, keepdim=True))
+                for op, norm in ops:
+                    e1, e2 = embs[norm]
+                    if 'l1'==op:        
+                        dists.append(torch.norm(e1-e2, dim=-1, p=1, keepdim=True))
+                    elif 'l2'==op:        
+                        dists.append(torch.norm(e1-e2, dim=-1, p=2, keepdim=True))
+                    elif 'dot'==op:        
+                        dists.append((e1*e2).sum(dim=-1, keepdim=True))
+                    else:
+                        raise ValueError('Unknown op={op} in merge_type={merge_type}')
                 merged_feature = torch.cat(dists)
 
             features.append(merged_feature.unsqueeze(0))
@@ -260,13 +272,13 @@ class XLMRModel(BertPreTrainedModel):
     ):
         features = []
         max_seq_len = self.local_config['max_seq_len']
-
+#        import pdb; pdb.set_trace()
         examples = self.data_processor.get_examples(source_dir)
 #        import pdb; pdb.set_trace()
         syns = self.local_config['syns']
         syn_label_to_id = {'T': 1, 'F': 0}
         syns_lab_to_pos = {lab: i for i, lab in enumerate(syns)}
-        num_too_long_exs = 0
+        num_long_shortened, num_long_skipped = 0, 0
 
         for (ex_index, ex) in enumerate(examples):
             pos, label = ex.pos, ex.label
@@ -282,16 +294,18 @@ class XLMRModel(BertPreTrainedModel):
 
                 if left1:
                     tokens += self.tokenizer.tokenize(left1)
-                positions[syns_lab_to_pos['Target'] * 2] = len(tokens)
+                positions[syns_lab_to_pos['Target'] * 2] = len(tokens)  # start position in subwords of the 1st occurrence
                 target_subtokens = self.tokenizer.tokenize(target1)
                 if self.local_config['mask_syns']:
                     tokens += [self.tokenizer.mask_token] * len(target_subtokens)
                 else:
                     tokens += target_subtokens
-                positions[syns_lab_to_pos['Target'] * 2 + 1] = len(tokens)
+                positions[syns_lab_to_pos['Target'] * 2 + 1] = len(tokens)  # end position in subwords of the 1st occurrence
 
                 if right1:
-                    tokens += self.tokenizer.tokenize(right1) + [self.tokenizer.sep_token]
+                    tokens += self.tokenizer.tokenize(right1) 
+                sep_pos = len(tokens)
+                tokens += [self.tokenizer.sep_token]
                 if left2:
                     tokens += self.tokenizer.tokenize(left2)
 
@@ -303,15 +317,39 @@ class XLMRModel(BertPreTrainedModel):
                     tokens += target_subtokens
                 positions[syns_lab_to_pos['Synonym'] * 2 + 1] = len(tokens)
                 if right2:
-                    tokens += self.tokenizer.tokenize(right2) + [self.tokenizer.sep_token]
+                    tokens += self.tokenizer.tokenize(right2) 
+                tokens += [self.tokenizer.sep_token]
+
+                if len(tokens) > max_seq_len:
+                    if True:
+#                        import pdb; pdb.set_trace()
+                        seg_pos = [positions[syns_lab_to_pos['Target'] * 2], sep_pos, positions[syns_lab_to_pos['Synonym'] * 2], len(tokens)]
+                        seg_len = [seg_pos[0]] + [seg_pos[i+1]-seg_pos[i] for i in range(0,len(seg_pos)-1)]
+                        good_seg_len = max_seq_len // len(seg_len)
+                        #If all segments are of length at most good_seg_len, then everything shall fit. Thus, leave such segements and shorten those that are longer proportionally to their extra length.
+
+                        extra_toks = [max(0, l-good_seg_len)  for l in seg_len]
+                        remove_props = [e / sum(extra_toks) for e in extra_toks] # 0.0 for segments of at most good_seg_len, sum to 1.0
+                        ll = len(tokens) - max_seq_len
+                        remove_toks = [ceil(ll*p) for p in remove_props]
+                        tokens = [tokens[0]] + tokens[1+remove_toks[0]:seg_pos[1]-remove_toks[1]] + [tokens[seg_pos[1]]] + tokens[seg_pos[1]+1+remove_toks[2]:seg_pos[3]-1-remove_toks[3]] + [tokens[seg_pos[3]-1]]
+                        positions[syns_lab_to_pos['Target'] * 2] -= remove_toks[0]
+                        positions[syns_lab_to_pos['Target'] * 2 + 1] -= remove_toks[0]
+                        positions[syns_lab_to_pos['Synonym'] * 2] -= sum(remove_toks[0:-1])
+                        positions[syns_lab_to_pos['Synonym'] * 2 + 1] -= sum(remove_toks[0:-1])
+                        #print(tokens[slice(*positions[0:2])], tokens[slice(*positions[2:])]) 
+                        num_long_shortened += 1
+                    else:
+                        tokens = tokens[:max_seq_len]
+                        if max(positions) > max_seq_len - 1:
+                            print(f'Positions={positions} ({st1}-{end1}, {st2}-{end2}) are larger than max_seq_len={max_seq_len}: SKIPPING ')
+                            num_long_skipped += 1
+                            continue
+                        else:
+                            num_long_shortened += 1 
+                    
 
                 input_ids = self.tokenizer.convert_tokens_to_ids(tokens)
-                if len(input_ids) > max_seq_len:
-                    input_ids = input_ids[:max_seq_len]
-                    num_too_long_exs += 1
-                    if max(positions) > max_seq_len - 1:
-                        continue
-
                 input_mask = [1] * len(input_ids)
                 token_type_ids = [0] * max_seq_len
                 padding = [self.tokenizer.convert_tokens_to_ids([self.tokenizer.pad_token])[0]] * (max_seq_len - len(input_ids))
@@ -358,5 +396,6 @@ class XLMRModel(BertPreTrainedModel):
                             example=ex
                         )
                     )
-        logger.info("Not fitted examples percentage: %s" % str(num_too_long_exs / len(features) * 100.0))
+        num_ex = len(examples)*2 if self.local_config['symmetric'] else len(examples)
+        logger.info(f"Proportion of long examples shortened: {num_long_shortened/num_ex}, skipped: {num_long_skipped/num_ex}")
         return features

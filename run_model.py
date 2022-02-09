@@ -77,7 +77,6 @@ def predict(
         batch = tuple([elem.to(device) for elem in batch])
 
         input_ids, input_mask, token_type_ids, b_syn_labels, b_positions = batch
-
         with torch.no_grad():
             loss, syn_logits = model(
                 input_ids=input_ids,
@@ -210,6 +209,12 @@ def predict(
     return metrics
 
 
+def freeze(model, trainable_params, epoch):
+    for n,t in model.named_parameters():
+        t.requires_grad = any(((s.split(':')[0] in n) and (':' not in s or epoch>=int(s.split(':')[1])) for s in trainable_params.split(',')))
+        logger.info(f'epoch {epoch}: {n} requires grad: {t.requires_grad}')
+
+
 def main(args):
     local_config = json.load(open(args.local_config_path))
     local_config['loss'] = args.loss
@@ -311,10 +316,10 @@ def main(args):
         json.dump(vars(args), open(os.path.join(args.output_dir, 'args.json'), 'w'))
     logger.info("device: {}, n_gpu: {}".format(device, n_gpu))
 
-    with open(os.path.join(args.output_dir, 'local_config.json'), 'w') as outp:
-        json.dump(local_config, outp, indent=4)
-    with open(os.path.join(args.output_dir, 'args.json'), 'w') as outp:
-        json.dump(vars(args), outp, indent=4)
+#    with open(os.path.join(args.output_dir, 'local_config.json'), 'w') as outp:
+#        json.dump(local_config, outp, indent=4)
+#    with open(os.path.join(args.output_dir, 'args.json'), 'w') as outp:
+#        json.dump(vars(args), outp, indent=4)
 
 
     syns = sorted(local_config['syns'])
@@ -443,6 +448,8 @@ def main(args):
             nb_tr_examples = 0
             nb_tr_steps = 0
             cur_train_loss = defaultdict(float)
+            
+            freeze(model, args.trainable_params, epoch)             
 
             model.train()
             logger.info("Start epoch #{} (lr = {})...".format(epoch, scheduler.get_lr()[0]))
@@ -711,12 +718,16 @@ if __name__ == "__main__":
     parser.add_argument("--eval_input_dir", default='data/wic/test', help='Directory containing .data files to predict')
     parser.add_argument("--eval_output_dir", default='best_eval_test_predictions', help='Directory name where predictions will be saved')
 
+    parser.add_argument("--trainable_params", default='', help='Comma-separated list of substrings of trainable parameter names; optionally, after a colon the first epoch this hyperparameters becomes trainable')
 
     parsed_args = parser.parse_args()
     if parsed_args.do_eval:
-        new_args = json.load(open(os.path.join(parsed_args.output_dir, 'args.json')))
+        try:
+            new_args = json.load(open(os.path.join(parsed_args.output_dir, 'args.json')))
+        except FileNotFoundError:
+            new_args = json.load(open(os.path.join(parsed_args.output_dir, '../args.json')))
         for key, value in new_args.items():
-            if key.startswith('do') or key in ['ckpt_path', 'eval_input_dir', 'eval_output_dir', 'output_dir', 'eval_batch_size']:
+            if key.startswith('do') or key in ['ckpt_path', 'eval_input_dir', 'eval_output_dir', 'output_dir', 'eval_batch_size','use_cuda']:
                 continue
             setattr(parsed_args, key, value)
     main(parsed_args)
