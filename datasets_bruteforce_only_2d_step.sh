@@ -9,8 +9,8 @@ ft_loss=crossentropy_loss
 hs=0
 pool=mean
 batch_norm=1
-train_ckpt=nen-nen_weights
-ft_save_by_score = spearman.dev.dev.score
+train_ckpt=l1ndotn_schemas/xlmr-large..data_train-wic..train_loss-crossentropy_loss..pool-mean..targ_emb-dist_l1ndotn..hs-0..bn-1/train/nen-nen-weights
+ft_save_by_score=spearman.dev.dev.score
 
 # mcl-wic full -> [wic ru-ru, rusemshift, rusemshift + wic ru-ru] on CE loss
 DATA_TRAIN_DIR=data_dumped_full/wic/
