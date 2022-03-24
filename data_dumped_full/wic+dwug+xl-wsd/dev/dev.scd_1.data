@@ -180,7 +180,7 @@
         "start2": "274"
     },
     {
-        "end1": "140",
+        "end1": 139,
         "end2": "282",
         "grp": "COMPARE",
         "id": "dev.scd_1.15",
@@ -228,7 +228,7 @@
         "start2": "274"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "200",
         "grp": "COMPARE",
         "id": "dev.scd_1.19",
@@ -240,7 +240,7 @@
         "start2": "192"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "200",
         "grp": "COMPARE",
         "id": "dev.scd_1.20",
@@ -276,7 +276,7 @@
         "start2": "192"
     },
     {
-        "end1": "195",
+        "end1": 194,
         "end2": "200",
         "grp": "COMPARE",
         "id": "dev.scd_1.23",
@@ -288,7 +288,7 @@
         "start2": "192"
     },
     {
-        "end1": "195",
+        "end1": 194,
         "end2": "200",
         "grp": "COMPARE",
         "id": "dev.scd_1.24",
@@ -300,7 +300,7 @@
         "start2": "192"
     },
     {
-        "end1": "238",
+        "end1": 237,
         "end2": "200",
         "grp": "COMPARE",
         "id": "dev.scd_1.25",
@@ -349,7 +349,7 @@
     },
     {
         "end1": "192",
-        "end2": "251",
+        "end2": 250,
         "grp": "COMPARE",
         "id": "dev.scd_1.29",
         "lemma": "m\u00fasculo",
@@ -361,7 +361,7 @@
     },
     {
         "end1": "344",
-        "end2": "251",
+        "end2": 250,
         "grp": "COMPARE",
         "id": "dev.scd_1.30",
         "lemma": "m\u00fasculo",
@@ -373,7 +373,7 @@
     },
     {
         "end1": "338",
-        "end2": "251",
+        "end2": 250,
         "grp": "COMPARE",
         "id": "dev.scd_1.31",
         "lemma": "m\u00fasculo",
@@ -385,7 +385,7 @@
     },
     {
         "end1": "141",
-        "end2": "251",
+        "end2": 250,
         "grp": "COMPARE",
         "id": "dev.scd_1.32",
         "lemma": "m\u00fasculo",
@@ -397,7 +397,7 @@
     },
     {
         "end1": "141",
-        "end2": "251",
+        "end2": 250,
         "grp": "COMPARE",
         "id": "dev.scd_1.33",
         "lemma": "m\u00fasculo",
@@ -409,7 +409,7 @@
     },
     {
         "end1": "200",
-        "end2": "251",
+        "end2": 250,
         "grp": "COMPARE",
         "id": "dev.scd_1.34",
         "lemma": "m\u00fasculo",
@@ -421,7 +421,7 @@
     },
     {
         "end1": "200",
-        "end2": "251",
+        "end2": 250,
         "grp": "COMPARE",
         "id": "dev.scd_1.35",
         "lemma": "m\u00fasculo",
@@ -433,7 +433,7 @@
     },
     {
         "end1": "234",
-        "end2": "251",
+        "end2": 250,
         "grp": "COMPARE",
         "id": "dev.scd_1.36",
         "lemma": "m\u00fasculo",
@@ -444,8 +444,8 @@
         "start2": "242"
     },
     {
-        "end1": "140",
-        "end2": "251",
+        "end1": 139,
+        "end2": 250,
         "grp": "COMPARE",
         "id": "dev.scd_1.37",
         "lemma": "m\u00fasculo",
@@ -457,7 +457,7 @@
     },
     {
         "end1": "199",
-        "end2": "251",
+        "end2": 250,
         "grp": "COMPARE",
         "id": "dev.scd_1.38",
         "lemma": "m\u00fasculo",
@@ -469,7 +469,7 @@
     },
     {
         "end1": "199",
-        "end2": "251",
+        "end2": 250,
         "grp": "COMPARE",
         "id": "dev.scd_1.39",
         "lemma": "m\u00fasculo",
@@ -481,7 +481,7 @@
     },
     {
         "end1": "135",
-        "end2": "251",
+        "end2": 250,
         "grp": "COMPARE",
         "id": "dev.scd_1.40",
         "lemma": "m\u00fasculo",
@@ -672,7 +672,7 @@
         "start2": "226"
     },
     {
-        "end1": "123",
+        "end1": 120,
         "end2": "234",
         "grp": "COMPARE",
         "id": "dev.scd_1.56",
@@ -708,7 +708,7 @@
         "start2": "226"
     },
     {
-        "end1": "195",
+        "end1": 194,
         "end2": "234",
         "grp": "COMPARE",
         "id": "dev.scd_1.59",
@@ -732,7 +732,7 @@
         "start2": "226"
     },
     {
-        "end1": "160",
+        "end1": 159,
         "end2": "135",
         "grp": "COMPARE",
         "id": "dev.scd_1.61",
@@ -744,7 +744,7 @@
         "start2": "127"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "135",
         "grp": "COMPARE",
         "id": "dev.scd_1.62",
@@ -756,7 +756,7 @@
         "start2": "127"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "135",
         "grp": "COMPARE",
         "id": "dev.scd_1.63",
@@ -828,7 +828,7 @@
         "start2": "127"
     },
     {
-        "end1": "238",
+        "end1": 237,
         "end2": "135",
         "grp": "COMPARE",
         "id": "dev.scd_1.69",
@@ -852,7 +852,7 @@
         "start2": "127"
     },
     {
-        "end1": "160",
+        "end1": 159,
         "end2": "198",
         "grp": "COMPARE",
         "id": "dev.scd_1.71",
@@ -864,7 +864,7 @@
         "start2": "191"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "198",
         "grp": "COMPARE",
         "id": "dev.scd_1.72",
@@ -900,7 +900,7 @@
         "start2": "191"
     },
     {
-        "end1": "195",
+        "end1": 194,
         "end2": "198",
         "grp": "COMPARE",
         "id": "dev.scd_1.75",
@@ -924,7 +924,7 @@
         "start2": "191"
     },
     {
-        "end1": "251",
+        "end1": 250,
         "end2": "198",
         "grp": "COMPARE",
         "id": "dev.scd_1.77",
@@ -937,7 +937,7 @@
     },
     {
         "end1": "192",
-        "end2": "179",
+        "end2": 178,
         "grp": "COMPARE",
         "id": "dev.scd_1.78",
         "lemma": "m\u00fasculo",
@@ -949,7 +949,7 @@
     },
     {
         "end1": "344",
-        "end2": "179",
+        "end2": 178,
         "grp": "COMPARE",
         "id": "dev.scd_1.79",
         "lemma": "m\u00fasculo",
@@ -961,7 +961,7 @@
     },
     {
         "end1": "140",
-        "end2": "179",
+        "end2": 178,
         "grp": "COMPARE",
         "id": "dev.scd_1.80",
         "lemma": "m\u00fasculo",
@@ -973,7 +973,7 @@
     },
     {
         "end1": "217",
-        "end2": "179",
+        "end2": 178,
         "grp": "COMPARE",
         "id": "dev.scd_1.81",
         "lemma": "m\u00fasculo",
@@ -985,7 +985,7 @@
     },
     {
         "end1": "110",
-        "end2": "179",
+        "end2": 178,
         "grp": "COMPARE",
         "id": "dev.scd_1.82",
         "lemma": "m\u00fasculo",
@@ -997,7 +997,7 @@
     },
     {
         "end1": "141",
-        "end2": "179",
+        "end2": 178,
         "grp": "COMPARE",
         "id": "dev.scd_1.83",
         "lemma": "m\u00fasculo",
@@ -1009,7 +1009,7 @@
     },
     {
         "end1": "153",
-        "end2": "179",
+        "end2": 178,
         "grp": "COMPARE",
         "id": "dev.scd_1.84",
         "lemma": "m\u00fasculo",
@@ -1021,7 +1021,7 @@
     },
     {
         "end1": "153",
-        "end2": "179",
+        "end2": 178,
         "grp": "COMPARE",
         "id": "dev.scd_1.85",
         "lemma": "m\u00fasculo",
@@ -1033,7 +1033,7 @@
     },
     {
         "end1": "234",
-        "end2": "179",
+        "end2": 178,
         "grp": "COMPARE",
         "id": "dev.scd_1.86",
         "lemma": "m\u00fasculo",
@@ -1045,7 +1045,7 @@
     },
     {
         "end1": "210",
-        "end2": "179",
+        "end2": 178,
         "grp": "COMPARE",
         "id": "dev.scd_1.87",
         "lemma": "m\u00fasculo",
@@ -1057,7 +1057,7 @@
     },
     {
         "end1": "237",
-        "end2": "179",
+        "end2": 178,
         "grp": "COMPARE",
         "id": "dev.scd_1.88",
         "lemma": "m\u00fasculo",
@@ -1069,7 +1069,7 @@
     },
     {
         "end1": "135",
-        "end2": "179",
+        "end2": 178,
         "grp": "COMPARE",
         "id": "dev.scd_1.89",
         "lemma": "m\u00fasculo",
@@ -1081,7 +1081,7 @@
     },
     {
         "end1": "192",
-        "end2": "195",
+        "end2": 194,
         "grp": "COMPARE",
         "id": "dev.scd_1.90",
         "lemma": "m\u00fasculo",
@@ -1093,7 +1093,7 @@
     },
     {
         "end1": "95",
-        "end2": "195",
+        "end2": 194,
         "grp": "COMPARE",
         "id": "dev.scd_1.91",
         "lemma": "m\u00fasculo",
@@ -1105,7 +1105,7 @@
     },
     {
         "end1": "217",
-        "end2": "195",
+        "end2": 194,
         "grp": "COMPARE",
         "id": "dev.scd_1.92",
         "lemma": "m\u00fasculo",
@@ -1117,7 +1117,7 @@
     },
     {
         "end1": "110",
-        "end2": "195",
+        "end2": 194,
         "grp": "COMPARE",
         "id": "dev.scd_1.93",
         "lemma": "m\u00fasculo",
@@ -1129,7 +1129,7 @@
     },
     {
         "end1": "153",
-        "end2": "195",
+        "end2": 194,
         "grp": "COMPARE",
         "id": "dev.scd_1.94",
         "lemma": "m\u00fasculo",
@@ -1141,7 +1141,7 @@
     },
     {
         "end1": "210",
-        "end2": "195",
+        "end2": 194,
         "grp": "COMPARE",
         "id": "dev.scd_1.95",
         "lemma": "m\u00fasculo",
@@ -1153,7 +1153,7 @@
     },
     {
         "end1": "199",
-        "end2": "195",
+        "end2": 194,
         "grp": "COMPARE",
         "id": "dev.scd_1.96",
         "lemma": "m\u00fasculo",
@@ -1165,7 +1165,7 @@
     },
     {
         "end1": "135",
-        "end2": "195",
+        "end2": 194,
         "grp": "COMPARE",
         "id": "dev.scd_1.97",
         "lemma": "m\u00fasculo",
@@ -1177,7 +1177,7 @@
     },
     {
         "end1": "169",
-        "end2": "195",
+        "end2": 194,
         "grp": "COMPARE",
         "id": "dev.scd_1.98",
         "lemma": "m\u00fasculo",
@@ -1189,7 +1189,7 @@
     },
     {
         "end1": "192",
-        "end2": "238",
+        "end2": 237,
         "grp": "COMPARE",
         "id": "dev.scd_1.99",
         "lemma": "m\u00fasculo",
@@ -1201,7 +1201,7 @@
     },
     {
         "end1": "344",
-        "end2": "238",
+        "end2": 237,
         "grp": "COMPARE",
         "id": "dev.scd_1.100",
         "lemma": "m\u00fasculo",
@@ -1213,7 +1213,7 @@
     },
     {
         "end1": "140",
-        "end2": "238",
+        "end2": 237,
         "grp": "COMPARE",
         "id": "dev.scd_1.101",
         "lemma": "m\u00fasculo",
@@ -1225,7 +1225,7 @@
     },
     {
         "end1": "135",
-        "end2": "238",
+        "end2": 237,
         "grp": "COMPARE",
         "id": "dev.scd_1.102",
         "lemma": "m\u00fasculo",
@@ -1237,7 +1237,7 @@
     },
     {
         "end1": "169",
-        "end2": "238",
+        "end2": 237,
         "grp": "COMPARE",
         "id": "dev.scd_1.103",
         "lemma": "m\u00fasculo",
@@ -1296,7 +1296,7 @@
         "start2": "199"
     },
     {
-        "end1": "140",
+        "end1": 139,
         "end2": "207",
         "grp": "COMPARE",
         "id": "dev.scd_1.108",
@@ -1344,7 +1344,7 @@
         "start2": "145"
     },
     {
-        "end1": "140",
+        "end1": 139,
         "end2": "153",
         "grp": "COMPARE",
         "id": "dev.scd_1.112",
@@ -1356,7 +1356,7 @@
         "start2": "145"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "175",
         "grp": "COMPARE",
         "id": "dev.scd_1.113",
@@ -1416,7 +1416,7 @@
         "start2": "168"
     },
     {
-        "end1": "251",
+        "end1": 250,
         "end2": "175",
         "grp": "COMPARE",
         "id": "dev.scd_1.118",
@@ -1428,7 +1428,7 @@
         "start2": "168"
     },
     {
-        "end1": "251",
+        "end1": 250,
         "end2": "175",
         "grp": "COMPARE",
         "id": "dev.scd_1.119",
@@ -1452,7 +1452,7 @@
         "start2": "168"
     },
     {
-        "end1": "160",
+        "end1": 159,
         "end2": "192",
         "grp": "COMPARE",
         "id": "dev.scd_1.121",
@@ -1704,7 +1704,7 @@
         "start2": "337"
     },
     {
-        "end1": "140",
+        "end1": 139,
         "end2": "344",
         "grp": "COMPARE",
         "id": "dev.scd_1.142",
@@ -1716,7 +1716,7 @@
         "start2": "337"
     },
     {
-        "end1": "140",
+        "end1": 139,
         "end2": "344",
         "grp": "COMPARE",
         "id": "dev.scd_1.143",
@@ -1752,7 +1752,7 @@
         "start2": "337"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "210",
         "grp": "COMPARE",
         "id": "dev.scd_1.146",
@@ -1824,8 +1824,8 @@
         "start2": "202"
     },
     {
-        "end1": "107",
-        "end2": "140",
+        "end1": 106,
+        "end2": 139,
         "grp": "COMPARE",
         "id": "dev.scd_1.152",
         "lemma": "m\u00fasculo",
@@ -1837,7 +1837,7 @@
     },
     {
         "end1": "422",
-        "end2": "140",
+        "end2": 139,
         "grp": "COMPARE",
         "id": "dev.scd_1.153",
         "lemma": "m\u00fasculo",
@@ -1849,7 +1849,7 @@
     },
     {
         "end1": "153",
-        "end2": "140",
+        "end2": 139,
         "grp": "COMPARE",
         "id": "dev.scd_1.154",
         "lemma": "m\u00fasculo",
@@ -1861,7 +1861,7 @@
     },
     {
         "end1": "157",
-        "end2": "140",
+        "end2": 139,
         "grp": "COMPARE",
         "id": "dev.scd_1.155",
         "lemma": "m\u00fasculo",
@@ -1873,7 +1873,7 @@
     },
     {
         "end1": "207",
-        "end2": "140",
+        "end2": 139,
         "grp": "COMPARE",
         "id": "dev.scd_1.156",
         "lemma": "m\u00fasculo",
@@ -1908,7 +1908,7 @@
         "start2": "133"
     },
     {
-        "end1": "195",
+        "end1": 194,
         "end2": "141",
         "grp": "COMPARE",
         "id": "dev.scd_1.159",
@@ -1920,7 +1920,7 @@
         "start2": "133"
     },
     {
-        "end1": "238",
+        "end1": 237,
         "end2": "141",
         "grp": "COMPARE",
         "id": "dev.scd_1.160",
@@ -1968,7 +1968,7 @@
         "start2": "87"
     },
     {
-        "end1": "123",
+        "end1": 120,
         "end2": "95",
         "grp": "COMPARE",
         "id": "dev.scd_1.164",
@@ -2004,7 +2004,7 @@
         "start2": "87"
     },
     {
-        "end1": "195",
+        "end1": 194,
         "end2": "95",
         "grp": "COMPARE",
         "id": "dev.scd_1.167",
@@ -2016,7 +2016,7 @@
         "start2": "87"
     },
     {
-        "end1": "238",
+        "end1": 237,
         "end2": "95",
         "grp": "COMPARE",
         "id": "dev.scd_1.168",
@@ -2028,7 +2028,7 @@
         "start2": "87"
     },
     {
-        "end1": "238",
+        "end1": 237,
         "end2": "95",
         "grp": "COMPARE",
         "id": "dev.scd_1.169",
@@ -2088,7 +2088,7 @@
         "start2": "87"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "344",
         "grp": "COMPARE",
         "id": "dev.scd_1.174",
@@ -2197,7 +2197,7 @@
     },
     {
         "end1": "140",
-        "end2": "123",
+        "end2": 120,
         "grp": "COMPARE",
         "id": "dev.scd_1.183",
         "lemma": "m\u00fasculo",
@@ -2209,7 +2209,7 @@
     },
     {
         "end1": "338",
-        "end2": "123",
+        "end2": 120,
         "grp": "COMPARE",
         "id": "dev.scd_1.184",
         "lemma": "m\u00fasculo",
@@ -2221,7 +2221,7 @@
     },
     {
         "end1": "217",
-        "end2": "123",
+        "end2": 120,
         "grp": "COMPARE",
         "id": "dev.scd_1.185",
         "lemma": "m\u00fasculo",
@@ -2233,7 +2233,7 @@
     },
     {
         "end1": "198",
-        "end2": "123",
+        "end2": 120,
         "grp": "COMPARE",
         "id": "dev.scd_1.186",
         "lemma": "m\u00fasculo",
@@ -2245,7 +2245,7 @@
     },
     {
         "end1": "141",
-        "end2": "123",
+        "end2": 120,
         "grp": "COMPARE",
         "id": "dev.scd_1.187",
         "lemma": "m\u00fasculo",
@@ -2257,7 +2257,7 @@
     },
     {
         "end1": "175",
-        "end2": "123",
+        "end2": 120,
         "grp": "COMPARE",
         "id": "dev.scd_1.188",
         "lemma": "m\u00fasculo",
@@ -2269,7 +2269,7 @@
     },
     {
         "end1": "234",
-        "end2": "123",
+        "end2": 120,
         "grp": "COMPARE",
         "id": "dev.scd_1.189",
         "lemma": "m\u00fasculo",
@@ -2281,7 +2281,7 @@
     },
     {
         "end1": "210",
-        "end2": "123",
+        "end2": 120,
         "grp": "COMPARE",
         "id": "dev.scd_1.190",
         "lemma": "m\u00fasculo",
@@ -2293,7 +2293,7 @@
     },
     {
         "end1": "237",
-        "end2": "123",
+        "end2": 120,
         "grp": "COMPARE",
         "id": "dev.scd_1.191",
         "lemma": "m\u00fasculo",
@@ -2340,7 +2340,7 @@
         "start2": "331"
     },
     {
-        "end1": "195",
+        "end1": 194,
         "end2": "338",
         "grp": "COMPARE",
         "id": "dev.scd_1.195",
@@ -2352,7 +2352,7 @@
         "start2": "331"
     },
     {
-        "end1": "238",
+        "end1": 237,
         "end2": "338",
         "grp": "COMPARE",
         "id": "dev.scd_1.196",
@@ -2412,7 +2412,7 @@
         "start2": "331"
     },
     {
-        "end1": "160",
+        "end1": 159,
         "end2": "169",
         "grp": "COMPARE",
         "id": "dev.scd_1.201",
@@ -2424,7 +2424,7 @@
         "start2": "162"
     },
     {
-        "end1": "160",
+        "end1": 159,
         "end2": "169",
         "grp": "COMPARE",
         "id": "dev.scd_1.202",
@@ -2436,7 +2436,7 @@
         "start2": "162"
     },
     {
-        "end1": "160",
+        "end1": 159,
         "end2": "169",
         "grp": "COMPARE",
         "id": "dev.scd_1.203",
@@ -2448,7 +2448,7 @@
         "start2": "162"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "169",
         "grp": "COMPARE",
         "id": "dev.scd_1.204",
@@ -2460,7 +2460,7 @@
         "start2": "162"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "169",
         "grp": "COMPARE",
         "id": "dev.scd_1.205",
@@ -2472,7 +2472,7 @@
         "start2": "162"
     },
     {
-        "end1": "123",
+        "end1": 120,
         "end2": "169",
         "grp": "COMPARE",
         "id": "dev.scd_1.206",
@@ -2484,7 +2484,7 @@
         "start2": "162"
     },
     {
-        "end1": "123",
+        "end1": 120,
         "end2": "169",
         "grp": "COMPARE",
         "id": "dev.scd_1.207",
@@ -2520,7 +2520,7 @@
         "start2": "162"
     },
     {
-        "end1": "179",
+        "end1": 178,
         "end2": "169",
         "grp": "COMPARE",
         "id": "dev.scd_1.210",
@@ -2532,7 +2532,7 @@
         "start2": "162"
     },
     {
-        "end1": "179",
+        "end1": 178,
         "end2": "169",
         "grp": "COMPARE",
         "id": "dev.scd_1.211",
@@ -2569,7 +2569,7 @@
     },
     {
         "end1": "140",
-        "end2": "160",
+        "end2": 159,
         "grp": "COMPARE",
         "id": "dev.scd_1.214",
         "lemma": "m\u00fasculo",
@@ -2581,7 +2581,7 @@
     },
     {
         "end1": "338",
-        "end2": "160",
+        "end2": 159,
         "grp": "COMPARE",
         "id": "dev.scd_1.215",
         "lemma": "m\u00fasculo",
@@ -2593,7 +2593,7 @@
     },
     {
         "end1": "338",
-        "end2": "160",
+        "end2": 159,
         "grp": "COMPARE",
         "id": "dev.scd_1.216",
         "lemma": "m\u00fasculo",
@@ -2605,7 +2605,7 @@
     },
     {
         "end1": "217",
-        "end2": "160",
+        "end2": 159,
         "grp": "COMPARE",
         "id": "dev.scd_1.217",
         "lemma": "m\u00fasculo",
@@ -2617,7 +2617,7 @@
     },
     {
         "end1": "110",
-        "end2": "160",
+        "end2": 159,
         "grp": "COMPARE",
         "id": "dev.scd_1.218",
         "lemma": "m\u00fasculo",
@@ -2629,7 +2629,7 @@
     },
     {
         "end1": "198",
-        "end2": "160",
+        "end2": 159,
         "grp": "COMPARE",
         "id": "dev.scd_1.219",
         "lemma": "m\u00fasculo",
@@ -2641,7 +2641,7 @@
     },
     {
         "end1": "141",
-        "end2": "160",
+        "end2": 159,
         "grp": "COMPARE",
         "id": "dev.scd_1.220",
         "lemma": "m\u00fasculo",
@@ -2653,7 +2653,7 @@
     },
     {
         "end1": "175",
-        "end2": "160",
+        "end2": 159,
         "grp": "COMPARE",
         "id": "dev.scd_1.221",
         "lemma": "m\u00fasculo",
@@ -2665,7 +2665,7 @@
     },
     {
         "end1": "210",
-        "end2": "160",
+        "end2": 159,
         "grp": "COMPARE",
         "id": "dev.scd_1.222",
         "lemma": "m\u00fasculo",
@@ -2677,7 +2677,7 @@
     },
     {
         "end1": "199",
-        "end2": "160",
+        "end2": 159,
         "grp": "COMPARE",
         "id": "dev.scd_1.223",
         "lemma": "m\u00fasculo",
@@ -2688,7 +2688,7 @@
         "start2": "152"
     },
     {
-        "end1": "160",
+        "end1": 159,
         "end2": "237",
         "grp": "COMPARE",
         "id": "dev.scd_1.224",
@@ -2700,7 +2700,7 @@
         "start2": "229"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "237",
         "grp": "COMPARE",
         "id": "dev.scd_1.225",
@@ -2808,7 +2808,7 @@
         "start2": "229"
     },
     {
-        "end1": "251",
+        "end1": 250,
         "end2": "237",
         "grp": "COMPARE",
         "id": "dev.scd_1.234",
@@ -2821,7 +2821,7 @@
     },
     {
         "end1": "95",
-        "end2": "107",
+        "end2": 106,
         "grp": "COMPARE",
         "id": "dev.scd_1.235",
         "lemma": "m\u00fasculo",
@@ -2833,7 +2833,7 @@
     },
     {
         "end1": "110",
-        "end2": "107",
+        "end2": 106,
         "grp": "COMPARE",
         "id": "dev.scd_1.236",
         "lemma": "m\u00fasculo",
@@ -2845,7 +2845,7 @@
     },
     {
         "end1": "141",
-        "end2": "107",
+        "end2": 106,
         "grp": "COMPARE",
         "id": "dev.scd_1.237",
         "lemma": "m\u00fasculo",
@@ -2857,7 +2857,7 @@
     },
     {
         "end1": "175",
-        "end2": "107",
+        "end2": 106,
         "grp": "COMPARE",
         "id": "dev.scd_1.238",
         "lemma": "m\u00fasculo",
@@ -2869,7 +2869,7 @@
     },
     {
         "end1": "210",
-        "end2": "107",
+        "end2": 106,
         "grp": "COMPARE",
         "id": "dev.scd_1.239",
         "lemma": "m\u00fasculo",
@@ -2881,7 +2881,7 @@
     },
     {
         "end1": "210",
-        "end2": "107",
+        "end2": 106,
         "grp": "COMPARE",
         "id": "dev.scd_1.240",
         "lemma": "m\u00fasculo",
@@ -2892,8 +2892,8 @@
         "start2": "98"
     },
     {
-        "end1": "140",
-        "end2": "107",
+        "end1": 139,
+        "end2": 106,
         "grp": "COMPARE",
         "id": "dev.scd_1.241",
         "lemma": "m\u00fasculo",
@@ -2905,7 +2905,7 @@
     },
     {
         "end1": "169",
-        "end2": "107",
+        "end2": 106,
         "grp": "COMPARE",
         "id": "dev.scd_1.242",
         "lemma": "m\u00fasculo",
@@ -3132,7 +3132,7 @@
         "start2": "199"
     },
     {
-        "end1": "140",
+        "end1": 139,
         "end2": "207",
         "grp": "COMPARE",
         "id": "dev.scd_1.261",
@@ -3168,7 +3168,7 @@
         "start2": "199"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "153",
         "grp": "COMPARE",
         "id": "dev.scd_1.264",
@@ -3180,7 +3180,7 @@
         "start2": "145"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "153",
         "grp": "COMPARE",
         "id": "dev.scd_1.265",
@@ -3360,7 +3360,7 @@
         "start2": "149"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "131",
         "grp": "COMPARE",
         "id": "dev.scd_1.280",
@@ -3372,7 +3372,7 @@
         "start2": "123"
     },
     {
-        "end1": "123",
+        "end1": 120,
         "end2": "131",
         "grp": "COMPARE",
         "id": "dev.scd_1.281",
@@ -3396,7 +3396,7 @@
         "start2": "123"
     },
     {
-        "end1": "179",
+        "end1": 178,
         "end2": "131",
         "grp": "COMPARE",
         "id": "dev.scd_1.283",
@@ -3420,7 +3420,7 @@
         "start2": "123"
     },
     {
-        "end1": "238",
+        "end1": 237,
         "end2": "131",
         "grp": "COMPARE",
         "id": "dev.scd_1.285",
@@ -3528,7 +3528,7 @@
         "start2": "123"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "199",
         "grp": "COMPARE",
         "id": "dev.scd_1.294",
@@ -3552,7 +3552,7 @@
         "start2": "192"
     },
     {
-        "end1": "123",
+        "end1": 120,
         "end2": "199",
         "grp": "COMPARE",
         "id": "dev.scd_1.296",
@@ -3600,7 +3600,7 @@
         "start2": "192"
     },
     {
-        "end1": "195",
+        "end1": 194,
         "end2": "199",
         "grp": "COMPARE",
         "id": "dev.scd_1.300",
@@ -3612,7 +3612,7 @@
         "start2": "192"
     },
     {
-        "end1": "238",
+        "end1": 237,
         "end2": "199",
         "grp": "COMPARE",
         "id": "dev.scd_1.301",
@@ -3636,7 +3636,7 @@
         "start2": "192"
     },
     {
-        "end1": "251",
+        "end1": 250,
         "end2": "199",
         "grp": "COMPARE",
         "id": "dev.scd_1.303",
@@ -3648,7 +3648,7 @@
         "start2": "192"
     },
     {
-        "end1": "123",
+        "end1": 120,
         "end2": "217",
         "grp": "COMPARE",
         "id": "dev.scd_1.304",
@@ -3960,7 +3960,7 @@
         "start2": "132"
     },
     {
-        "end1": "251",
+        "end1": 250,
         "end2": "140",
         "grp": "COMPARE",
         "id": "dev.scd_1.330",
@@ -4020,7 +4020,7 @@
         "start2": "314"
     },
     {
-        "end1": "140",
+        "end1": 139,
         "end2": "322",
         "grp": "COMPARE",
         "id": "dev.scd_1.335",
@@ -4068,7 +4068,7 @@
         "start2": "314"
     },
     {
-        "end1": "753",
+        "end1": 752,
         "end2": "292",
         "grp": "COMPARE",
         "id": "dev.scd_1.339",
@@ -4092,7 +4092,7 @@
         "start2": "284"
     },
     {
-        "end1": "359",
+        "end1": 358,
         "end2": "292",
         "grp": "COMPARE",
         "id": "dev.scd_1.341",
@@ -4104,7 +4104,7 @@
         "start2": "284"
     },
     {
-        "end1": "359",
+        "end1": 358,
         "end2": "292",
         "grp": "COMPARE",
         "id": "dev.scd_1.342",
@@ -4140,7 +4140,7 @@
         "start2": "267"
     },
     {
-        "end1": "204",
+        "end1": 203,
         "end2": "275",
         "grp": "COMPARE",
         "id": "dev.scd_1.345",
@@ -4224,7 +4224,7 @@
         "start2": "267"
     },
     {
-        "end1": "753",
+        "end1": 752,
         "end2": "128",
         "grp": "COMPARE",
         "id": "dev.scd_1.352",
@@ -4284,7 +4284,7 @@
         "start2": "120"
     },
     {
-        "end1": "359",
+        "end1": 358,
         "end2": "128",
         "grp": "COMPARE",
         "id": "dev.scd_1.357",
@@ -4296,7 +4296,7 @@
         "start2": "120"
     },
     {
-        "end1": "213",
+        "end1": 212,
         "end2": "128",
         "grp": "COMPARE",
         "id": "dev.scd_1.358",
@@ -4332,8 +4332,8 @@
         "start2": "120"
     },
     {
-        "end1": "204",
-        "end2": "359",
+        "end1": 203,
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.361",
         "lemma": "escritor",
@@ -4345,7 +4345,7 @@
     },
     {
         "end1": "95",
-        "end2": "359",
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.362",
         "lemma": "escritor",
@@ -4357,7 +4357,7 @@
     },
     {
         "end1": "95",
-        "end2": "359",
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.363",
         "lemma": "escritor",
@@ -4369,7 +4369,7 @@
     },
     {
         "end1": "331",
-        "end2": "359",
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.364",
         "lemma": "escritor",
@@ -4381,7 +4381,7 @@
     },
     {
         "end1": "331",
-        "end2": "359",
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.365",
         "lemma": "escritor",
@@ -4392,8 +4392,8 @@
         "start2": "350"
     },
     {
-        "end1": "289",
-        "end2": "359",
+        "end1": 288,
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.366",
         "lemma": "escritor",
@@ -4404,8 +4404,8 @@
         "start2": "350"
     },
     {
-        "end1": "289",
-        "end2": "359",
+        "end1": 288,
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.367",
         "lemma": "escritor",
@@ -4416,8 +4416,8 @@
         "start2": "350"
     },
     {
-        "end1": "289",
-        "end2": "359",
+        "end1": 288,
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.368",
         "lemma": "escritor",
@@ -4429,7 +4429,7 @@
     },
     {
         "end1": "401",
-        "end2": "359",
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.369",
         "lemma": "escritor",
@@ -4500,7 +4500,7 @@
         "start2": "132"
     },
     {
-        "end1": "753",
+        "end1": 752,
         "end2": "99",
         "grp": "COMPARE",
         "id": "dev.scd_1.375",
@@ -4512,7 +4512,7 @@
         "start2": "91"
     },
     {
-        "end1": "753",
+        "end1": 752,
         "end2": "99",
         "grp": "COMPARE",
         "id": "dev.scd_1.376",
@@ -4536,7 +4536,7 @@
         "start2": "91"
     },
     {
-        "end1": "241",
+        "end1": 240,
         "end2": "99",
         "grp": "COMPARE",
         "id": "dev.scd_1.378",
@@ -4608,7 +4608,7 @@
         "start2": "91"
     },
     {
-        "end1": "359",
+        "end1": 358,
         "end2": "99",
         "grp": "COMPARE",
         "id": "dev.scd_1.384",
@@ -4632,7 +4632,7 @@
         "start2": "351"
     },
     {
-        "end1": "204",
+        "end1": 203,
         "end2": "359",
         "grp": "COMPARE",
         "id": "dev.scd_1.386",
@@ -4692,7 +4692,7 @@
         "start2": "351"
     },
     {
-        "end1": "753",
+        "end1": 752,
         "end2": "75",
         "grp": "COMPARE",
         "id": "dev.scd_1.391",
@@ -4764,7 +4764,7 @@
         "start2": "67"
     },
     {
-        "end1": "213",
+        "end1": 212,
         "end2": "75",
         "grp": "COMPARE",
         "id": "dev.scd_1.397",
@@ -4788,7 +4788,7 @@
         "start2": "67"
     },
     {
-        "end1": "359",
+        "end1": 358,
         "end2": "75",
         "grp": "COMPARE",
         "id": "dev.scd_1.399",
@@ -4800,7 +4800,7 @@
         "start2": "67"
     },
     {
-        "end1": "753",
+        "end1": 752,
         "end2": "114",
         "grp": "COMPARE",
         "id": "dev.scd_1.400",
@@ -4812,7 +4812,7 @@
         "start2": "106"
     },
     {
-        "end1": "241",
+        "end1": 240,
         "end2": "114",
         "grp": "COMPARE",
         "id": "dev.scd_1.401",
@@ -4824,7 +4824,7 @@
         "start2": "106"
     },
     {
-        "end1": "359",
+        "end1": 358,
         "end2": "114",
         "grp": "COMPARE",
         "id": "dev.scd_1.402",
@@ -4836,7 +4836,7 @@
         "start2": "106"
     },
     {
-        "end1": "213",
+        "end1": 212,
         "end2": "114",
         "grp": "COMPARE",
         "id": "dev.scd_1.403",
@@ -4848,7 +4848,7 @@
         "start2": "106"
     },
     {
-        "end1": "753",
+        "end1": 752,
         "end2": "331",
         "grp": "COMPARE",
         "id": "dev.scd_1.404",
@@ -4884,7 +4884,7 @@
         "start2": "323"
     },
     {
-        "end1": "213",
+        "end1": 212,
         "end2": "331",
         "grp": "COMPARE",
         "id": "dev.scd_1.407",
@@ -4896,7 +4896,7 @@
         "start2": "323"
     },
     {
-        "end1": "359",
+        "end1": 358,
         "end2": "331",
         "grp": "COMPARE",
         "id": "dev.scd_1.408",
@@ -4980,7 +4980,7 @@
         "start2": "76"
     },
     {
-        "end1": "359",
+        "end1": 358,
         "end2": "84",
         "grp": "COMPARE",
         "id": "dev.scd_1.415",
@@ -4992,7 +4992,7 @@
         "start2": "76"
     },
     {
-        "end1": "213",
+        "end1": 212,
         "end2": "84",
         "grp": "COMPARE",
         "id": "dev.scd_1.416",
@@ -5040,7 +5040,7 @@
         "start2": "184"
     },
     {
-        "end1": "232",
+        "end1": 231,
         "end2": "194",
         "grp": "COMPARE",
         "id": "dev.scd_1.420",
@@ -5052,7 +5052,7 @@
         "start2": "184"
     },
     {
-        "end1": "232",
+        "end1": 231,
         "end2": "194",
         "grp": "COMPARE",
         "id": "dev.scd_1.421",
@@ -5136,7 +5136,7 @@
         "start2": "184"
     },
     {
-        "end1": "359",
+        "end1": 358,
         "end2": "194",
         "grp": "COMPARE",
         "id": "dev.scd_1.428",
@@ -5160,7 +5160,7 @@
         "start2": "323"
     },
     {
-        "end1": "241",
+        "end1": 240,
         "end2": "331",
         "grp": "COMPARE",
         "id": "dev.scd_1.430",
@@ -5172,7 +5172,7 @@
         "start2": "323"
     },
     {
-        "end1": "241",
+        "end1": 240,
         "end2": "331",
         "grp": "COMPARE",
         "id": "dev.scd_1.431",
@@ -5232,7 +5232,7 @@
         "start2": "323"
     },
     {
-        "end1": "213",
+        "end1": 212,
         "end2": "331",
         "grp": "COMPARE",
         "id": "dev.scd_1.436",
@@ -5316,7 +5316,7 @@
         "start2": "170"
     },
     {
-        "end1": "289",
+        "end1": 288,
         "end2": "178",
         "grp": "COMPARE",
         "id": "dev.scd_1.443",
@@ -5412,7 +5412,7 @@
         "start2": "105"
     },
     {
-        "end1": "213",
+        "end1": 212,
         "end2": "115",
         "grp": "COMPARE",
         "id": "dev.scd_1.451",
@@ -5448,7 +5448,7 @@
         "start2": "312"
     },
     {
-        "end1": "204",
+        "end1": 203,
         "end2": "320",
         "grp": "COMPARE",
         "id": "dev.scd_1.454",
@@ -5460,7 +5460,7 @@
         "start2": "312"
     },
     {
-        "end1": "204",
+        "end1": 203,
         "end2": "320",
         "grp": "COMPARE",
         "id": "dev.scd_1.455",
@@ -5604,7 +5604,7 @@
         "start2": "197"
     },
     {
-        "end1": "359",
+        "end1": 358,
         "end2": "207",
         "grp": "COMPARE",
         "id": "dev.scd_1.467",
@@ -5640,7 +5640,7 @@
         "start2": "197"
     },
     {
-        "end1": "359",
+        "end1": 358,
         "end2": "207",
         "grp": "COMPARE",
         "id": "dev.scd_1.470",
@@ -5652,7 +5652,7 @@
         "start2": "197"
     },
     {
-        "end1": "359",
+        "end1": 358,
         "end2": "207",
         "grp": "COMPARE",
         "id": "dev.scd_1.471",
@@ -5725,7 +5725,7 @@
     },
     {
         "end1": "115",
-        "end2": "232",
+        "end2": 231,
         "grp": "COMPARE",
         "id": "dev.scd_1.477",
         "lemma": "escritor",
@@ -5736,8 +5736,8 @@
         "start2": "223"
     },
     {
-        "end1": "204",
-        "end2": "232",
+        "end1": 203,
+        "end2": 231,
         "grp": "COMPARE",
         "id": "dev.scd_1.478",
         "lemma": "escritor",
@@ -5749,7 +5749,7 @@
     },
     {
         "end1": "95",
-        "end2": "232",
+        "end2": 231,
         "grp": "COMPARE",
         "id": "dev.scd_1.479",
         "lemma": "escritor",
@@ -5761,7 +5761,7 @@
     },
     {
         "end1": "331",
-        "end2": "232",
+        "end2": 231,
         "grp": "COMPARE",
         "id": "dev.scd_1.480",
         "lemma": "escritor",
@@ -5773,7 +5773,7 @@
     },
     {
         "end1": "128",
-        "end2": "232",
+        "end2": 231,
         "grp": "COMPARE",
         "id": "dev.scd_1.481",
         "lemma": "escritor",
@@ -5785,7 +5785,7 @@
     },
     {
         "end1": "194",
-        "end2": "232",
+        "end2": 231,
         "grp": "COMPARE",
         "id": "dev.scd_1.482",
         "lemma": "escritor",
@@ -5797,7 +5797,7 @@
     },
     {
         "end1": "239",
-        "end2": "232",
+        "end2": 231,
         "grp": "COMPARE",
         "id": "dev.scd_1.483",
         "lemma": "escritor",
@@ -5809,7 +5809,7 @@
     },
     {
         "end1": "239",
-        "end2": "232",
+        "end2": 231,
         "grp": "COMPARE",
         "id": "dev.scd_1.484",
         "lemma": "escritor",
@@ -5821,7 +5821,7 @@
     },
     {
         "end1": "207",
-        "end2": "232",
+        "end2": 231,
         "grp": "COMPARE",
         "id": "dev.scd_1.485",
         "lemma": "escritor",
@@ -5833,7 +5833,7 @@
     },
     {
         "end1": "174",
-        "end2": "232",
+        "end2": 231,
         "grp": "COMPARE",
         "id": "dev.scd_1.486",
         "lemma": "escritor",
@@ -5845,7 +5845,7 @@
     },
     {
         "end1": "292",
-        "end2": "232",
+        "end2": 231,
         "grp": "COMPARE",
         "id": "dev.scd_1.487",
         "lemma": "escritor",
@@ -5857,7 +5857,7 @@
     },
     {
         "end1": "292",
-        "end2": "232",
+        "end2": 231,
         "grp": "COMPARE",
         "id": "dev.scd_1.488",
         "lemma": "escritor",
@@ -5868,8 +5868,8 @@
         "start2": "223"
     },
     {
-        "end1": "289",
-        "end2": "232",
+        "end1": 288,
+        "end2": 231,
         "grp": "COMPARE",
         "id": "dev.scd_1.489",
         "lemma": "escritor",
@@ -6108,7 +6108,7 @@
         "start2": "418"
     },
     {
-        "end1": "289",
+        "end1": 288,
         "end2": "426",
         "grp": "COMPARE",
         "id": "dev.scd_1.509",
@@ -6121,7 +6121,7 @@
     },
     {
         "end1": "99",
-        "end2": "359",
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.510",
         "lemma": "escritor",
@@ -6133,7 +6133,7 @@
     },
     {
         "end1": "331",
-        "end2": "359",
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.511",
         "lemma": "escritor",
@@ -6145,7 +6145,7 @@
     },
     {
         "end1": "207",
-        "end2": "359",
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.512",
         "lemma": "escritor",
@@ -6157,7 +6157,7 @@
     },
     {
         "end1": "174",
-        "end2": "359",
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.513",
         "lemma": "escritor",
@@ -6169,7 +6169,7 @@
     },
     {
         "end1": "174",
-        "end2": "359",
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.514",
         "lemma": "escritor",
@@ -6181,7 +6181,7 @@
     },
     {
         "end1": "84",
-        "end2": "359",
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.515",
         "lemma": "escritor",
@@ -6193,7 +6193,7 @@
     },
     {
         "end1": "47",
-        "end2": "359",
+        "end2": 358,
         "grp": "COMPARE",
         "id": "dev.scd_1.516",
         "lemma": "escritor",
@@ -6204,7 +6204,7 @@
         "start2": "350"
     },
     {
-        "end1": "241",
+        "end1": 240,
         "end2": "95",
         "grp": "COMPARE",
         "id": "dev.scd_1.517",
@@ -6289,7 +6289,7 @@
     },
     {
         "end1": "99",
-        "end2": "213",
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.524",
         "lemma": "escritor",
@@ -6300,8 +6300,8 @@
         "start2": "202"
     },
     {
-        "end1": "204",
-        "end2": "213",
+        "end1": 203,
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.525",
         "lemma": "escritor",
@@ -6312,8 +6312,8 @@
         "start2": "202"
     },
     {
-        "end1": "204",
-        "end2": "213",
+        "end1": 203,
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.526",
         "lemma": "escritor",
@@ -6325,7 +6325,7 @@
     },
     {
         "end1": "95",
-        "end2": "213",
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.527",
         "lemma": "escritor",
@@ -6337,7 +6337,7 @@
     },
     {
         "end1": "95",
-        "end2": "213",
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.528",
         "lemma": "escritor",
@@ -6349,7 +6349,7 @@
     },
     {
         "end1": "95",
-        "end2": "213",
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.529",
         "lemma": "escritor",
@@ -6361,7 +6361,7 @@
     },
     {
         "end1": "331",
-        "end2": "213",
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.530",
         "lemma": "escritor",
@@ -6373,7 +6373,7 @@
     },
     {
         "end1": "239",
-        "end2": "213",
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.531",
         "lemma": "escritor",
@@ -6385,7 +6385,7 @@
     },
     {
         "end1": "73",
-        "end2": "213",
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.532",
         "lemma": "escritor",
@@ -6397,7 +6397,7 @@
     },
     {
         "end1": "292",
-        "end2": "213",
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.533",
         "lemma": "escritor",
@@ -6409,7 +6409,7 @@
     },
     {
         "end1": "292",
-        "end2": "213",
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.534",
         "lemma": "escritor",
@@ -6421,7 +6421,7 @@
     },
     {
         "end1": "84",
-        "end2": "213",
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.535",
         "lemma": "escritor",
@@ -6433,7 +6433,7 @@
     },
     {
         "end1": "114",
-        "end2": "213",
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.536",
         "lemma": "escritor",
@@ -6445,7 +6445,7 @@
     },
     {
         "end1": "114",
-        "end2": "213",
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.537",
         "lemma": "escritor",
@@ -6456,8 +6456,8 @@
         "start2": "202"
     },
     {
-        "end1": "289",
-        "end2": "213",
+        "end1": 288,
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.538",
         "lemma": "escritor",
@@ -6469,7 +6469,7 @@
     },
     {
         "end1": "401",
-        "end2": "213",
+        "end2": 212,
         "grp": "COMPARE",
         "id": "dev.scd_1.539",
         "lemma": "escritor",
@@ -6480,8 +6480,8 @@
         "start2": "202"
     },
     {
-        "end1": "204",
-        "end2": "753",
+        "end1": 203,
+        "end2": 752,
         "grp": "COMPARE",
         "id": "dev.scd_1.540",
         "lemma": "escritor",
@@ -6492,8 +6492,8 @@
         "start2": "744"
     },
     {
-        "end1": "204",
-        "end2": "753",
+        "end1": 203,
+        "end2": 752,
         "grp": "COMPARE",
         "id": "dev.scd_1.541",
         "lemma": "escritor",
@@ -6505,7 +6505,7 @@
     },
     {
         "end1": "239",
-        "end2": "753",
+        "end2": 752,
         "grp": "COMPARE",
         "id": "dev.scd_1.542",
         "lemma": "escritor",
@@ -6517,7 +6517,7 @@
     },
     {
         "end1": "174",
-        "end2": "753",
+        "end2": 752,
         "grp": "COMPARE",
         "id": "dev.scd_1.543",
         "lemma": "escritor",
@@ -6529,7 +6529,7 @@
     },
     {
         "end1": "73",
-        "end2": "753",
+        "end2": 752,
         "grp": "COMPARE",
         "id": "dev.scd_1.544",
         "lemma": "escritor",
@@ -6541,7 +6541,7 @@
     },
     {
         "end1": "183",
-        "end2": "753",
+        "end2": 752,
         "grp": "COMPARE",
         "id": "dev.scd_1.545",
         "lemma": "escritor",
@@ -6564,7 +6564,7 @@
         "start2": "391"
     },
     {
-        "end1": "232",
+        "end1": 231,
         "end2": "401",
         "grp": "COMPARE",
         "id": "dev.scd_1.547",
@@ -6769,7 +6769,7 @@
     },
     {
         "end1": "287",
-        "end2": "289",
+        "end2": 288,
         "grp": "COMPARE",
         "id": "dev.scd_1.564",
         "lemma": "escritor",
@@ -6780,8 +6780,8 @@
         "start2": "278"
     },
     {
-        "end1": "241",
-        "end2": "289",
+        "end1": 240,
+        "end2": 288,
         "grp": "COMPARE",
         "id": "dev.scd_1.565",
         "lemma": "escritor",
@@ -6793,7 +6793,7 @@
     },
     {
         "end1": "140",
-        "end2": "289",
+        "end2": 288,
         "grp": "COMPARE",
         "id": "dev.scd_1.566",
         "lemma": "escritor",
@@ -6805,7 +6805,7 @@
     },
     {
         "end1": "205",
-        "end2": "289",
+        "end2": 288,
         "grp": "COMPARE",
         "id": "dev.scd_1.567",
         "lemma": "escritor",
@@ -6817,7 +6817,7 @@
     },
     {
         "end1": "164",
-        "end2": "289",
+        "end2": 288,
         "grp": "COMPARE",
         "id": "dev.scd_1.568",
         "lemma": "escritor",
@@ -6828,8 +6828,8 @@
         "start2": "278"
     },
     {
-        "end1": "213",
-        "end2": "289",
+        "end1": 212,
+        "end2": 288,
         "grp": "COMPARE",
         "id": "dev.scd_1.569",
         "lemma": "escritor",
@@ -6852,7 +6852,7 @@
         "start2": "175"
     },
     {
-        "end1": "241",
+        "end1": 240,
         "end2": "183",
         "grp": "COMPARE",
         "id": "dev.scd_1.571",
@@ -6924,7 +6924,7 @@
         "start2": "175"
     },
     {
-        "end1": "359",
+        "end1": 358,
         "end2": "183",
         "grp": "COMPARE",
         "id": "dev.scd_1.577",
@@ -6936,7 +6936,7 @@
         "start2": "175"
     },
     {
-        "end1": "359",
+        "end1": 358,
         "end2": "183",
         "grp": "COMPARE",
         "id": "dev.scd_1.578",
@@ -6972,7 +6972,7 @@
         "start2": "175"
     },
     {
-        "end1": "204",
+        "end1": 203,
         "end2": "205",
         "grp": "COMPARE",
         "id": "dev.scd_1.581",
@@ -7032,7 +7032,7 @@
         "start2": "195"
     },
     {
-        "end1": "289",
+        "end1": 288,
         "end2": "205",
         "grp": "COMPARE",
         "id": "dev.scd_1.586",
@@ -7056,7 +7056,7 @@
         "start2": "195"
     },
     {
-        "end1": "241",
+        "end1": 240,
         "end2": "73",
         "grp": "COMPARE",
         "id": "dev.scd_1.588",
@@ -7104,7 +7104,7 @@
         "start2": "65"
     },
     {
-        "end1": "359",
+        "end1": 358,
         "end2": "73",
         "grp": "COMPARE",
         "id": "dev.scd_1.592",
@@ -7152,7 +7152,7 @@
         "start2": "360"
     },
     {
-        "end1": "289",
+        "end1": 288,
         "end2": "370",
         "grp": "COMPARE",
         "id": "dev.scd_1.596",
@@ -7452,8 +7452,8 @@
         "start2": "141"
     },
     {
-        "end1": "232",
-        "end2": "204",
+        "end1": 231,
+        "end2": 203,
         "grp": "COMPARE",
         "id": "dev.scd_1.621",
         "lemma": "escritor",
@@ -7464,8 +7464,8 @@
         "start2": "193"
     },
     {
-        "end1": "359",
-        "end2": "204",
+        "end1": 358,
+        "end2": 203,
         "grp": "COMPARE",
         "id": "dev.scd_1.622",
         "lemma": "escritor",
@@ -7477,7 +7477,7 @@
     },
     {
         "end1": "164",
-        "end2": "204",
+        "end2": 203,
         "grp": "COMPARE",
         "id": "dev.scd_1.623",
         "lemma": "escritor",
@@ -7489,7 +7489,7 @@
     },
     {
         "end1": "122",
-        "end2": "204",
+        "end2": 203,
         "grp": "COMPARE",
         "id": "dev.scd_1.624",
         "lemma": "escritor",
@@ -7501,7 +7501,7 @@
     },
     {
         "end1": "207",
-        "end2": "241",
+        "end2": 240,
         "grp": "COMPARE",
         "id": "dev.scd_1.625",
         "lemma": "escritor",
@@ -7513,7 +7513,7 @@
     },
     {
         "end1": "207",
-        "end2": "241",
+        "end2": 240,
         "grp": "COMPARE",
         "id": "dev.scd_1.626",
         "lemma": "escritor",
@@ -7525,7 +7525,7 @@
     },
     {
         "end1": "73",
-        "end2": "241",
+        "end2": 240,
         "grp": "COMPARE",
         "id": "dev.scd_1.627",
         "lemma": "escritor",
@@ -7537,7 +7537,7 @@
     },
     {
         "end1": "292",
-        "end2": "241",
+        "end2": 240,
         "grp": "COMPARE",
         "id": "dev.scd_1.628",
         "lemma": "escritor",
@@ -7549,7 +7549,7 @@
     },
     {
         "end1": "84",
-        "end2": "241",
+        "end2": 240,
         "grp": "COMPARE",
         "id": "dev.scd_1.629",
         "lemma": "escritor",
@@ -7561,7 +7561,7 @@
     },
     {
         "end1": "84",
-        "end2": "241",
+        "end2": 240,
         "grp": "COMPARE",
         "id": "dev.scd_1.630",
         "lemma": "escritor",
@@ -7573,7 +7573,7 @@
     },
     {
         "end1": "114",
-        "end2": "241",
+        "end2": 240,
         "grp": "COMPARE",
         "id": "dev.scd_1.631",
         "lemma": "escritor",
@@ -7584,8 +7584,8 @@
         "start2": "232"
     },
     {
-        "end1": "289",
-        "end2": "241",
+        "end1": 288,
+        "end2": 240,
         "grp": "COMPARE",
         "id": "dev.scd_1.632",
         "lemma": "escritor",
@@ -7776,7 +7776,7 @@
         "start2": "218"
     },
     {
-        "end1": "169",
+        "end1": 168,
         "end2": "227",
         "grp": "COMPARE",
         "id": "dev.scd_1.648",
@@ -7848,7 +7848,7 @@
         "start2": "569"
     },
     {
-        "end1": "74",
+        "end1": 73,
         "end2": "580",
         "grp": "COMPARE",
         "id": "dev.scd_1.654",
@@ -7944,7 +7944,7 @@
         "start2": "230"
     },
     {
-        "end1": "230",
+        "end1": 229,
         "end2": "241",
         "grp": "COMPARE",
         "id": "dev.scd_1.662",
@@ -7956,7 +7956,7 @@
         "start2": "230"
     },
     {
-        "end1": "230",
+        "end1": 229,
         "end2": "241",
         "grp": "COMPARE",
         "id": "dev.scd_1.663",
@@ -7980,7 +7980,7 @@
         "start2": "548"
     },
     {
-        "end1": "74",
+        "end1": 73,
         "end2": "559",
         "grp": "COMPARE",
         "id": "dev.scd_1.665",
@@ -8016,7 +8016,7 @@
         "start2": "112"
     },
     {
-        "end1": "482",
+        "end1": 481,
         "end2": "123",
         "grp": "COMPARE",
         "id": "dev.scd_1.668",
@@ -8040,7 +8040,7 @@
         "start2": "112"
     },
     {
-        "end1": "230",
+        "end1": 229,
         "end2": "123",
         "grp": "COMPARE",
         "id": "dev.scd_1.670",
@@ -8052,7 +8052,7 @@
         "start2": "112"
     },
     {
-        "end1": "230",
+        "end1": 229,
         "end2": "123",
         "grp": "COMPARE",
         "id": "dev.scd_1.671",
@@ -8124,7 +8124,7 @@
         "start2": "197"
     },
     {
-        "end1": "169",
+        "end1": 168,
         "end2": "206",
         "grp": "COMPARE",
         "id": "dev.scd_1.677",
@@ -8208,7 +8208,7 @@
         "start2": "625"
     },
     {
-        "end1": "169",
+        "end1": 168,
         "end2": "634",
         "grp": "COMPARE",
         "id": "dev.scd_1.684",
@@ -8412,7 +8412,7 @@
         "start2": "463"
     },
     {
-        "end1": "74",
+        "end1": 73,
         "end2": "474",
         "grp": "COMPARE",
         "id": "dev.scd_1.701",
@@ -8460,7 +8460,7 @@
         "start2": "463"
     },
     {
-        "end1": "230",
+        "end1": 229,
         "end2": "474",
         "grp": "COMPARE",
         "id": "dev.scd_1.705",
@@ -8629,7 +8629,7 @@
     },
     {
         "end1": "609",
-        "end2": "169",
+        "end2": 168,
         "grp": "COMPARE",
         "id": "dev.scd_1.719",
         "lemma": "precursor",
@@ -8641,7 +8641,7 @@
     },
     {
         "end1": "118",
-        "end2": "169",
+        "end2": 168,
         "grp": "COMPARE",
         "id": "dev.scd_1.720",
         "lemma": "precursor",
@@ -8652,8 +8652,8 @@
         "start2": "157"
     },
     {
-        "end1": "74",
-        "end2": "169",
+        "end1": 73,
+        "end2": 168,
         "grp": "COMPARE",
         "id": "dev.scd_1.721",
         "lemma": "precursor",
@@ -8664,8 +8664,8 @@
         "start2": "157"
     },
     {
-        "end1": "482",
-        "end2": "169",
+        "end1": 481,
+        "end2": 168,
         "grp": "COMPARE",
         "id": "dev.scd_1.722",
         "lemma": "precursor",
@@ -8676,8 +8676,8 @@
         "start2": "157"
     },
     {
-        "end1": "482",
-        "end2": "169",
+        "end1": 481,
+        "end2": 168,
         "grp": "COMPARE",
         "id": "dev.scd_1.723",
         "lemma": "precursor",
@@ -8689,7 +8689,7 @@
     },
     {
         "end1": "634",
-        "end2": "169",
+        "end2": 168,
         "grp": "COMPARE",
         "id": "dev.scd_1.724",
         "lemma": "precursor",
@@ -8701,7 +8701,7 @@
     },
     {
         "end1": "228",
-        "end2": "169",
+        "end2": 168,
         "grp": "COMPARE",
         "id": "dev.scd_1.725",
         "lemma": "precursor",
@@ -8713,7 +8713,7 @@
     },
     {
         "end1": "802",
-        "end2": "169",
+        "end2": 168,
         "grp": "COMPARE",
         "id": "dev.scd_1.726",
         "lemma": "precursor",
@@ -8725,7 +8725,7 @@
     },
     {
         "end1": "36",
-        "end2": "169",
+        "end2": 168,
         "grp": "COMPARE",
         "id": "dev.scd_1.727",
         "lemma": "precursor",
@@ -8737,7 +8737,7 @@
     },
     {
         "end1": "771",
-        "end2": "169",
+        "end2": 168,
         "grp": "COMPARE",
         "id": "dev.scd_1.728",
         "lemma": "precursor",
@@ -8748,8 +8748,8 @@
         "start2": "157"
     },
     {
-        "end1": "230",
-        "end2": "169",
+        "end1": 229,
+        "end2": 168,
         "grp": "COMPARE",
         "id": "dev.scd_1.729",
         "lemma": "precursor",
@@ -8761,7 +8761,7 @@
     },
     {
         "end1": "227",
-        "end2": "181",
+        "end2": 180,
         "grp": "COMPARE",
         "id": "dev.scd_1.730",
         "lemma": "precursor",
@@ -8773,7 +8773,7 @@
     },
     {
         "end1": "227",
-        "end2": "181",
+        "end2": 180,
         "grp": "COMPARE",
         "id": "dev.scd_1.731",
         "lemma": "precursor",
@@ -8785,7 +8785,7 @@
     },
     {
         "end1": "118",
-        "end2": "181",
+        "end2": 180,
         "grp": "COMPARE",
         "id": "dev.scd_1.732",
         "lemma": "precursor",
@@ -8796,8 +8796,8 @@
         "start2": "169"
     },
     {
-        "end1": "482",
-        "end2": "181",
+        "end1": 481,
+        "end2": 180,
         "grp": "COMPARE",
         "id": "dev.scd_1.733",
         "lemma": "precursor",
@@ -8809,7 +8809,7 @@
     },
     {
         "end1": "358",
-        "end2": "181",
+        "end2": 180,
         "grp": "COMPARE",
         "id": "dev.scd_1.734",
         "lemma": "precursor",
@@ -8821,7 +8821,7 @@
     },
     {
         "end1": "206",
-        "end2": "181",
+        "end2": 180,
         "grp": "COMPARE",
         "id": "dev.scd_1.735",
         "lemma": "precursor",
@@ -8833,7 +8833,7 @@
     },
     {
         "end1": "36",
-        "end2": "181",
+        "end2": 180,
         "grp": "COMPARE",
         "id": "dev.scd_1.736",
         "lemma": "precursor",
@@ -8845,7 +8845,7 @@
     },
     {
         "end1": "771",
-        "end2": "181",
+        "end2": 180,
         "grp": "COMPARE",
         "id": "dev.scd_1.737",
         "lemma": "precursor",
@@ -8940,7 +8940,7 @@
         "start2": "216"
     },
     {
-        "end1": "230",
+        "end1": 229,
         "end2": "225",
         "grp": "COMPARE",
         "id": "dev.scd_1.745",
@@ -9000,7 +9000,7 @@
         "start2": "25"
     },
     {
-        "end1": "169",
+        "end1": 168,
         "end2": "36",
         "grp": "COMPARE",
         "id": "dev.scd_1.750",
@@ -9048,7 +9048,7 @@
         "start2": "163"
     },
     {
-        "end1": "169",
+        "end1": 168,
         "end2": "172",
         "grp": "COMPARE",
         "id": "dev.scd_1.754",
@@ -9120,7 +9120,7 @@
         "start2": "324"
     },
     {
-        "end1": "230",
+        "end1": 229,
         "end2": "335",
         "grp": "COMPARE",
         "id": "dev.scd_1.760",
@@ -9144,7 +9144,7 @@
         "start2": "314"
     },
     {
-        "end1": "74",
+        "end1": 73,
         "end2": "323",
         "grp": "COMPARE",
         "id": "dev.scd_1.762",
@@ -9192,7 +9192,7 @@
         "start2": "314"
     },
     {
-        "end1": "230",
+        "end1": 229,
         "end2": "323",
         "grp": "COMPARE",
         "id": "dev.scd_1.766",
@@ -9300,7 +9300,7 @@
         "start2": "526"
     },
     {
-        "end1": "482",
+        "end1": 481,
         "end2": "537",
         "grp": "COMPARE",
         "id": "dev.scd_1.775",
@@ -9336,7 +9336,7 @@
         "start2": "526"
     },
     {
-        "end1": "230",
+        "end1": 229,
         "end2": "537",
         "grp": "COMPARE",
         "id": "dev.scd_1.778",
@@ -9420,7 +9420,7 @@
         "start2": "762"
     },
     {
-        "end1": "181",
+        "end1": 180,
         "end2": "771",
         "grp": "COMPARE",
         "id": "dev.scd_1.785",
@@ -9433,7 +9433,7 @@
     },
     {
         "end1": "580",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.786",
         "lemma": "precursor",
@@ -9445,7 +9445,7 @@
     },
     {
         "end1": "474",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.787",
         "lemma": "precursor",
@@ -9457,7 +9457,7 @@
     },
     {
         "end1": "339",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.788",
         "lemma": "precursor",
@@ -9469,7 +9469,7 @@
     },
     {
         "end1": "339",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.789",
         "lemma": "precursor",
@@ -9481,7 +9481,7 @@
     },
     {
         "end1": "488",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.790",
         "lemma": "precursor",
@@ -9492,8 +9492,8 @@
         "start2": "220"
     },
     {
-        "end1": "169",
-        "end2": "230",
+        "end1": 168,
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.791",
         "lemma": "precursor",
@@ -9505,7 +9505,7 @@
     },
     {
         "end1": "458",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.792",
         "lemma": "precursor",
@@ -9517,7 +9517,7 @@
     },
     {
         "end1": "180",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.793",
         "lemma": "precursor",
@@ -9529,7 +9529,7 @@
     },
     {
         "end1": "219",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.794",
         "lemma": "precursor",
@@ -9541,7 +9541,7 @@
     },
     {
         "end1": "239",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.795",
         "lemma": "precursor",
@@ -9576,7 +9576,7 @@
         "start2": "360"
     },
     {
-        "end1": "74",
+        "end1": 73,
         "end2": "371",
         "grp": "COMPARE",
         "id": "dev.scd_1.798",
@@ -9709,7 +9709,7 @@
     },
     {
         "end1": "474",
-        "end2": "74",
+        "end2": 73,
         "grp": "COMPARE",
         "id": "dev.scd_1.809",
         "lemma": "precursor",
@@ -9721,7 +9721,7 @@
     },
     {
         "end1": "339",
-        "end2": "74",
+        "end2": 73,
         "grp": "COMPARE",
         "id": "dev.scd_1.810",
         "lemma": "precursor",
@@ -9733,7 +9733,7 @@
     },
     {
         "end1": "335",
-        "end2": "74",
+        "end2": 73,
         "grp": "COMPARE",
         "id": "dev.scd_1.811",
         "lemma": "precursor",
@@ -9745,7 +9745,7 @@
     },
     {
         "end1": "335",
-        "end2": "74",
+        "end2": 73,
         "grp": "COMPARE",
         "id": "dev.scd_1.812",
         "lemma": "precursor",
@@ -9757,7 +9757,7 @@
     },
     {
         "end1": "335",
-        "end2": "74",
+        "end2": 73,
         "grp": "COMPARE",
         "id": "dev.scd_1.813",
         "lemma": "precursor",
@@ -9769,7 +9769,7 @@
     },
     {
         "end1": "123",
-        "end2": "74",
+        "end2": 73,
         "grp": "COMPARE",
         "id": "dev.scd_1.814",
         "lemma": "precursor",
@@ -9781,7 +9781,7 @@
     },
     {
         "end1": "239",
-        "end2": "74",
+        "end2": 73,
         "grp": "COMPARE",
         "id": "dev.scd_1.815",
         "lemma": "precursor",
@@ -9793,7 +9793,7 @@
     },
     {
         "end1": "239",
-        "end2": "74",
+        "end2": 73,
         "grp": "COMPARE",
         "id": "dev.scd_1.816",
         "lemma": "precursor",
@@ -9840,7 +9840,7 @@
         "start2": "349"
     },
     {
-        "end1": "169",
+        "end1": 168,
         "end2": "358",
         "grp": "COMPARE",
         "id": "dev.scd_1.820",
@@ -10008,7 +10008,7 @@
         "start2": "328"
     },
     {
-        "end1": "74",
+        "end1": 73,
         "end2": "339",
         "grp": "COMPARE",
         "id": "dev.scd_1.834",
@@ -10032,7 +10032,7 @@
         "start2": "328"
     },
     {
-        "end1": "230",
+        "end1": 229,
         "end2": "339",
         "grp": "COMPARE",
         "id": "dev.scd_1.836",
@@ -10080,7 +10080,7 @@
         "start2": "215"
     },
     {
-        "end1": "74",
+        "end1": 73,
         "end2": "226",
         "grp": "COMPARE",
         "id": "dev.scd_1.840",
@@ -10272,7 +10272,7 @@
         "start2": "447"
     },
     {
-        "end1": "74",
+        "end1": 73,
         "end2": "458",
         "grp": "COMPARE",
         "id": "dev.scd_1.856",
@@ -10284,7 +10284,7 @@
         "start2": "447"
     },
     {
-        "end1": "482",
+        "end1": 481,
         "end2": "458",
         "grp": "COMPARE",
         "id": "dev.scd_1.857",
@@ -10512,7 +10512,7 @@
         "start2": "212"
     },
     {
-        "end1": "169",
+        "end1": 168,
         "end2": "221",
         "grp": "COMPARE",
         "id": "dev.scd_1.876",
@@ -10524,7 +10524,7 @@
         "start2": "212"
     },
     {
-        "end1": "181",
+        "end1": 180,
         "end2": "221",
         "grp": "COMPARE",
         "id": "dev.scd_1.877",
@@ -10537,7 +10537,7 @@
     },
     {
         "end1": "474",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.878",
         "lemma": "precursor",
@@ -10549,7 +10549,7 @@
     },
     {
         "end1": "225",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.879",
         "lemma": "precursor",
@@ -10561,7 +10561,7 @@
     },
     {
         "end1": "339",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.880",
         "lemma": "precursor",
@@ -10573,7 +10573,7 @@
     },
     {
         "end1": "488",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.881",
         "lemma": "precursor",
@@ -10585,7 +10585,7 @@
     },
     {
         "end1": "241",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.882",
         "lemma": "precursor",
@@ -10596,8 +10596,8 @@
         "start2": "220"
     },
     {
-        "end1": "169",
-        "end2": "230",
+        "end1": 168,
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.883",
         "lemma": "precursor",
@@ -10609,7 +10609,7 @@
     },
     {
         "end1": "559",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.884",
         "lemma": "precursor",
@@ -10621,7 +10621,7 @@
     },
     {
         "end1": "219",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.885",
         "lemma": "precursor",
@@ -10633,7 +10633,7 @@
     },
     {
         "end1": "239",
-        "end2": "230",
+        "end2": 229,
         "grp": "COMPARE",
         "id": "dev.scd_1.886",
         "lemma": "precursor",
@@ -10645,7 +10645,7 @@
     },
     {
         "end1": "339",
-        "end2": "482",
+        "end2": 481,
         "grp": "COMPARE",
         "id": "dev.scd_1.887",
         "lemma": "precursor",
@@ -10692,7 +10692,7 @@
         "start2": "230"
     },
     {
-        "end1": "237",
+        "end1": 234,
         "end2": "239",
         "grp": "COMPARE",
         "id": "dev.scd_1.891",
@@ -10717,7 +10717,7 @@
     },
     {
         "end1": "336",
-        "end2": "62",
+        "end2": 59,
         "grp": "COMPARE",
         "id": "dev.scd_1.893",
         "lemma": "aguantar",
@@ -10729,7 +10729,7 @@
     },
     {
         "end1": "336",
-        "end2": "62",
+        "end2": 59,
         "grp": "COMPARE",
         "id": "dev.scd_1.894",
         "lemma": "aguantar",
@@ -10741,7 +10741,7 @@
     },
     {
         "end1": "193",
-        "end2": "62",
+        "end2": 59,
         "grp": "COMPARE",
         "id": "dev.scd_1.895",
         "lemma": "aguantar",
@@ -10753,7 +10753,7 @@
     },
     {
         "end1": "463",
-        "end2": "62",
+        "end2": 59,
         "grp": "COMPARE",
         "id": "dev.scd_1.896",
         "lemma": "aguantar",
@@ -10765,7 +10765,7 @@
     },
     {
         "end1": "263",
-        "end2": "62",
+        "end2": 59,
         "grp": "COMPARE",
         "id": "dev.scd_1.897",
         "lemma": "aguantar",
@@ -10776,8 +10776,8 @@
         "start2": "51"
     },
     {
-        "end1": "87",
-        "end2": "62",
+        "end1": 86,
+        "end2": 59,
         "grp": "COMPARE",
         "id": "dev.scd_1.898",
         "lemma": "aguantar",
@@ -10789,7 +10789,7 @@
     },
     {
         "end1": "292",
-        "end2": "62",
+        "end2": 59,
         "grp": "COMPARE",
         "id": "dev.scd_1.899",
         "lemma": "aguantar",
@@ -10801,7 +10801,7 @@
     },
     {
         "end1": "90",
-        "end2": "62",
+        "end2": 59,
         "grp": "COMPARE",
         "id": "dev.scd_1.900",
         "lemma": "aguantar",
@@ -10812,8 +10812,8 @@
         "start2": "51"
     },
     {
-        "end1": "140",
-        "end2": "87",
+        "end1": 139,
+        "end2": 86,
         "grp": "COMPARE",
         "id": "dev.scd_1.901",
         "lemma": "aguantar",
@@ -10825,7 +10825,7 @@
     },
     {
         "end1": "147",
-        "end2": "87",
+        "end2": 86,
         "grp": "COMPARE",
         "id": "dev.scd_1.902",
         "lemma": "aguantar",
@@ -10837,7 +10837,7 @@
     },
     {
         "end1": "147",
-        "end2": "87",
+        "end2": 86,
         "grp": "COMPARE",
         "id": "dev.scd_1.903",
         "lemma": "aguantar",
@@ -10849,7 +10849,7 @@
     },
     {
         "end1": "58",
-        "end2": "87",
+        "end2": 86,
         "grp": "COMPARE",
         "id": "dev.scd_1.904",
         "lemma": "aguantar",
@@ -10861,7 +10861,7 @@
     },
     {
         "end1": "238",
-        "end2": "87",
+        "end2": 86,
         "grp": "COMPARE",
         "id": "dev.scd_1.905",
         "lemma": "aguantar",
@@ -10873,7 +10873,7 @@
     },
     {
         "end1": "238",
-        "end2": "87",
+        "end2": 86,
         "grp": "COMPARE",
         "id": "dev.scd_1.906",
         "lemma": "aguantar",
@@ -10884,8 +10884,8 @@
         "start2": "76"
     },
     {
-        "end1": "106",
-        "end2": "87",
+        "end1": 105,
+        "end2": 86,
         "grp": "COMPARE",
         "id": "dev.scd_1.907",
         "lemma": "aguantar",
@@ -10896,8 +10896,8 @@
         "start2": "76"
     },
     {
-        "end1": "174",
-        "end2": "87",
+        "end1": 173,
+        "end2": 86,
         "grp": "COMPARE",
         "id": "dev.scd_1.908",
         "lemma": "aguantar",
@@ -10909,7 +10909,7 @@
     },
     {
         "end1": "402",
-        "end2": "87",
+        "end2": 86,
         "grp": "COMPARE",
         "id": "dev.scd_1.909",
         "lemma": "aguantar",
@@ -10921,7 +10921,7 @@
     },
     {
         "end1": "336",
-        "end2": "106",
+        "end2": 105,
         "grp": "COMPARE",
         "id": "dev.scd_1.910",
         "lemma": "aguantar",
@@ -10933,7 +10933,7 @@
     },
     {
         "end1": "193",
-        "end2": "106",
+        "end2": 105,
         "grp": "COMPARE",
         "id": "dev.scd_1.911",
         "lemma": "aguantar",
@@ -10945,7 +10945,7 @@
     },
     {
         "end1": "239",
-        "end2": "106",
+        "end2": 105,
         "grp": "COMPARE",
         "id": "dev.scd_1.912",
         "lemma": "aguantar",
@@ -10957,7 +10957,7 @@
     },
     {
         "end1": "105",
-        "end2": "106",
+        "end2": 105,
         "grp": "COMPARE",
         "id": "dev.scd_1.913",
         "lemma": "aguantar",
@@ -10968,8 +10968,8 @@
         "start2": "98"
     },
     {
-        "end1": "87",
-        "end2": "106",
+        "end1": 86,
+        "end2": 105,
         "grp": "COMPARE",
         "id": "dev.scd_1.914",
         "lemma": "aguantar",
@@ -10981,7 +10981,7 @@
     },
     {
         "end1": "292",
-        "end2": "106",
+        "end2": 105,
         "grp": "COMPARE",
         "id": "dev.scd_1.915",
         "lemma": "aguantar",
@@ -10993,7 +10993,7 @@
     },
     {
         "end1": "90",
-        "end2": "106",
+        "end2": 105,
         "grp": "COMPARE",
         "id": "dev.scd_1.916",
         "lemma": "aguantar",
@@ -11005,7 +11005,7 @@
     },
     {
         "end1": "345",
-        "end2": "106",
+        "end2": 105,
         "grp": "COMPARE",
         "id": "dev.scd_1.917",
         "lemma": "aguantar",
@@ -11017,7 +11017,7 @@
     },
     {
         "end1": "197",
-        "end2": "106",
+        "end2": 105,
         "grp": "COMPARE",
         "id": "dev.scd_1.918",
         "lemma": "aguantar",
@@ -11028,7 +11028,7 @@
         "start2": "98"
     },
     {
-        "end1": "62",
+        "end1": 59,
         "end2": "122",
         "grp": "COMPARE",
         "id": "dev.scd_1.919",
@@ -11040,7 +11040,7 @@
         "start2": "113"
     },
     {
-        "end1": "140",
+        "end1": 139,
         "end2": "193",
         "grp": "COMPARE",
         "id": "dev.scd_1.920",
@@ -11064,7 +11064,7 @@
         "start2": "186"
     },
     {
-        "end1": "106",
+        "end1": 105,
         "end2": "193",
         "grp": "COMPARE",
         "id": "dev.scd_1.922",
@@ -11112,7 +11112,7 @@
         "start2": "186"
     },
     {
-        "end1": "62",
+        "end1": 59,
         "end2": "193",
         "grp": "COMPARE",
         "id": "dev.scd_1.926",
@@ -11184,7 +11184,7 @@
         "start2": "290"
     },
     {
-        "end1": "106",
+        "end1": 105,
         "end2": "299",
         "grp": "COMPARE",
         "id": "dev.scd_1.932",
@@ -11305,7 +11305,7 @@
     },
     {
         "end1": "336",
-        "end2": "174",
+        "end2": 173,
         "grp": "COMPARE",
         "id": "dev.scd_1.942",
         "lemma": "aguantar",
@@ -11317,7 +11317,7 @@
     },
     {
         "end1": "193",
-        "end2": "174",
+        "end2": 173,
         "grp": "COMPARE",
         "id": "dev.scd_1.943",
         "lemma": "aguantar",
@@ -11329,7 +11329,7 @@
     },
     {
         "end1": "193",
-        "end2": "174",
+        "end2": 173,
         "grp": "COMPARE",
         "id": "dev.scd_1.944",
         "lemma": "aguantar",
@@ -11341,7 +11341,7 @@
     },
     {
         "end1": "292",
-        "end2": "174",
+        "end2": 173,
         "grp": "COMPARE",
         "id": "dev.scd_1.945",
         "lemma": "aguantar",
@@ -11353,7 +11353,7 @@
     },
     {
         "end1": "345",
-        "end2": "174",
+        "end2": 173,
         "grp": "COMPARE",
         "id": "dev.scd_1.946",
         "lemma": "aguantar",
@@ -11364,7 +11364,7 @@
         "start2": "165"
     },
     {
-        "end1": "95",
+        "end1": 94,
         "end2": "141",
         "grp": "COMPARE",
         "id": "dev.scd_1.947",
@@ -11376,7 +11376,7 @@
         "start2": "133"
     },
     {
-        "end1": "237",
+        "end1": 234,
         "end2": "141",
         "grp": "COMPARE",
         "id": "dev.scd_1.948",
@@ -11400,7 +11400,7 @@
         "start2": "133"
     },
     {
-        "end1": "106",
+        "end1": 105,
         "end2": "141",
         "grp": "COMPARE",
         "id": "dev.scd_1.950",
@@ -11436,7 +11436,7 @@
         "start2": "133"
     },
     {
-        "end1": "174",
+        "end1": 173,
         "end2": "141",
         "grp": "COMPARE",
         "id": "dev.scd_1.953",
@@ -11532,7 +11532,7 @@
         "start2": "230"
     },
     {
-        "end1": "335",
+        "end1": 334,
         "end2": "238",
         "grp": "COMPARE",
         "id": "dev.scd_1.961",
@@ -11544,7 +11544,7 @@
         "start2": "230"
     },
     {
-        "end1": "335",
+        "end1": 334,
         "end2": "238",
         "grp": "COMPARE",
         "id": "dev.scd_1.962",
@@ -11592,7 +11592,7 @@
         "start2": "230"
     },
     {
-        "end1": "140",
+        "end1": 139,
         "end2": "263",
         "grp": "COMPARE",
         "id": "dev.scd_1.966",
@@ -11604,7 +11604,7 @@
         "start2": "255"
     },
     {
-        "end1": "95",
+        "end1": 94,
         "end2": "263",
         "grp": "COMPARE",
         "id": "dev.scd_1.967",
@@ -11628,7 +11628,7 @@
         "start2": "255"
     },
     {
-        "end1": "106",
+        "end1": 105,
         "end2": "263",
         "grp": "COMPARE",
         "id": "dev.scd_1.969",
@@ -11640,7 +11640,7 @@
         "start2": "255"
     },
     {
-        "end1": "220",
+        "end1": 219,
         "end2": "263",
         "grp": "COMPARE",
         "id": "dev.scd_1.970",
@@ -11652,7 +11652,7 @@
         "start2": "255"
     },
     {
-        "end1": "174",
+        "end1": 173,
         "end2": "263",
         "grp": "COMPARE",
         "id": "dev.scd_1.971",
@@ -11773,7 +11773,7 @@
     },
     {
         "end1": "163",
-        "end2": "95",
+        "end2": 94,
         "grp": "COMPARE",
         "id": "dev.scd_1.981",
         "lemma": "aguantar",
@@ -11785,7 +11785,7 @@
     },
     {
         "end1": "263",
-        "end2": "95",
+        "end2": 94,
         "grp": "COMPARE",
         "id": "dev.scd_1.982",
         "lemma": "aguantar",
@@ -11797,7 +11797,7 @@
     },
     {
         "end1": "299",
-        "end2": "95",
+        "end2": 94,
         "grp": "COMPARE",
         "id": "dev.scd_1.983",
         "lemma": "aguantar",
@@ -11809,7 +11809,7 @@
     },
     {
         "end1": "345",
-        "end2": "95",
+        "end2": 94,
         "grp": "COMPARE",
         "id": "dev.scd_1.984",
         "lemma": "aguantar",
@@ -11821,7 +11821,7 @@
     },
     {
         "end1": "163",
-        "end2": "140",
+        "end2": 139,
         "grp": "COMPARE",
         "id": "dev.scd_1.985",
         "lemma": "aguantar",
@@ -11833,7 +11833,7 @@
     },
     {
         "end1": "463",
-        "end2": "140",
+        "end2": 139,
         "grp": "COMPARE",
         "id": "dev.scd_1.986",
         "lemma": "aguantar",
@@ -11845,7 +11845,7 @@
     },
     {
         "end1": "463",
-        "end2": "140",
+        "end2": 139,
         "grp": "COMPARE",
         "id": "dev.scd_1.987",
         "lemma": "aguantar",
@@ -11857,7 +11857,7 @@
     },
     {
         "end1": "263",
-        "end2": "140",
+        "end2": 139,
         "grp": "COMPARE",
         "id": "dev.scd_1.988",
         "lemma": "aguantar",
@@ -11869,7 +11869,7 @@
     },
     {
         "end1": "105",
-        "end2": "140",
+        "end2": 139,
         "grp": "COMPARE",
         "id": "dev.scd_1.989",
         "lemma": "aguantar",
@@ -11881,7 +11881,7 @@
     },
     {
         "end1": "281",
-        "end2": "140",
+        "end2": 139,
         "grp": "COMPARE",
         "id": "dev.scd_1.990",
         "lemma": "aguantar",
@@ -11893,7 +11893,7 @@
     },
     {
         "end1": "242",
-        "end2": "140",
+        "end2": 139,
         "grp": "COMPARE",
         "id": "dev.scd_1.991",
         "lemma": "aguantar",
@@ -11905,7 +11905,7 @@
     },
     {
         "end1": "345",
-        "end2": "140",
+        "end2": 139,
         "grp": "COMPARE",
         "id": "dev.scd_1.992",
         "lemma": "aguantar",
@@ -11916,7 +11916,7 @@
         "start2": "131"
     },
     {
-        "end1": "140",
+        "end1": 139,
         "end2": "224",
         "grp": "COMPARE",
         "id": "dev.scd_1.993",
@@ -11928,7 +11928,7 @@
         "start2": "216"
     },
     {
-        "end1": "237",
+        "end1": 234,
         "end2": "224",
         "grp": "COMPARE",
         "id": "dev.scd_1.994",
@@ -11940,7 +11940,7 @@
         "start2": "216"
     },
     {
-        "end1": "220",
+        "end1": 219,
         "end2": "224",
         "grp": "COMPARE",
         "id": "dev.scd_1.995",
@@ -11976,7 +11976,7 @@
         "start2": "216"
     },
     {
-        "end1": "106",
+        "end1": 105,
         "end2": "242",
         "grp": "COMPARE",
         "id": "dev.scd_1.998",
@@ -11988,7 +11988,7 @@
         "start2": "233"
     },
     {
-        "end1": "106",
+        "end1": 105,
         "end2": "242",
         "grp": "COMPARE",
         "id": "dev.scd_1.999",
@@ -12024,8 +12024,8 @@
         "start2": "233"
     },
     {
-        "end1": "95",
-        "end2": "335",
+        "end1": 94,
+        "end2": 334,
         "grp": "COMPARE",
         "id": "dev.scd_1.1002",
         "lemma": "aguantar",
@@ -12036,8 +12036,8 @@
         "start2": "326"
     },
     {
-        "end1": "106",
-        "end2": "335",
+        "end1": 105,
+        "end2": 334,
         "grp": "COMPARE",
         "id": "dev.scd_1.1003",
         "lemma": "aguantar",
@@ -12049,7 +12049,7 @@
     },
     {
         "end1": "32",
-        "end2": "335",
+        "end2": 334,
         "grp": "COMPARE",
         "id": "dev.scd_1.1004",
         "lemma": "aguantar",
@@ -12060,8 +12060,8 @@
         "start2": "326"
     },
     {
-        "end1": "174",
-        "end2": "335",
+        "end1": 173,
+        "end2": 334,
         "grp": "COMPARE",
         "id": "dev.scd_1.1005",
         "lemma": "aguantar",
@@ -12072,8 +12072,8 @@
         "start2": "326"
     },
     {
-        "end1": "174",
-        "end2": "335",
+        "end1": 173,
+        "end2": 334,
         "grp": "COMPARE",
         "id": "dev.scd_1.1006",
         "lemma": "aguantar",
@@ -12085,7 +12085,7 @@
     },
     {
         "end1": "109",
-        "end2": "335",
+        "end2": 334,
         "grp": "COMPARE",
         "id": "dev.scd_1.1007",
         "lemma": "aguantar",
@@ -12097,7 +12097,7 @@
     },
     {
         "end1": "109",
-        "end2": "335",
+        "end2": 334,
         "grp": "COMPARE",
         "id": "dev.scd_1.1008",
         "lemma": "aguantar",
@@ -12109,7 +12109,7 @@
     },
     {
         "end1": "402",
-        "end2": "335",
+        "end2": 334,
         "grp": "COMPARE",
         "id": "dev.scd_1.1009",
         "lemma": "aguantar",
@@ -12121,7 +12121,7 @@
     },
     {
         "end1": "402",
-        "end2": "335",
+        "end2": 334,
         "grp": "COMPARE",
         "id": "dev.scd_1.1010",
         "lemma": "aguantar",
@@ -12133,7 +12133,7 @@
     },
     {
         "end1": "163",
-        "end2": "220",
+        "end2": 219,
         "grp": "COMPARE",
         "id": "dev.scd_1.1011",
         "lemma": "aguantar",
@@ -12145,7 +12145,7 @@
     },
     {
         "end1": "193",
-        "end2": "220",
+        "end2": 219,
         "grp": "COMPARE",
         "id": "dev.scd_1.1012",
         "lemma": "aguantar",
@@ -12157,7 +12157,7 @@
     },
     {
         "end1": "105",
-        "end2": "220",
+        "end2": 219,
         "grp": "COMPARE",
         "id": "dev.scd_1.1013",
         "lemma": "aguantar",
@@ -12168,8 +12168,8 @@
         "start2": "211"
     },
     {
-        "end1": "335",
-        "end2": "220",
+        "end1": 334,
+        "end2": 219,
         "grp": "COMPARE",
         "id": "dev.scd_1.1014",
         "lemma": "aguantar",
@@ -12181,7 +12181,7 @@
     },
     {
         "end1": "281",
-        "end2": "220",
+        "end2": 219,
         "grp": "COMPARE",
         "id": "dev.scd_1.1015",
         "lemma": "aguantar",
@@ -12193,7 +12193,7 @@
     },
     {
         "end1": "281",
-        "end2": "220",
+        "end2": 219,
         "grp": "COMPARE",
         "id": "dev.scd_1.1016",
         "lemma": "aguantar",
@@ -12205,7 +12205,7 @@
     },
     {
         "end1": "242",
-        "end2": "220",
+        "end2": 219,
         "grp": "COMPARE",
         "id": "dev.scd_1.1017",
         "lemma": "aguantar",
@@ -12217,7 +12217,7 @@
     },
     {
         "end1": "345",
-        "end2": "220",
+        "end2": 219,
         "grp": "COMPARE",
         "id": "dev.scd_1.1018",
         "lemma": "aguantar",
@@ -12229,7 +12229,7 @@
     },
     {
         "end1": "197",
-        "end2": "220",
+        "end2": 219,
         "grp": "COMPARE",
         "id": "dev.scd_1.1019",
         "lemma": "aguantar",
@@ -12301,7 +12301,7 @@
     },
     {
         "end1": "281",
-        "end2": "237",
+        "end2": 234,
         "grp": "COMPARE",
         "id": "dev.scd_1.1025",
         "lemma": "aguantar",
@@ -12313,7 +12313,7 @@
     },
     {
         "end1": "281",
-        "end2": "237",
+        "end2": 234,
         "grp": "COMPARE",
         "id": "dev.scd_1.1026",
         "lemma": "aguantar",
@@ -12433,7 +12433,7 @@
     },
     {
         "end1": "193",
-        "end2": "107",
+        "end2": 106,
         "grp": "COMPARE",
         "id": "dev.scd_1.1036",
         "lemma": "aguantar",
@@ -12445,7 +12445,7 @@
     },
     {
         "end1": "463",
-        "end2": "107",
+        "end2": 106,
         "grp": "COMPARE",
         "id": "dev.scd_1.1037",
         "lemma": "aguantar",
@@ -12457,7 +12457,7 @@
     },
     {
         "end1": "105",
-        "end2": "107",
+        "end2": 106,
         "grp": "COMPARE",
         "id": "dev.scd_1.1038",
         "lemma": "aguantar",
@@ -12469,7 +12469,7 @@
     },
     {
         "end1": "122",
-        "end2": "107",
+        "end2": 106,
         "grp": "COMPARE",
         "id": "dev.scd_1.1039",
         "lemma": "aguantar",
@@ -12481,7 +12481,7 @@
     },
     {
         "end1": "224",
-        "end2": "107",
+        "end2": 106,
         "grp": "COMPARE",
         "id": "dev.scd_1.1040",
         "lemma": "aguantar",
@@ -12493,7 +12493,7 @@
     },
     {
         "end1": "141",
-        "end2": "107",
+        "end2": 106,
         "grp": "COMPARE",
         "id": "dev.scd_1.1041",
         "lemma": "aguantar",
@@ -12540,7 +12540,7 @@
         "start2": "173"
     },
     {
-        "end1": "335",
+        "end1": 334,
         "end2": "180",
         "grp": "COMPARE",
         "id": "dev.scd_1.1045",
@@ -12564,7 +12564,7 @@
         "start2": "173"
     },
     {
-        "end1": "87",
+        "end1": 86,
         "end2": "180",
         "grp": "COMPARE",
         "id": "dev.scd_1.1047",
@@ -12624,7 +12624,7 @@
         "start2": "337"
     },
     {
-        "end1": "95",
+        "end1": 94,
         "end2": "345",
         "grp": "COMPARE",
         "id": "dev.scd_1.1052",
@@ -12684,7 +12684,7 @@
         "start2": "337"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "345",
         "grp": "COMPARE",
         "id": "dev.scd_1.1057",
@@ -12720,7 +12720,7 @@
         "start2": "283"
     },
     {
-        "end1": "237",
+        "end1": 234,
         "end2": "292",
         "grp": "COMPARE",
         "id": "dev.scd_1.1060",
@@ -12816,7 +12816,7 @@
         "start2": "82"
     },
     {
-        "end1": "95",
+        "end1": 94,
         "end2": "90",
         "grp": "COMPARE",
         "id": "dev.scd_1.1068",
@@ -12864,7 +12864,7 @@
         "start2": "82"
     },
     {
-        "end1": "106",
+        "end1": 105,
         "end2": "90",
         "grp": "COMPARE",
         "id": "dev.scd_1.1072",
@@ -12876,7 +12876,7 @@
         "start2": "82"
     },
     {
-        "end1": "220",
+        "end1": 219,
         "end2": "90",
         "grp": "COMPARE",
         "id": "dev.scd_1.1073",
@@ -12936,7 +12936,7 @@
         "start2": "82"
     },
     {
-        "end1": "95",
+        "end1": 94,
         "end2": "105",
         "grp": "COMPARE",
         "id": "dev.scd_1.1078",
@@ -12960,7 +12960,7 @@
         "start2": "97"
     },
     {
-        "end1": "237",
+        "end1": 234,
         "end2": "105",
         "grp": "COMPARE",
         "id": "dev.scd_1.1080",
@@ -12984,7 +12984,7 @@
         "start2": "97"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "105",
         "grp": "COMPARE",
         "id": "dev.scd_1.1082",
@@ -13056,7 +13056,7 @@
         "start2": "370"
     },
     {
-        "end1": "335",
+        "end1": 334,
         "end2": "378",
         "grp": "COMPARE",
         "id": "dev.scd_1.1088",
@@ -13140,7 +13140,7 @@
         "start2": "370"
     },
     {
-        "end1": "95",
+        "end1": 94,
         "end2": "463",
         "grp": "COMPARE",
         "id": "dev.scd_1.1095",
@@ -13176,7 +13176,7 @@
         "start2": "454"
     },
     {
-        "end1": "106",
+        "end1": 105,
         "end2": "463",
         "grp": "COMPARE",
         "id": "dev.scd_1.1098",
@@ -13284,7 +13284,7 @@
         "start2": "180"
     },
     {
-        "end1": "237",
+        "end1": 234,
         "end2": "336",
         "grp": "COMPARE",
         "id": "dev.scd_1.1107",
@@ -13320,7 +13320,7 @@
         "start2": "329"
     },
     {
-        "end1": "107",
+        "end1": 106,
         "end2": "336",
         "grp": "COMPARE",
         "id": "dev.scd_1.1110",
@@ -13368,7 +13368,7 @@
         "start2": "76"
     },
     {
-        "end1": "106",
+        "end1": 105,
         "end2": "84",
         "grp": "COMPARE",
         "id": "dev.scd_1.1114",
@@ -13392,7 +13392,7 @@
         "start2": "76"
     },
     {
-        "end1": "174",
+        "end1": 173,
         "end2": "84",
         "grp": "COMPARE",
         "id": "dev.scd_1.1116",
@@ -13404,7 +13404,7 @@
         "start2": "76"
     },
     {
-        "end1": "174",
+        "end1": 173,
         "end2": "84",
         "grp": "COMPARE",
         "id": "dev.scd_1.1117",
@@ -13416,7 +13416,7 @@
         "start2": "76"
     },
     {
-        "end1": "62",
+        "end1": 59,
         "end2": "84",
         "grp": "COMPARE",
         "id": "dev.scd_1.1118",
@@ -13488,7 +13488,7 @@
         "start2": "48"
     },
     {
-        "end1": "87",
+        "end1": 86,
         "end2": "58",
         "grp": "COMPARE",
         "id": "dev.scd_1.1124",
@@ -13572,7 +13572,7 @@
         "start2": "274"
     },
     {
-        "end1": "62",
+        "end1": 59,
         "end2": "281",
         "grp": "COMPARE",
         "id": "dev.scd_1.1131",
@@ -13584,7 +13584,7 @@
         "start2": "274"
     },
     {
-        "end1": "237",
+        "end1": 234,
         "end2": "197",
         "grp": "COMPARE",
         "id": "dev.scd_1.1132",
@@ -13632,7 +13632,7 @@
         "start2": "189"
     },
     {
-        "end1": "62",
+        "end1": 59,
         "end2": "197",
         "grp": "COMPARE",
         "id": "dev.scd_1.1136",
@@ -13693,7 +13693,7 @@
     },
     {
         "end1": "203",
-        "end2": "92",
+        "end2": 91,
         "grp": "COMPARE",
         "id": "dev.scd_1.1141",
         "lemma": "servidor",
@@ -13705,7 +13705,7 @@
     },
     {
         "end1": "80",
-        "end2": "92",
+        "end2": 91,
         "grp": "COMPARE",
         "id": "dev.scd_1.1142",
         "lemma": "servidor",
@@ -13717,7 +13717,7 @@
     },
     {
         "end1": "80",
-        "end2": "92",
+        "end2": 91,
         "grp": "COMPARE",
         "id": "dev.scd_1.1143",
         "lemma": "servidor",
@@ -13729,7 +13729,7 @@
     },
     {
         "end1": "98",
-        "end2": "92",
+        "end2": 91,
         "grp": "COMPARE",
         "id": "dev.scd_1.1144",
         "lemma": "servidor",
@@ -13741,7 +13741,7 @@
     },
     {
         "end1": "222",
-        "end2": "142",
+        "end2": 141,
         "grp": "COMPARE",
         "id": "dev.scd_1.1145",
         "lemma": "servidor",
@@ -13753,7 +13753,7 @@
     },
     {
         "end1": "284",
-        "end2": "142",
+        "end2": 141,
         "grp": "COMPARE",
         "id": "dev.scd_1.1146",
         "lemma": "servidor",
@@ -13765,7 +13765,7 @@
     },
     {
         "end1": "192",
-        "end2": "142",
+        "end2": 141,
         "grp": "COMPARE",
         "id": "dev.scd_1.1147",
         "lemma": "servidor",
@@ -13777,7 +13777,7 @@
     },
     {
         "end1": "192",
-        "end2": "142",
+        "end2": 141,
         "grp": "COMPARE",
         "id": "dev.scd_1.1148",
         "lemma": "servidor",
@@ -13800,7 +13800,7 @@
         "start2": "211"
     },
     {
-        "end1": "202",
+        "end1": 201,
         "end2": "221",
         "grp": "COMPARE",
         "id": "dev.scd_1.1150",
@@ -13908,7 +13908,7 @@
         "start2": "536"
     },
     {
-        "end1": "95",
+        "end1": 94,
         "end2": "544",
         "grp": "COMPARE",
         "id": "dev.scd_1.1159",
@@ -13944,7 +13944,7 @@
         "start2": "536"
     },
     {
-        "end1": "125",
+        "end1": 124,
         "end2": "544",
         "grp": "COMPARE",
         "id": "dev.scd_1.1162",
@@ -13957,7 +13957,7 @@
     },
     {
         "end1": "203",
-        "end2": "89",
+        "end2": 88,
         "grp": "COMPARE",
         "id": "dev.scd_1.1163",
         "lemma": "servidor",
@@ -13969,7 +13969,7 @@
     },
     {
         "end1": "204",
-        "end2": "89",
+        "end2": 88,
         "grp": "COMPARE",
         "id": "dev.scd_1.1164",
         "lemma": "servidor",
@@ -13981,7 +13981,7 @@
     },
     {
         "end1": "170",
-        "end2": "89",
+        "end2": 88,
         "grp": "COMPARE",
         "id": "dev.scd_1.1165",
         "lemma": "servidor",
@@ -13993,7 +13993,7 @@
     },
     {
         "end1": "83",
-        "end2": "89",
+        "end2": 88,
         "grp": "COMPARE",
         "id": "dev.scd_1.1166",
         "lemma": "servidor",
@@ -14005,7 +14005,7 @@
     },
     {
         "end1": "98",
-        "end2": "89",
+        "end2": 88,
         "grp": "COMPARE",
         "id": "dev.scd_1.1167",
         "lemma": "servidor",
@@ -14016,8 +14016,8 @@
         "start2": "80"
     },
     {
-        "end1": "125",
-        "end2": "89",
+        "end1": 124,
+        "end2": 88,
         "grp": "COMPARE",
         "id": "dev.scd_1.1168",
         "lemma": "servidor",
@@ -14029,7 +14029,7 @@
     },
     {
         "end1": "203",
-        "end2": "89",
+        "end2": 88,
         "grp": "COMPARE",
         "id": "dev.scd_1.1169",
         "lemma": "servidor",
@@ -14100,7 +14100,7 @@
         "start2": "195"
     },
     {
-        "end1": "361",
+        "end1": 360,
         "end2": "203",
         "grp": "COMPARE",
         "id": "dev.scd_1.1175",
@@ -14160,7 +14160,7 @@
         "start2": "70"
     },
     {
-        "end1": "89",
+        "end1": 88,
         "end2": "80",
         "grp": "COMPARE",
         "id": "dev.scd_1.1180",
@@ -14340,7 +14340,7 @@
         "start2": "75"
     },
     {
-        "end1": "361",
+        "end1": 360,
         "end2": "83",
         "grp": "COMPARE",
         "id": "dev.scd_1.1195",
@@ -14364,7 +14364,7 @@
         "start2": "218"
     },
     {
-        "end1": "95",
+        "end1": 94,
         "end2": "228",
         "grp": "COMPARE",
         "id": "dev.scd_1.1197",
@@ -14400,7 +14400,7 @@
         "start2": "218"
     },
     {
-        "end1": "142",
+        "end1": 141,
         "end2": "228",
         "grp": "COMPARE",
         "id": "dev.scd_1.1200",
@@ -14424,7 +14424,7 @@
         "start2": "218"
     },
     {
-        "end1": "125",
+        "end1": 124,
         "end2": "228",
         "grp": "COMPARE",
         "id": "dev.scd_1.1202",
@@ -14496,7 +14496,7 @@
         "start2": "140"
     },
     {
-        "end1": "92",
+        "end1": 91,
         "end2": "148",
         "grp": "COMPARE",
         "id": "dev.scd_1.1208",
@@ -14532,7 +14532,7 @@
         "start2": "287"
     },
     {
-        "end1": "89",
+        "end1": 88,
         "end2": "297",
         "grp": "COMPARE",
         "id": "dev.scd_1.1211",
@@ -14616,7 +14616,7 @@
         "start2": "133"
     },
     {
-        "end1": "239",
+        "end1": 238,
         "end2": "143",
         "grp": "COMPARE",
         "id": "dev.scd_1.1218",
@@ -14700,7 +14700,7 @@
         "start2": "75"
     },
     {
-        "end1": "89",
+        "end1": 88,
         "end2": "83",
         "grp": "COMPARE",
         "id": "dev.scd_1.1225",
@@ -14868,7 +14868,7 @@
         "start2": "194"
     },
     {
-        "end1": "89",
+        "end1": 88,
         "end2": "204",
         "grp": "COMPARE",
         "id": "dev.scd_1.1239",
@@ -14904,7 +14904,7 @@
         "start2": "194"
     },
     {
-        "end1": "92",
+        "end1": 91,
         "end2": "204",
         "grp": "COMPARE",
         "id": "dev.scd_1.1242",
@@ -14916,7 +14916,7 @@
         "start2": "194"
     },
     {
-        "end1": "361",
+        "end1": 360,
         "end2": "204",
         "grp": "COMPARE",
         "id": "dev.scd_1.1243",
@@ -15024,7 +15024,7 @@
         "start2": "289"
     },
     {
-        "end1": "202",
+        "end1": 201,
         "end2": "270",
         "grp": "COMPARE",
         "id": "dev.scd_1.1252",
@@ -15036,7 +15036,7 @@
         "start2": "262"
     },
     {
-        "end1": "142",
+        "end1": 141,
         "end2": "270",
         "grp": "COMPARE",
         "id": "dev.scd_1.1253",
@@ -15132,7 +15132,7 @@
         "start2": "235"
     },
     {
-        "end1": "361",
+        "end1": 360,
         "end2": "243",
         "grp": "COMPARE",
         "id": "dev.scd_1.1261",
@@ -15180,7 +15180,7 @@
         "start2": "195"
     },
     {
-        "end1": "89",
+        "end1": 88,
         "end2": "203",
         "grp": "COMPARE",
         "id": "dev.scd_1.1265",
@@ -15240,7 +15240,7 @@
         "start2": "195"
     },
     {
-        "end1": "95",
+        "end1": 94,
         "end2": "194",
         "grp": "COMPARE",
         "id": "dev.scd_1.1270",
@@ -15324,7 +15324,7 @@
         "start2": "184"
     },
     {
-        "end1": "95",
+        "end1": 94,
         "end2": "189",
         "grp": "COMPARE",
         "id": "dev.scd_1.1277",
@@ -15336,7 +15336,7 @@
         "start2": "179"
     },
     {
-        "end1": "142",
+        "end1": 141,
         "end2": "189",
         "grp": "COMPARE",
         "id": "dev.scd_1.1278",
@@ -15385,7 +15385,7 @@
     },
     {
         "end1": "166",
-        "end2": "480",
+        "end2": 479,
         "grp": "COMPARE",
         "id": "dev.scd_1.1282",
         "lemma": "servidor",
@@ -15397,7 +15397,7 @@
     },
     {
         "end1": "222",
-        "end2": "480",
+        "end2": 479,
         "grp": "COMPARE",
         "id": "dev.scd_1.1283",
         "lemma": "servidor",
@@ -15409,7 +15409,7 @@
     },
     {
         "end1": "544",
-        "end2": "480",
+        "end2": 479,
         "grp": "COMPARE",
         "id": "dev.scd_1.1284",
         "lemma": "servidor",
@@ -15421,7 +15421,7 @@
     },
     {
         "end1": "213",
-        "end2": "480",
+        "end2": 479,
         "grp": "COMPARE",
         "id": "dev.scd_1.1285",
         "lemma": "servidor",
@@ -15432,8 +15432,8 @@
         "start2": "469"
     },
     {
-        "end1": "89",
-        "end2": "480",
+        "end1": 88,
+        "end2": 479,
         "grp": "COMPARE",
         "id": "dev.scd_1.1286",
         "lemma": "servidor",
@@ -15445,7 +15445,7 @@
     },
     {
         "end1": "165",
-        "end2": "480",
+        "end2": 479,
         "grp": "COMPARE",
         "id": "dev.scd_1.1287",
         "lemma": "servidor",
@@ -15457,7 +15457,7 @@
     },
     {
         "end1": "189",
-        "end2": "480",
+        "end2": 479,
         "grp": "COMPARE",
         "id": "dev.scd_1.1288",
         "lemma": "servidor",
@@ -15469,7 +15469,7 @@
     },
     {
         "end1": "221",
-        "end2": "480",
+        "end2": 479,
         "grp": "COMPARE",
         "id": "dev.scd_1.1289",
         "lemma": "servidor",
@@ -15481,7 +15481,7 @@
     },
     {
         "end1": "270",
-        "end2": "480",
+        "end2": 479,
         "grp": "COMPARE",
         "id": "dev.scd_1.1290",
         "lemma": "servidor",
@@ -15552,7 +15552,7 @@
         "start2": "276"
     },
     {
-        "end1": "142",
+        "end1": 141,
         "end2": "284",
         "grp": "COMPARE",
         "id": "dev.scd_1.1296",
@@ -15612,7 +15612,7 @@
         "start2": "276"
     },
     {
-        "end1": "125",
+        "end1": 124,
         "end2": "284",
         "grp": "COMPARE",
         "id": "dev.scd_1.1301",
@@ -15648,7 +15648,7 @@
         "start2": "184"
     },
     {
-        "end1": "202",
+        "end1": 201,
         "end2": "192",
         "grp": "COMPARE",
         "id": "dev.scd_1.1304",
@@ -15744,7 +15744,7 @@
         "start2": "158"
     },
     {
-        "end1": "202",
+        "end1": 201,
         "end2": "222",
         "grp": "COMPARE",
         "id": "dev.scd_1.1312",
@@ -15793,7 +15793,7 @@
     },
     {
         "end1": "299",
-        "end2": "361",
+        "end2": 360,
         "grp": "COMPARE",
         "id": "dev.scd_1.1316",
         "lemma": "servidor",
@@ -15805,7 +15805,7 @@
     },
     {
         "end1": "247",
-        "end2": "361",
+        "end2": 360,
         "grp": "COMPARE",
         "id": "dev.scd_1.1317",
         "lemma": "servidor",
@@ -15817,7 +15817,7 @@
     },
     {
         "end1": "98",
-        "end2": "361",
+        "end2": 360,
         "grp": "COMPARE",
         "id": "dev.scd_1.1318",
         "lemma": "servidor",
@@ -15829,7 +15829,7 @@
     },
     {
         "end1": "460",
-        "end2": "361",
+        "end2": 360,
         "grp": "COMPARE",
         "id": "dev.scd_1.1319",
         "lemma": "servidor",
@@ -15841,7 +15841,7 @@
     },
     {
         "end1": "284",
-        "end2": "95",
+        "end2": 94,
         "grp": "COMPARE",
         "id": "dev.scd_1.1320",
         "lemma": "servidor",
@@ -15853,7 +15853,7 @@
     },
     {
         "end1": "544",
-        "end2": "95",
+        "end2": 94,
         "grp": "COMPARE",
         "id": "dev.scd_1.1321",
         "lemma": "servidor",
@@ -15864,8 +15864,8 @@
         "start2": "84"
     },
     {
-        "end1": "89",
-        "end2": "95",
+        "end1": 88,
+        "end2": 94,
         "grp": "COMPARE",
         "id": "dev.scd_1.1322",
         "lemma": "servidor",
@@ -15877,7 +15877,7 @@
     },
     {
         "end1": "189",
-        "end2": "95",
+        "end2": 94,
         "grp": "COMPARE",
         "id": "dev.scd_1.1323",
         "lemma": "servidor",
@@ -15889,7 +15889,7 @@
     },
     {
         "end1": "201",
-        "end2": "95",
+        "end2": 94,
         "grp": "COMPARE",
         "id": "dev.scd_1.1324",
         "lemma": "servidor",
@@ -15901,7 +15901,7 @@
     },
     {
         "end1": "284",
-        "end2": "202",
+        "end2": 201,
         "grp": "COMPARE",
         "id": "dev.scd_1.1325",
         "lemma": "servidor",
@@ -15913,7 +15913,7 @@
     },
     {
         "end1": "143",
-        "end2": "202",
+        "end2": 201,
         "grp": "COMPARE",
         "id": "dev.scd_1.1326",
         "lemma": "servidor",
@@ -15924,8 +15924,8 @@
         "start2": "193"
     },
     {
-        "end1": "89",
-        "end2": "202",
+        "end1": 88,
+        "end2": 201,
         "grp": "COMPARE",
         "id": "dev.scd_1.1327",
         "lemma": "servidor",
@@ -15937,7 +15937,7 @@
     },
     {
         "end1": "165",
-        "end2": "202",
+        "end2": 201,
         "grp": "COMPARE",
         "id": "dev.scd_1.1328",
         "lemma": "servidor",
@@ -15949,7 +15949,7 @@
     },
     {
         "end1": "189",
-        "end2": "202",
+        "end2": 201,
         "grp": "COMPARE",
         "id": "dev.scd_1.1329",
         "lemma": "servidor",
@@ -16008,7 +16008,7 @@
         "start2": "90"
     },
     {
-        "end1": "142",
+        "end1": 141,
         "end2": "284",
         "grp": "COMPARE",
         "id": "dev.scd_1.1334",
@@ -16044,7 +16044,7 @@
         "start2": "276"
     },
     {
-        "end1": "125",
+        "end1": 124,
         "end2": "284",
         "grp": "COMPARE",
         "id": "dev.scd_1.1337",
@@ -16080,7 +16080,7 @@
         "start2": "276"
     },
     {
-        "end1": "239",
+        "end1": 238,
         "end2": "284",
         "grp": "COMPARE",
         "id": "dev.scd_1.1340",
@@ -16093,7 +16093,7 @@
     },
     {
         "end1": "166",
-        "end2": "239",
+        "end2": 238,
         "grp": "COMPARE",
         "id": "dev.scd_1.1341",
         "lemma": "servidor",
@@ -16105,7 +16105,7 @@
     },
     {
         "end1": "189",
-        "end2": "239",
+        "end2": 238,
         "grp": "COMPARE",
         "id": "dev.scd_1.1342",
         "lemma": "servidor",
@@ -16117,7 +16117,7 @@
     },
     {
         "end1": "194",
-        "end2": "239",
+        "end2": 238,
         "grp": "COMPARE",
         "id": "dev.scd_1.1343",
         "lemma": "servidor",
@@ -16129,7 +16129,7 @@
     },
     {
         "end1": "201",
-        "end2": "239",
+        "end2": 238,
         "grp": "COMPARE",
         "id": "dev.scd_1.1344",
         "lemma": "servidor",
@@ -16141,7 +16141,7 @@
     },
     {
         "end1": "201",
-        "end2": "239",
+        "end2": 238,
         "grp": "COMPARE",
         "id": "dev.scd_1.1345",
         "lemma": "servidor",
@@ -16153,7 +16153,7 @@
     },
     {
         "end1": "228",
-        "end2": "239",
+        "end2": 238,
         "grp": "COMPARE",
         "id": "dev.scd_1.1346",
         "lemma": "servidor",
@@ -16164,7 +16164,7 @@
         "start2": "230"
     },
     {
-        "end1": "202",
+        "end1": 201,
         "end2": "204",
         "grp": "COMPARE",
         "id": "dev.scd_1.1347",
@@ -16248,7 +16248,7 @@
         "start2": "205"
     },
     {
-        "end1": "239",
+        "end1": 238,
         "end2": "213",
         "grp": "COMPARE",
         "id": "dev.scd_1.1354",
@@ -16261,7 +16261,7 @@
     },
     {
         "end1": "544",
-        "end2": "125",
+        "end2": 124,
         "grp": "COMPARE",
         "id": "dev.scd_1.1355",
         "lemma": "servidor",
@@ -16273,7 +16273,7 @@
     },
     {
         "end1": "165",
-        "end2": "125",
+        "end2": 124,
         "grp": "COMPARE",
         "id": "dev.scd_1.1356",
         "lemma": "servidor",
@@ -16284,8 +16284,8 @@
         "start2": "114"
     },
     {
-        "end1": "92",
-        "end2": "125",
+        "end1": 91,
+        "end2": 124,
         "grp": "COMPARE",
         "id": "dev.scd_1.1357",
         "lemma": "servidor",
@@ -16297,7 +16297,7 @@
     },
     {
         "end1": "221",
-        "end2": "125",
+        "end2": 124,
         "grp": "COMPARE",
         "id": "dev.scd_1.1358",
         "lemma": "servidor",
@@ -16309,7 +16309,7 @@
     },
     {
         "end1": "201",
-        "end2": "125",
+        "end2": 124,
         "grp": "COMPARE",
         "id": "dev.scd_1.1359",
         "lemma": "servidor",
@@ -16320,7 +16320,7 @@
         "start2": "114"
     },
     {
-        "end1": "142",
+        "end1": 141,
         "end2": "200",
         "grp": "COMPARE",
         "id": "dev.scd_1.1360",
@@ -16392,7 +16392,7 @@
         "start2": "192"
     },
     {
-        "end1": "142",
+        "end1": 141,
         "end2": "201",
         "grp": "COMPARE",
         "id": "dev.scd_1.1366",
@@ -16440,7 +16440,7 @@
         "start2": "193"
     },
     {
-        "end1": "125",
+        "end1": 124,
         "end2": "201",
         "grp": "COMPARE",
         "id": "dev.scd_1.1370",
@@ -16488,7 +16488,7 @@
         "start2": "193"
     },
     {
-        "end1": "480",
+        "end1": 479,
         "end2": "201",
         "grp": "COMPARE",
         "id": "dev.scd_1.1374",
@@ -16500,7 +16500,7 @@
         "start2": "193"
     },
     {
-        "end1": "480",
+        "end1": 479,
         "end2": "201",
         "grp": "COMPARE",
         "id": "dev.scd_1.1375",
