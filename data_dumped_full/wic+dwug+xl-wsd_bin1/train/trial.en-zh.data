@@ -1,0 +1,90 @@
+[
+    {
+        "id": "trial.en-zh.0",
+        "lemma": "report",
+        "pos": "VERB",
+        "sentence1": "Any alterations which it is proposed to make as a result of this review are to be reported to the Interdepartmental Committee on Charter Repertory for its approval.",
+        "sentence2": "\u5b83\u8fd8\u62a5\u544a\u8bf4 \uff0c\u6839\u636e\u533b\u7597\u8bb0\u5f55\uff0cJustinianoHurtadoTorre\u6b7b\u4e8e\u75be\u75c5\u3002",
+        "start1": 82,
+        "end1": 90,
+        "start2": 2,
+        "end2": 4
+    },
+    {
+        "id": "trial.en-zh.1",
+        "lemma": "report",
+        "pos": "VERB",
+        "sentence1": "Any alterations which it is proposed to make as a result of this review are to be reported to the Interdepartmental Committee on Charter Repertory for its approval.",
+        "sentence2": "\u53c2\u52a0\u8005\u5c06\u5411\u672c\u56fd\u6709\u5173\u5f53\u5c40\u8fdb\u884c\u6c47\u62a5\u3002",
+        "start1": 82,
+        "end1": 90,
+        "start2": 11,
+        "end2": 15
+    },
+    {
+        "id": "trial.en-zh.2",
+        "lemma": "yet",
+        "pos": "ADV",
+        "sentence1": "The Group also pointed out that it had in its files a total of 378 cases that had not yet been clarified.",
+        "sentence2": "\u4f1a\u8bae\u6307\u51fa\u6709\u5173\u8fd9\u4e9b\u8981\u70b9\u53ca\u5176\u4ed6\u9009\u5b9a\u95ee\u9898\u7684\u8ba8\u8bba\u5e94\u7ee7\u7eed\u8fdb\u884c\u4e0b\u53bb\uff0c\u56e0\u4e3a\u9065\u611f\u4e0e\u5176\u4ed6\u65b0\u51fa\u73b0\u7684\u8bf8\u5982\u5728\u7a7a\u95f4\u73af\u5883\u7684\u5236\u9020\u7b49\u6280\u672f\u9886\u57df\u4e0d\u540c\uff0c\u8fd9\u4e9b\u6280\u672f\u7684\u597d\u5904\u5bf9\u53d1\u5c55\u4e2d\u56fd\u5bb6\u6765\u8bf4\u8fd8\u4e0d\u660e\u663e\uff0c\u800c\u9065\u611f\u6beb\u65e0\u7591\u95ee\u662f\u53d1\u5c55\u4e2d\u56fd\u5bb6\u7684\u4e00\u9879\u91cd\u8981\u5de5\u5177\u3002",
+        "start1": 86,
+        "end1": 89,
+        "start2": 72,
+        "end2": 73
+    },
+    {
+        "id": "trial.en-zh.3",
+        "lemma": "yet",
+        "pos": "ADV",
+        "sentence1": "The Group also pointed out that it had in its files a total of 378 cases that had not yet been clarified.",
+        "sentence2": "\u4f46\u662f\uff0c\u5c1a  \u672a\u6709\u660e\u786e\u7684\u6cd5\u5f8b\u6846\u67b6\u6765\u786e\u5b9a\u54ea\u4e9b\u4e2a\u4eba\u6848\u4ef6\u53ef\u4e0d\u7ecf\u6709\u5173\u56fd\u5bb6\u7684\u540c\u610f\u5373\u5728\u56fd\u9645\u4e0a\u8fdb\u884c\u8ba8\u8bba(\u8003\u8651\u5230\u4e0a\u6587\u6240\u8ff0\u7684\u60c5\u51b5)\u3002",
+        "start1": 86,
+        "end1": 89,
+        "start2": 3,
+        "end2": 5
+    },
+    {
+        "id": "trial.en-zh.4",
+        "lemma": "receive",
+        "pos": "VERB",
+        "sentence1": "In the circumstances, the Committee finds that such medical attention as the author received while on death row did not violate articles 7 or 10, paragraph 1.",
+        "sentence2": "\u6536\u5230\u7684\u62a5\u544a\u8fd8\u8868\u660e\uff0cSernovodsk\u88ab\u5b8c\u5168\u5c01\u9501\u8d77\u6765\uff0c\u4f7f\u5f97\u57ce\u91cc14,000\u4eba(\u5176\u4e2d\u8bb8\u591a\u4eba\u662f\u6765\u81ea\u8f66\u81e3\u5176\u5b83\u5730\u65b9\u7684\u6d41\u79bb\u5931\u6240\u8005\uff0c\u65e0\u6cd5\u9003\u79bb\u3002",
+        "start1": 84,
+        "end1": 92,
+        "start2": 0,
+        "end2": 2
+    },
+    {
+        "id": "trial.en-zh.5",
+        "lemma": "receive",
+        "pos": "VERB",
+        "sentence1": "In the circumstances, the Committee finds that such medical attention as the author received while on death row did not violate articles 7 or 10, paragraph 1.",
+        "sentence2": "1995\u5e74\u63a5\u53d7\u8bad\u7ec3\u7684\u8054\u5408\u56fd\u5927\u5b66\u7814\u7a76\u5458\u4e4b\u4e2d\u6709\u767e\u5206\u4e4b\u4e03\u5341\u4e09\u5728\u53d1\u5c55\u4e2d\u56fd\u5bb6\u7684\u673a\u6784\u91cc\u63a5\u53d7\u57f9\u8bad;\u767e\u5206\u4e4b\u4e8c\u5341\u4e03\u5728\u5de5\u4e1a\u56fd\u5bb6\u7684\u673a\u6784\u63a5\u53d7\u57f9\u8bad\u3002",
+        "start1": 84,
+        "end1": 92,
+        "start2": 37,
+        "end2": 39
+    },
+    {
+        "id": "trial.en-zh.6",
+        "lemma": "sixth",
+        "pos": "NOUN",
+        "sentence1": "Of the costs apportioned to administrative operations, one third (or one sixth of the total) is borne by the United Nations.",
+        "sentence2": "\u8fd9\u79cd\u8bf4\u6cd5\u53ea\u9002\u7528\u4e8e\u53ef\u5361\u56e0\u548c\u6d77\u6d1b\u56e0\u7684\u6ee5\u7528\u95ee\u9898\uff0c\u800c\u6839\u636e\u836f\u7269\u7ba1\u5236\u7f72\u81ea\u5df1\u4f30\u8ba1\u6570\uff0c\u8fd9\u53ea\u5360\u6bd2\u54c1\u6ee5\u7528\u60c5\u51b5\u7684 \u516d\u5206\u4e4b\u4e00\u3002",
+        "start1": 73,
+        "end1": 78,
+        "start2": 46,
+        "end2": 47
+    },
+    {
+        "id": "trial.en-zh.7",
+        "lemma": "sixth",
+        "pos": "NOUN",
+        "sentence1": "Of the costs apportioned to administrative operations, one third (or one sixth of the total) is borne by the United Nations.",
+        "sentence2": "\u98df\u54c1\u4e1a\u5728\u7f8e\u56fd\u5360\u6240\u6709\u5173\u7a0e\u5cf0\u503c\u7684\u516d\u5206\u4e4b\u4e00\uff0c\u4e5f\u5927\u4f53\u5904\u572812%\u81f3100%\u7684\u8303\u56f4\u4e4b\u5185\u3002",
+        "start1": 73,
+        "end1": 78,
+        "start2": 14,
+        "end2": 15
+    }
+]
