@@ -12,12 +12,15 @@ from glob import glob
 import numpy as np
 from collections import namedtuple
 
+Example = namedtuple('Example',
+                     ['docId', 'pos', 'text_1', 'text_2', 'label', 'start_1', 'end_1', 'start_2', 'end_2', 'score',
+                      'lemma', 'grp'])
+
 
 class DataProcessor:
 
     def get_examples(self, source_dir):
         data_files = glob(os.path.join(source_dir, '*.data'))
-        Example = namedtuple('Example', ['docId', 'pos', 'text_1', 'text_2', 'label', 'start_1', 'end_1', 'start_2', 'end_2', 'score', 'lemma', 'grp'])
         examples = []
         for file in data_files:
             data = json.load(open(file, encoding='utf-8'))

@@ -56,60 +56,23 @@ def predict(
         cur_train_mean_loss=None,
         logger=None, compute_metrics=True,
         eval_script_path='../MeasEval/eval/measeval-eval.py',
-        only_parts=''
+        only_parts='',
+        dump_feature=True
     ):
+
+    if os.path.exists(output_dir):
+        os.system(f'rm -r {output_dir}/*')
+    else:
+        os.makedirs(output_dir, exist_ok=True)
 
     only_parts = [part for part in only_parts.split('+') if part]
     model.eval()
     syns = sorted(model.local_config['syns'])
     device = torch.device('cuda') if model.local_config['use_cuda'] else torch.device('cpu')
 
-    metrics = defaultdict(float)
-    nb_eval_steps = 0
-
-    syns_preds = []
-
-    for batch_id, batch in enumerate(tqdm(
-            eval_dataloader, total=len(eval_dataloader),
-            desc='validation ... '
-        )):
-
-        batch = tuple([elem.to(device) for elem in batch])
-
-        input_ids, input_mask, token_type_ids, b_syn_labels, b_positions = batch
-        with torch.no_grad():
-            loss, syn_logits = model(
-                input_ids=input_ids,
-                token_type_ids=token_type_ids,
-                attention_mask=input_mask,
-                input_labels={
-                    'syn_labels': b_syn_labels,
-                    'positions': b_positions
-                }
-            )
-
-        if compute_metrics:
-            for key, value in loss.items():
-                metrics[f'eval_{key}_loss'] += value.mean().item()
-
-        nb_eval_steps += 1
-        if model.local_config['loss'] != 'cosine_similarity':
-            syns_preds.append(syn_logits.detach().cpu().numpy())
-        else:
-            syns_preds.append(CosineSimilarity()(syn_logits[0], syn_logits[1]).detach().cpu().numpy())
-
-    syns_scores = np.concatenate(syns_preds, axis=0)  # n_examples x 2 or n_examples
-    if syns_scores.shape[-1] != 1 and model.local_config['loss'] != 'cosine_similarity':
-        syns_preds = np.argmax(syns_scores, axis=1)  # n_examples
-    elif model.local_config['loss'] == 'cosine_similarity':
-        syns_preds = np.zeros(syns_scores.shape, dtype=int)
-        syns_preds[syns_scores >= 0.5] = 1
-    else:
-        syns_preds = np.zeros(syns_scores.shape, dtype=int)
-        if model.local_config['train_scd']:
-            syns_preds[syns_scores >= 3.0] = 1
-        else:
-            syns_preds[syns_scores > 0.5] = 1
+    eval_dataloader = tqdm(eval_dataloader, total=len(eval_dataloader), desc='validation ... ')
+    metrics, syns_preds, syns_scores_res = run_inference(eval_dataloader, model, device, compute_metrics, dump_feature,
+                                                         output_dir)
 
     predictions = defaultdict(lambda: defaultdict(list))
     golds = defaultdict(lambda: defaultdict(list))
@@ -118,7 +81,7 @@ def predict(
     lemmas = defaultdict(lambda: defaultdict(list))
 
     syn_ids_to_label = {0: 'F', 1: 'T'}
-    for ex_id, (ex_feature, ex_syn_preds, ex_scores) in enumerate(zip(eval_fearures, syns_preds, syns_scores)):
+    for ex_id, (ex_feature, ex_syn_preds, ex_scores) in enumerate(zip(eval_fearures, syns_preds, syns_scores_res)):
         example = ex_feature.example
         docId = example.docId
         posInDoc = int(docId.split('.')[-1])
@@ -126,20 +89,10 @@ def predict(
         syn_pred = syn_ids_to_label[ex_syn_preds.item()]
         predictions[docId][posInDoc].append(syn_pred)
         golds[docId][posInDoc].append(example.label)
-        # scores for positive class
-        if model.local_config['loss'] == 'cosine_similarity':
-            scores[docId][posInDoc].append(ex_scores)
-        elif len(ex_scores) > 1:
-            scores[docId][posInDoc].append(softmax(ex_scores)[-1])
-        else:
-            scores[docId][posInDoc].append(ex_scores[0])
+        scores[docId][posInDoc].append(ex_scores)
         gold_scores[docId][posInDoc].append(example.score)
         lemmas[docId][posInDoc].append((example.lemma, example.grp))
 
-    if os.path.exists(output_dir):
-        os.system(f'rm -r {output_dir}/*')
-    else:
-        os.makedirs(output_dir, exist_ok=True)
 
     print(f'saving predictions for: {only_parts}')
     for docId, doc_preds in predictions.items():
@@ -155,8 +108,6 @@ def predict(
         json.dump(prediction, open(prediction_file, 'w'))
 
     if compute_metrics:
-        for key in metrics:
-            metrics[key] /= nb_eval_steps
         mean_non_english = []
         for docId, doc_preds in predictions.items():
             if 'scd' in docId:
@@ -207,6 +158,71 @@ def predict(
     model.train()
 
     return metrics
+
+
+def run_inference(eval_dataloader, model, device, compute_metrics, dump_feature, output_dir):
+    metrics = defaultdict(float)
+    nb_eval_steps = 0
+    syns_preds = []
+    for batch_id, batch in enumerate(eval_dataloader):
+        batch = tuple([elem.to(device) for elem in batch])
+
+        input_ids, input_mask, token_type_ids, b_syn_labels, b_positions = batch
+        with torch.no_grad():
+            loss, syn_logits, syn_features = model(
+                input_ids=input_ids,
+                token_type_ids=token_type_ids,
+                attention_mask=input_mask,
+                input_labels={
+                    'syn_labels': b_syn_labels,
+                    'positions': b_positions
+                },
+                return_features=True
+            )
+
+        if dump_feature:
+            syn_features = syn_features.detach().cpu().numpy()
+            np.save(os.path.join(output_dir, f'features_batch_{batch_id}.npy'), syn_features)
+            np.save(os.path.join(output_dir, f'labels_batch_{batch_id}.npy'), b_syn_labels.detach().cpu().numpy())
+
+        if compute_metrics:
+            for key, value in loss.items():
+                metrics[f'eval_{key}_loss'] = (metrics[f'eval_{key}_loss'] * nb_eval_steps +
+                                               value.mean().item()) / (nb_eval_steps + 1)
+
+        nb_eval_steps += 1
+        if model.local_config['loss'] != 'cosine_similarity':
+            syns_preds.append(syn_logits.detach().cpu().numpy())
+        else:
+            syns_preds.append(CosineSimilarity()(syn_logits[0], syn_logits[1]).detach().cpu().numpy())
+    syns_scores = np.concatenate(syns_preds, axis=0)  # n_examples x 2 or n_examples
+    # scores for positive class; this replaces the previous code in processing each score individually:
+    # if model.local_config['loss'] == 'cosine_similarity':
+    #     scores[docId][posInDoc].append(ex_scores)
+    # elif len(ex_scores) > 1:
+    #     scores[docId][posInDoc].append(softmax(ex_scores)[-1])
+    # else:
+    #     scores[docId][posInDoc].append(ex_scores[0])
+    # TODO: TEST for different types of heads!
+    if model.local_config['loss'] == 'cosine_similarity':
+        syns_scores_res = syns_scores
+    elif syns_scores.ndim > 1 and syns_scores.shape[-1] > 1:
+        syns_scores_res = softmax(syns_scores, axis=-1)[:, -1]
+    else:
+        syns_scores_res = syns_scores[:, 0]
+    # Create predictions from scores
+    if syns_scores.shape[-1] != 1 and model.local_config['loss'] != 'cosine_similarity':
+        syns_preds = np.argmax(syns_scores, axis=1)  # n_examples
+    elif model.local_config['loss'] == 'cosine_similarity':
+        syns_preds = np.zeros(syns_scores.shape, dtype=int)
+        syns_preds[syns_scores >= 0.5] = 1
+    else:
+        syns_preds = np.zeros(syns_scores.shape, dtype=int)
+        if model.local_config['train_scd']:
+            syns_preds[syns_scores >= 3.0] = 1
+        else:
+            syns_preds[syns_scores > 0.5] = 1
+    return metrics, syns_preds, syns_scores_res
 
 
 def freeze(model, trainable_params, epoch):

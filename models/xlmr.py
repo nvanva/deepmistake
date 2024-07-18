@@ -149,6 +149,7 @@ class XLMRModel(BertPreTrainedModel):
             head_mask=None,
             inputs_embeds=None,
             input_labels=None,
+            return_features=False
     ):
         loss = defaultdict(float)
         outputs = self.roberta(
@@ -182,7 +183,7 @@ class XLMRModel(BertPreTrainedModel):
             else:
                 loss['total'] = CosineEmbeddingLoss()(syn_logits[0], syn_logits[1], syn_labels * 2 - 1)
 
-        return (loss, syn_logits)
+        return (loss, syn_logits, syn_features) if return_features else (loss, syn_logits)
 
 
     def extract_features(self, hidden_states, positions):
@@ -270,10 +271,16 @@ class XLMRModel(BertPreTrainedModel):
     def convert_dataset_to_features(
             self, source_dir, logger
     ):
+        examples = self.data_processor.get_examples(source_dir)
+        if len(examples) == 0:
+            print('ERROR: No examples found in the specified directory:', source_dir)
+            raise ValueError(source_dir)
+        self.convert_examples_to_features(examples, logger)
+
+    def convert_examples_to_features(self, examples, logger):
         features = []
         max_seq_len = self.local_config['max_seq_len']
 #        import pdb; pdb.set_trace()
-        examples = self.data_processor.get_examples(source_dir)
 #        import pdb; pdb.set_trace()
         syns = self.local_config['syns']
         syn_label_to_id = {'T': 1, 'F': 0}
@@ -322,6 +329,8 @@ class XLMRModel(BertPreTrainedModel):
 
                 if len(tokens) > max_seq_len:
                     if True:
+                        # New version of clipping to max_seq_len: does not skip examples, tries to balance
+                        # the lengths of left and right contexts for each word usage
 #                        import pdb; pdb.set_trace()
                         seg_pos = [positions[syns_lab_to_pos['Target'] * 2], sep_pos, positions[syns_lab_to_pos['Synonym'] * 2], len(tokens)]
                         seg_len = [seg_pos[0]] + [seg_pos[i+1]-seg_pos[i] for i in range(0,len(seg_pos)-1)]
@@ -340,6 +349,7 @@ class XLMRModel(BertPreTrainedModel):
                         #print(tokens[slice(*positions[0:2])], tokens[slice(*positions[2:])]) 
                         num_long_shortened += 1
                     else:
+                        # Old version of clipping to max_seq_len: skips some examples!
                         tokens = tokens[:max_seq_len]
                         if max(positions) > max_seq_len - 1:
                             print(f'Positions={positions} ({st1}-{end1}, {st2}-{end2}) are larger than max_seq_len={max_seq_len}: SKIPPING ')
