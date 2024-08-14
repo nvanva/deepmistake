@@ -275,7 +275,7 @@ class XLMRModel(BertPreTrainedModel):
         if len(examples) == 0:
             print('ERROR: No examples found in the specified directory:', source_dir)
             raise ValueError(source_dir)
-        self.convert_examples_to_features(examples, logger)
+        return self.convert_examples_to_features(examples, logger)
 
     def convert_examples_to_features(self, examples, logger):
         features = []
