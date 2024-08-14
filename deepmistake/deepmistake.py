@@ -24,9 +24,6 @@ test_logger = logging.getLogger("__test__")
 
 
 class DeepMistake:
-    """
-    TODO: This is a sketch of the code. Arshan, please finish and test.
-    """
 
     def __init__(self, ckpt_dir, device):
         """
@@ -46,7 +43,7 @@ class DeepMistake:
             local_config=self.local_config,
         ).to(
             device
-        )  # TODO: fill in the arguments
+        )
 
     def predict_examples(self, examples: list[Example], batch_size=16):
         """
