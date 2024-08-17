@@ -24,11 +24,11 @@ from transformers.file_utils import (
 )
 
 from tqdm import tqdm
-from models.utils import (
+from deepmistake.utils import (
     configs, DataProcessor
 )
-from models.utils import get_qa_dataloader_and_tensors as get_dataloader_and_tensors
-from models.utils import qa_models as models
+from deepmistake.utils import get_qa_dataloader_and_tensors as get_dataloader_and_tensors
+from deepmistake.utils import qa_models as models
 from collections import defaultdict
 from sklearn.metrics import (
     precision_recall_fscore_support, classification_report, accuracy_score

@@ -26,10 +26,11 @@ from transformers.file_utils import (
 )
 
 from tqdm import tqdm
-from models.utils import (
+from deepmistake.utils import (
     models, configs, DataProcessor
 )
-from models.utils import get_dataloader_and_tensors
+from deepmistake.utils import get_dataloader_and_tensors
+from deepmistake.deepmistake import DeepMistake
 from collections import defaultdict
 from sklearn.metrics import (
     precision_recall_fscore_support, classification_report, accuracy_score
@@ -347,307 +348,38 @@ def main(args):
     train_dir = os.path.join(local_config['data_dir'], 'train/')
     dev_dir = os.path.join(local_config['data_dir'], 'dev')
 
-    if local_config['do_train']:
-
-        config = configs[local_config['model_name']]
-        config = config.from_pretrained(
-            local_config['model_name'],
-            hidden_dropout_prob=args.dropout
-        )
-        if args.ckpt_path != '':
-            model_path = args.ckpt_path
-        else:
-            model_path = local_config['model_name']
-        model = models[model_name].from_pretrained(
-            model_path, cache_dir=str(PYTORCH_PRETRAINED_BERT_CACHE),
-            local_config=local_config,
-            data_processor=data_processor,
-            config=config
-        )
-
-        param_optimizer = list(model.named_parameters())
-
-        no_decay = ['bias', 'LayerNorm.weight']
-        optimizer_grouped_parameters = [
-            {
-                'params': [
-                    param for name, param in param_optimizer
-                    if not any(nd in name for nd in no_decay)
-                ],
-                'weight_decay': float(args.weight_decay)
-            },
-            {
-                'params': [
-                    param for name, param in param_optimizer
-                    if any(nd in name for nd in no_decay)
-                ],
-                'weight_decay': 0.0
-            }
-        ]
-
-        optimizer = AdamW(
-            optimizer_grouped_parameters,
-            lr=float(args.learning_rate),
-            eps=1e-6,
-            betas=(0.9, 0.98),
-            correct_bias=True
-        )
-
-        train_features = model.convert_dataset_to_features(
-            train_dir, logger
-        )
-
-        if args.train_mode == 'sorted' or args.train_mode == 'random_sorted':
-            train_features = sorted(
-                train_features, key=lambda f: np.sum(f.input_mask)
-            )
-        else:
-            random.shuffle(train_features)
-#        import pdb; pdb.set_trace()
-        train_dataloader = \
-            get_dataloader_and_tensors(train_features, local_config['train_batch_size'])
-        train_batches = [batch for batch in train_dataloader]
-
-        num_train_optimization_steps = \
-            len(train_batches) // local_config['gradient_accumulation_steps'] * \
-                local_config['num_train_epochs']
-
-        warmup_steps = int(args.warmup_proportion * num_train_optimization_steps)
-        if local_config['lr_scheduler'] == 'linear_warmup':
-            scheduler = get_linear_schedule_with_warmup(
-                optimizer,
-                num_warmup_steps=warmup_steps,
-                num_training_steps=num_train_optimization_steps
-            )
-        elif local_config['lr_scheduler'] == 'constant_warmup':
-            scheduler = get_constant_schedule_with_warmup(
-                optimizer,
-                num_warmup_steps=warmup_steps
-            )
-        logger.info("***** Training *****")
-        logger.info("  Num examples = %d", len(train_features))
-        logger.info("  Batch size = %d", local_config['train_batch_size'])
-        logger.info("  Num steps = %d", num_train_optimization_steps)
-
-        if local_config['do_validation']:
-            dev_features = model.convert_dataset_to_features(
-                dev_dir, logger
-            )
-            logger.info("***** Dev *****")
-            logger.info("  Num examples = %d", len(dev_features))
-            logger.info("  Batch size = %d", local_config['eval_batch_size'])
-            dev_dataloader = \
-                get_dataloader_and_tensors(dev_features, local_config['eval_batch_size'])
-            test_dir = os.path.join(local_config['data_dir'], 'test/')
-            if os.path.exists(test_dir):
-                test_features = model.convert_dataset_to_features(
-                    test_dir, test_logger
-                )
-                logger.info("***** Test *****")
-                logger.info("  Num examples = %d", len(test_features))
-                logger.info("  Batch size = %d", local_config['eval_batch_size'])
-
-                test_dataloader = \
-                    get_dataloader_and_tensors(test_features, local_config['eval_batch_size'])
-
-        best_result = defaultdict(float)
-
-        eval_step = max(1, len(train_batches) // args.eval_per_epoch)
-
-        start_time = time.time()
-        global_step = 0
-
-        model.to(device)
-        lr = float(args.learning_rate)
-        for epoch in range(1, 1 + local_config['num_train_epochs']):
-            tr_loss = 0
-            nb_tr_examples = 0
-            nb_tr_steps = 0
-            cur_train_loss = defaultdict(float)
-            
-            freeze(model, args.trainable_params, epoch)             
-
-            model.train()
-            logger.info("Start epoch #{} (lr = {})...".format(epoch, scheduler.get_lr()[0]))
-            if args.train_mode == 'random' or args.train_mode == 'random_sorted':
-                random.shuffle(train_batches)
-
-            train_bar = tqdm(
-                train_batches, total=len(train_batches),
-                desc='training ... '
-            )
-            for step, batch in enumerate(
-                train_bar
-            ):
-                batch = tuple(t.to(device) for t in batch)
-                input_ids, input_mask, token_type_ids, \
-                syn_labels, positions = batch
-                train_loss, _ = model(
-                    input_ids=input_ids,
-                    token_type_ids=token_type_ids,
-                    attention_mask=input_mask,
-                    input_labels={'syn_labels': syn_labels, 'positions': positions}
-                )
-                loss = train_loss['total'].mean().item()
-                for key in train_loss:
-                    cur_train_loss[key] += train_loss[key].mean().item()
-
-                train_bar.set_description(f'training... [epoch == {epoch} / {local_config["num_train_epochs"]}, loss == {loss}]')
-
-                loss_to_optimize = train_loss['total']
-
-                if local_config['gradient_accumulation_steps'] > 1:
-                    loss_to_optimize = \
-                        loss_to_optimize / local_config['gradient_accumulation_steps']
-
-                loss_to_optimize.backward()
-                torch.nn.utils.clip_grad_norm_(
-                    model.parameters(),
-                    args.max_grad_norm
-                )
-
-                tr_loss += loss_to_optimize.item()
-                nb_tr_examples += input_ids.size(0)
-                nb_tr_steps += 1
-
-                if (step + 1) % local_config['gradient_accumulation_steps'] == 0:
-                    optimizer.step()
-                    scheduler.step()
-                    optimizer.zero_grad()
-                    global_step += 1
-
-                if local_config['do_validation'] and (step + 1) % eval_step == 0:
-                    logger.info(
-                        'Ep: {}, Stp: {}/{}, usd_t={:.2f}s, loss={:.6f}'.format(
-                            epoch, step + 1, len(train_batches),
-                            time.time() - start_time, tr_loss / nb_tr_steps
-                        )
-                    )
-
-                    cur_train_mean_loss = {}
-                    for key, value in cur_train_loss.items():
-                        cur_train_mean_loss[f'train_{key}_loss'] = \
-                            value / nb_tr_steps
-
-                    dev_predictions = os.path.join(args.output_dir, 'dev_predictions')
-
-                    metrics = predict(
-                        model, dev_dataloader, dev_predictions,
-                        dev_features, args,
-                        cur_train_mean_loss=cur_train_mean_loss,
-                        logger=eval_logger
-                    )
-
-                    metrics['global_step'] = global_step
-                    metrics['epoch'] = epoch
-                    metrics['learning_rate'] = scheduler.get_lr()[0]
-                    metrics['batch_size'] = \
-                        local_config['train_batch_size'] * local_config['gradient_accumulation_steps']
-
-                    for key, value in metrics.items():
-                        dev_writer.add_scalar(key, value, global_step)
-                    scores_to_logger = tuple([round(metrics[save_by_score] * 100.0, 2) for save_by_score in args.save_by_score.split('+')])
-                    logger.info(f"dev %s (lr=%s, epoch=%d): %s" %
-                        (
-                            args.save_by_score,
-                            str(scheduler.get_lr()[0]), epoch,
-                            scores_to_logger
-                        )
-                    )
-
-                    predict_parts = [part  for part in metrics if part.endswith('.score') and metrics[part] > args.start_save_threshold and metrics[part] > best_result[part]]
-                    if len(predict_parts) > 0:
-                        best_dev_predictions = os.path.join(args.output_dir, 'best_dev_predictions')
-                        dev_predictions = os.path.join(args.output_dir, 'dev_predictions')
-                        os.makedirs(best_dev_predictions, exist_ok=True)
-                        for part in predict_parts:
-                            logger.info("!!! Best dev %s (lr=%s, epoch=%d): %.2f -> %.2f" %
-                                (
-                                    part,
-                                    str(scheduler.get_lr()[0]), epoch,
-                                    best_result[part] * 100.0, metrics[part] * 100.0
-                                )
-                            )
-                            best_result[part] = metrics[part]
-                            if [save_weight for save_weight in args.save_by_score.split('+') if save_weight == part]:
-                                os.makedirs(os.path.join(args.output_dir, part), exist_ok=True)
-                                output_model_file = os.path.join(
-                                    args.output_dir, part,
-                                    WEIGHTS_NAME
-                                )
-                                save_model(args, model, output_model_file, metrics)
-                            if 'nen-nen' not in part:
-                                os.system(f'cp {dev_predictions}/{".".join(part.split(".")[1:-1])}* {best_dev_predictions}/')
-                            else:
-                                output_model_file = os.path.join(
-                                    args.output_dir, 'nen-nen-weights',
-                                    WEIGHTS_NAME
-                                )
-                                save_model(args, model, output_model_file, metrics)
-
-                        # dev_predictions = os.path.join(args.output_dir, 'dev_predictions')
-                        # predict(
-                        #     model, dev_dataloader, dev_predictions,
-                        #     dev_features, args, only_parts='+'.join(predict_parts)
-                        # )
-                        # best_dev_predictions = os.path.join(args.output_dir, 'best_dev_predictions')
-                        # os.makedirs(best_dev_predictions, exist_ok=True)
-                        # os.system(f'mv {dev_predictions}/* {best_dev_predictions}/')
-                        if 'scd' not in '+'.join(predict_parts) and os.path.exists(test_dir):
-                            test_predictions = os.path.join(args.output_dir, 'test_predictions')
-                            test_metrics = predict(
-                                model, test_dataloader, test_predictions,
-                                test_features, args, only_parts='+'.join(['test' + part[3:] for part in predict_parts if 'nen-nen' not in part])
-                            )
-                            best_test_predictions = os.path.join(args.output_dir, 'best_test_predictions')
-                            os.makedirs(best_test_predictions, exist_ok=True)
-                            os.system(f'mv {test_predictions}/* {best_test_predictions}/')
-
-                            for key, value in test_metrics.items():
-                                if key.endswith('score'):
-                                    dev_writer.add_scalar(key, value, global_step)
-
-
-            if args.log_train_metrics:
-                metrics = predict(
-                    model, train_dataloader, os.path.join(args.output_dir, 'train_predictions'),
-                    train_features, args,
-                    logger=logger
-                )
-                metrics['global_step'] = global_step
-                metrics['epoch'] = epoch
-                metrics['learning_rate'] = scheduler.get_lr()[0]
-                metrics['batch_size'] = \
-                    local_config['train_batch_size'] * local_config['gradient_accumulation_steps']
-
-                for key, value in metrics.items():
-                    train_writer.add_scalar(key, value, global_step)
-
     if local_config['do_eval']:
+        
+        dm_model = DeepMistake(args.ckpt_path, device)
+        
         assert args.ckpt_path != '', 'in do_eval mode ckpt_path should be specified'
         test_dir = args.eval_input_dir
-        config = configs[model_name].from_pretrained(model_name)
-        model = models[model_name].from_pretrained(args.ckpt_path, local_config=local_config, data_processor=data_processor, config=config)
-        model.to(device)
-        test_features = model.convert_dataset_to_features(
-            test_dir, test_logger
-        )
-        logger.info("***** Test *****")
-        logger.info("  Num examples = %d", len(test_features))
-        logger.info("  Batch size = %d", local_config['eval_batch_size'])
+        eval_output_dir = args.eval_output_dir
+        output_dir = args.output_dir
+        predictions = dm_model.predict_dataset(test_dir, output_dir, eval_output_dir)
 
-        test_dataloader = \
-            get_dataloader_and_tensors(test_features, local_config['eval_batch_size'])
+        # config = configs[model_name].from_pretrained(model_name)
+        # model = models[model_name].from_pretrained(args.ckpt_path, local_config=local_config, data_processor=data_processor, config=config)
+        # model.to(device)
+        # test_features = model.convert_dataset_to_features(
+        #     test_dir, test_logger
+        # )
+        # logger.info("***** Test *****")
+        # logger.info("  Num examples = %d", len(test_features))
+        # logger.info("  Batch size = %d", local_config['eval_batch_size'])
 
-        metrics = predict(
-            model, test_dataloader,
-            os.path.join(args.output_dir, args.eval_output_dir),
-            test_features, args,
-            compute_metrics=True
-        )
-        print(metrics)
-        with open(os.path.join(args.output_dir, args.eval_output_dir,'metrics.txt'), 'w') as outp:
-            print(metrics, file=outp)
+        # test_dataloader = \
+        #     get_dataloader_and_tensors(test_features, local_config['eval_batch_size'])
+
+        # metrics = predict(
+        #     model, test_dataloader,
+        #     os.path.join(args.output_dir, args.eval_output_dir),
+        #     test_features, args,
+        #     compute_metrics=True
+        # )
+        # print(metrics)
+        # with open(os.path.join(args.output_dir, args.eval_output_dir,'metrics.txt'), 'w') as outp:
+        #     print(metrics, file=outp)
 
 
 def save_model(args, model, output_model_file, metrics):
@@ -741,7 +473,9 @@ if __name__ == "__main__":
         try:
             new_args = json.load(open(os.path.join(parsed_args.output_dir, 'args.json')))
         except FileNotFoundError:
-            new_args = json.load(open(os.path.join(parsed_args.output_dir, '../args.json')))
+            # os print current directory
+            print(os.getcwd())
+            new_args = json.load(open(os.path.join(parsed_args.output_dir, '/args.json')))
         for key, value in new_args.items():
             if key.startswith('do') or key in ['ckpt_path', 'eval_input_dir', 'eval_output_dir', 'output_dir', 'eval_batch_size','use_cuda']:
                 continue
