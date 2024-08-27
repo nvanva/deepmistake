@@ -14,13 +14,13 @@ setup(
     ],
     python_requires='>=3.10',               # Minimum Python version requirement
     install_requires=[                     # List your package dependencies
-        "fire==0.6.0",
-        "numpy==1.23.3",
-        "pandas==1.5.0",
-        "scikit_learn==1.1.2",
-        "scipy==1.9.1",
-        "torch==1.12.1+cu116",
-        "tqdm==4.64.1",
-        "transformers==4.22.2",
+        "fire",
+        "numpy",
+        "pandas",
+        "scikit_learn",
+        "scipy",
+        "torch",
+        "tqdm",
+        "transformers",
     ],
 )
