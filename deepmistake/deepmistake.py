@@ -32,7 +32,7 @@ class DeepMistake:
         self.device = device
         data_processor = DataProcessor()
 
-        with open(ckpt_dir + "/local_config.json", "r") as f:
+        with open(str(ckpt_dir) + "/local_config.json", "r") as f:
             self.local_config = json.load(f)
 
         self.config = XLMRobertaConfig.from_pretrained(self.local_config["model_name"])
@@ -45,20 +45,20 @@ class DeepMistake:
             device
         )
 
-    def predict_examples(self, examples: list[Example], batch_size=16):
+    def predict_examples(self, examples: list[Example], log, batch_size=16):
         """
         Runs inference for the provided list of examples.
         """
         # Runs inference, similarly to run_model.py, lines 624-634
-        test_features = self.model.convert_examples_to_features(examples)
+        test_features = self.model.convert_examples_to_features(examples, log)
         eval_dataloader = get_dataloader_and_tensors(test_features, batch_size)
-        metrics, syns_preds, syns_scores_res = self.run_inference(
-            eval_dataloader,
-            self.model,
-            self.device,
+        metrics, syns_preds, syns_scores_res = self.predict(
+            model=self.model,
+            eval_dataloader=eval_dataloader,
+            eval_fearures=test_features,
             compute_metrics=False,
             dump_feature=False,
-            output_dir=None,
+            output_dir='dm_testwug',
         )
         print(syns_scores_res.shape, syns_preds.shape)
         return syns_scores_res, syns_preds
@@ -72,7 +72,7 @@ class DeepMistake:
             test_features, self.local_config["eval_batch_size"]
         )
 
-        metrics = self.predict(
+        metrics, syns_preds, syns_scores_res = self.predict(
             self.model,
             eval_dataloader,
             os.path.join(output_dir, eval_output_dir),
@@ -233,7 +233,7 @@ class DeepMistake:
 
         model.train()
 
-        return metrics
+        return metrics, syns_preds, syns_scores_res
 
     def run_inference(
         self, eval_dataloader, model, device, compute_metrics, dump_feature, output_dir
