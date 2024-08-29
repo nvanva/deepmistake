@@ -9,8 +9,8 @@ This repository contains **DeepMistake2**, an improved version of the Word-in-Co
 If your goal is reproducing the results from these shared tasks, look at [DeepMistake at RuShiftEval-2021](https://github.com/Daniil153/DeepMistake) and [DeepMistake and LSCDiscovery-2022](https://github.com/Daniil153/DM-in-Spanish-LSCDiscovery).
 
 The WiC model employed by the **DeepMistake** team was first developed for the Multilingual and Cross-Lingual Word-in-Context (MCL-WiC) shared task at SemEval-2021, then the architecture and training schema were improved and adapted for the LSCD tasks. Main results are published in:
-[Adis Davletov, Nikolay Arefyev, Denis Gordeev, Alexey Rey. LIORI at SemEval-2021 Task 2: Span Prediction and Binary Classification approaches to Word-in-Context Disambiguation, 2021](https://aclanthology.org/2021.semeval-1.103/)
-[Arefyev Nikolay, Maksim Fedoseev, Vitaly Protasov, Daniil Homskiy, Adis Davletov, Alexander Panchenko. DeepMistake: Which Senses are Hard to Distinguish for a Word­in­Context Model, 2021](https://www.dialog-21.ru/media/5491/arefyevnplusetal133.pdf)
+- [Adis Davletov, Nikolay Arefyev, Denis Gordeev, Alexey Rey. LIORI at SemEval-2021 Task 2: Span Prediction and Binary Classification approaches to Word-in-Context Disambiguation, 2021](https://aclanthology.org/2021.semeval-1.103/)
+- [Arefyev Nikolay, Maksim Fedoseev, Vitaly Protasov, Daniil Homskiy, Adis Davletov, Alexander Panchenko. DeepMistake: Which Senses are Hard to Distinguish for a Word­in­Context Model, 2021](https://www.dialog-21.ru/media/5491/arefyevnplusetal133.pdf)
 
 
 # Installation
