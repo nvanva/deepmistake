@@ -1,10 +1,11 @@
 # DeepMistake2
 This repository contains **DeepMistake2**, an improved version of the Word-in-Context model used by the DeepMistake team.
 
-**DeepMistake** is the name of the team that participated in two Lexical Semantic Change Detections (LSCD) shared tasks: [DeepMistake at RuShiftEval-2021](https://www.dialog-21.ru/media/5491/arefyevnplusetal133.pdf) for Russian and [DeepMistake at LSCDiscovery-2022](https://aclanthology.org/2022.lchange-1.18/) for Spanish. The main components of these solutions are: 
+**DeepMistake** is the name of the team that participated in two Lexical Semantic Change Detections (LSCD) shared tasks: [DeepMistake at RuShiftEval-2021](https://www.dialog-21.ru/media/5491/arefyevnplusetal133.pdf) for Russian and [DeepMistake at LSCDiscovery-2022](https://aclanthology.org/2022.lchange-1.18/) for Spanish. The main components of the proposed solutions are: 
 - sampling pairs of word usages,
 - training and applying a Word-in-Context (WiC) model,
 - aggregation of the predicted WiC scores.
+
 If your goal is reproducing the results from these shared tasks, look at [DeepMistake at RuShiftEval-2021](https://github.com/Daniil153/DeepMistake) and [DeepMistake and LSCDiscovery-2022](https://github.com/Daniil153/DM-in-Spanish-LSCDiscovery).
 
 The WiC model employed by the **DeepMistake** team was first developed for the Multilingual and Cross-Lingual Word-in-Context (MCL-WiC) shared task at SemEval-2021, then the architecture and training schema were improved and adapted for the LSCD tasks. Main results are published in:
