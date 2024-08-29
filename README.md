@@ -64,3 +64,4 @@ To train the model:
 ```bash
 python run_model.py --do_train --do_validation --data_dir DATA_DIR --output_dir MODEL_OUT_DIR
 ```
+Examples of running model tranining: https://github.com/ameta13/mcl-wic
