@@ -30,7 +30,7 @@ from deepmistake.utils import (
     models, configs, DataProcessor
 )
 from deepmistake.utils import get_dataloader_and_tensors
-from deepmistake.deepmistake import DeepMistake
+from deepmistake.deepmistake import DeepMistakeWiC
 from collections import defaultdict
 from sklearn.metrics import (
     precision_recall_fscore_support, classification_report, accuracy_score
@@ -624,7 +624,7 @@ def main(args):
 
     if local_config['do_eval']:
         
-        dm_model = DeepMistake(args.ckpt_path, device)
+        dm_model = DeepMistakeWiC(args.ckpt_path, device)
         
         assert args.ckpt_path != '', 'in do_eval mode ckpt_path should be specified'
         test_dir = args.eval_input_dir

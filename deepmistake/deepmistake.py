@@ -23,7 +23,7 @@ eval_logger = logging.getLogger("__scores__")
 test_logger = logging.getLogger("__test__")
 
 
-class DeepMistake:
+class DeepMistakeWiC:
 
     def __init__(self, ckpt_dir, device):
         """
