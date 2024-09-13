@@ -39,9 +39,9 @@ To predict the test set:
 First, clone the LSCD Task:
 
 ```bash
-cd .. # (if you are in the deepmistake repo)
+cd .. # (if you are in the deepmistake repo, otherwise feel free to do it wherever you like)
 git clone https://github.com/Daniil153/DeepMistake
-mv ./deepmistak ./DeepMistake/deepmistake
+mv /path/to/deepmistake ./DeepMistake/deepmistake
 cd DeepMistake
 ```
 
