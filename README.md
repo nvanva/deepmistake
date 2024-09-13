@@ -1,9 +1,7 @@
-# DeepMistake
+# DeepMistakeWiC
 
 First, clone the repository:
 ```bash
-git clone https://github.com/Daniil153/DeepMistake
-cd DeepMistake
 git clone https://github.com/nvanva/deepmistake
 cd deepmistake
 ```
@@ -38,6 +36,17 @@ predictions = dm_model.predict_dataset(test_dir, output_dir, eval_output_dir)
 ```
 
 To predict the test set:
+First, clone the LSCD Task:
+
+```bash
+cd .. # (if you are in the deepmistake repo)
+git clone https://github.com/Daniil153/DeepMistake
+mv ./deepmistak ./DeepMistake/deepmistake
+cd DeepMistake
+```
+
+Then, run the following command.
+
 ```bash
 bash eval_best_post-eval_model_dm.sh
 ```
