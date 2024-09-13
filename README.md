@@ -22,7 +22,7 @@ To prepare dataset:
 python prepare_dataset.py
 ```
 
-To use the model:
+To use the model on demand:
 ```python
 from deepmistake.deepmistake import DeepMistake
 
