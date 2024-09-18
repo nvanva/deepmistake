@@ -1,1 +1,1 @@
-from .deepmistake import DeepMistake
+from .deepmistake import DeepMistakeWiC

@@ -19,8 +19,6 @@ This repository further develops the original WiC model. The main changes are:
 # Installation
 First, clone the repository:
 ```bash
-git clone https://github.com/Daniil153/DeepMistake
-cd DeepMistake
 git clone https://github.com/nvanva/deepmistake
 cd deepmistake
 ```
@@ -41,7 +39,7 @@ To prepare dataset:
 python prepare_dataset.py
 ```
 
-To use the model:
+To use the model on demand:
 ```python
 from deepmistake.deepmistake import DeepMistake
 
@@ -55,6 +53,17 @@ predictions = dm_model.predict_dataset(test_dir, output_dir, eval_output_dir)
 ```
 
 To predict the test set:
+First, clone the LSCD Task:
+
+```bash
+cd .. # (if you are in the deepmistake repo, otherwise feel free to do it wherever you like)
+git clone https://github.com/Daniil153/DeepMistake
+mv /path/to/deepmistake ./DeepMistake/deepmistake
+cd DeepMistake
+```
+
+Then, run the following command.
+
 ```bash
 bash eval_best_post-eval_model_dm.sh
 ```
