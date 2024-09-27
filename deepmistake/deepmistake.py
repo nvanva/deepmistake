@@ -58,7 +58,6 @@ class DeepMistakeWiC:
             dump_feature=False,
             output_dir="dm_testwug",
         )
-        print(syns_scores_res.shape, syns_preds.shape)
         return syns_scores_res, syns_preds
 
     def predict_dataset(self, test_dir, output_dir, eval_output_dir):
