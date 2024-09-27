@@ -50,7 +50,7 @@ class DeepMistakeWiC:
         # Runs inference, similarly to run_model.py, lines 624-634
         test_features = self.model.convert_examples_to_features(examples, log)
         eval_dataloader = get_dataloader_and_tensors(test_features, batch_size)
-        metrics, syns_preds, syns_scores_res = self.predict(
+        syns_preds, syns_scores_res, metrics = self.predict(
             model=self.model,
             eval_dataloader=eval_dataloader,
             eval_fearures=test_features,
