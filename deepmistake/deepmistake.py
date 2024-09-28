@@ -58,6 +58,17 @@ class DeepMistakeWiC:
             dump_feature=False,
             output_dir="dm_testwug",
         )
+        if self.local_config["symmetric"]:
+            # two cosecutive examples should be averaged
+            syns_scores_res = np.array(
+                [
+                    (syns_scores_res[i] + syns_scores_res[i + 1]) / 2
+                    for i in range(0, len(syns_scores_res), 2)
+                ]
+            )
+            syns_preds = np.zeros(syns_scores_res.shape, dtype=int)
+            syns_preds[syns_scores_res > 0.5] = 1
+            
         return syns_scores_res, syns_preds
 
     def predict_dataset(self, test_dir, output_dir, eval_output_dir):
