@@ -10,7 +10,7 @@ If your goal is reproducing the results from these shared tasks, look at [DeepMi
 
 The (originally unnamed) WiC model employed by the **DeepMistake** team was first developed for the Multilingual and Cross-Lingual Word-in-Context (MCL-WiC) shared task at SemEval-2021, then the architecture and training schema were improved and adapted for the LSCD tasks. Main results are published in:
 - [Adis Davletov, Nikolay Arefyev, Denis Gordeev, Alexey Rey. LIORI at SemEval-2021 Task 2: Span Prediction and Binary Classification approaches to Word-in-Context Disambiguation, 2021](https://aclanthology.org/2021.semeval-1.103/)
-- [Arefyev Nikolay, Maksim Fedoseev, Vitaly Protasov, Daniil Homskiy, Adis Davletov, Alexander Panchenko. DeepMistake: Which Senses are Hard to Distinguish for a Word­in­Context Model, 2021](https://www.dialog-21.ru/media/5491/arefyevnplusetal133.pdf)
+- [Arefyev Nikolay, Maksim Fedoseev, Vitaly Protasov, Daniil Homskiy, Adis Davletov, Alexander Panchenko. DeepMistake: Which Senses are Hard to Distinguish for a Word­in­Context Model, 2021](./DeepMistake_for_Dialogue_2021.pdf)
 
 This repository further develops the original WiC model. The main changes are:
 - support of long usages: the original version just skipped pairs of usages longer than XLM-R can encode, DeepMistake-WiC intelligently trims usages to fit the encoder limitations while keeping both left and right context of substantial length for each usage;
